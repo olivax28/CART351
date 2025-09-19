@@ -270,10 +270,9 @@ print("  radishes")
 # "vegetables" (defined above). (The list should contain the item that you
 # added to the list in task 17.)
 
-veglength = (len(vegetables))
-for vegetables in range(0,veglength):
-	# vegetables = vegetables + veglength
-    print(vegetables)
+# veglength = (len(vegetables))
+for veg in vegetables:
+	print(veg)
 
 
 
@@ -289,6 +288,9 @@ print("  Carrots")
 print("  Fiddleheads")
 print("  Turnips")
 print("  Radishes")
+
+for veg in vegetables:
+	print((f"{veg}").title())
 
 
 # Task 21: Write a "for" loop below that prints out each item in the list
