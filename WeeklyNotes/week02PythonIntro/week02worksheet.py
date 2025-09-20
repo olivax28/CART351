@@ -335,11 +335,12 @@ print("Expected output: alpha, beta, gamma, delta, epsilon, zeta, eta, theta")
 
 greek = ["alpha", "beta", "gamma", "delta", "epsilon","zeta"]
 new_letters = "eta theta"
-new_letters_list = " ".split(new_letters) # <-- replace this
+new_letters_list = new_letters.split() # <-- replace this
 
 for letter_name in new_letters_list:
-	pass # <-- and replace this
+	greek.append(letter_name)
+	
 
-glue = "?" # <-- and replace this
+glue = " " # <-- and replace this
 
 print(glue.join(greek))
