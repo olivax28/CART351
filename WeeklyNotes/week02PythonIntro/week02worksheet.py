@@ -313,8 +313,8 @@ print("  9-18-25")
 # statement displays "9-18-25".
 
 
-separator = "?"
-glue = "?"
+separator = "/"
+glue = "-"
 parts = "9/18/25".split(separator)
 print(parts[-1])
 print(glue.join(parts))
@@ -335,7 +335,7 @@ print("Expected output: alpha, beta, gamma, delta, epsilon, zeta, eta, theta")
 
 greek = ["alpha", "beta", "gamma", "delta", "epsilon","zeta"]
 new_letters = "eta theta"
-new_letters_list = [] # <-- replace this
+new_letters_list = " ".split(new_letters) # <-- replace this
 
 for letter_name in new_letters_list:
 	pass # <-- and replace this
