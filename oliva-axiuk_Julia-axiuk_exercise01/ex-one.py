@@ -1,5 +1,5 @@
 #setup
-
+#----4-----.
 import requests
 #Assigning a variable to the API Key
 token = "5f86f11d709364014dc941832b05e60a2ce498d3"
@@ -21,7 +21,7 @@ print(results.keys())
 #The keys are 'status' and 'data'
 
 #Code of data field and storing it
-
+#------5------.
 responseData = results["data"]
 print(type(responseData))
 #the 'type' of 'responseData' is 'list'
@@ -40,7 +40,7 @@ for item in responseData:
     #[45.426509, -73.928944]
     print("Aqi:"f"{item["aqi"]}", "UID:" f"{item["uid"]}")
 
-
+#-----6------
     url_feed = "https://api.waqi.info/feed/@5468"
 response_feed = requests.get(url_feed, params={"token": token})
 results_feed = response_feed.json()
@@ -76,6 +76,6 @@ polutantvalue = iaqi[dominentpolutant]['v']
 print(polutantvalue)
 #the answer is 30, which corresponds to the AQI field
 
-# So - now that you can access the feed for a specific station in a particular city, and from that feed you can access the value of its dominant pollutant.... : explain theoretically (you do not have to write the code) what the process would be to access the value of the dominant pollutant value from different cities ...
+# 7. So - now that you can access the feed for a specific station in a particular city, and from that feed you can access the value of its dominant pollutant.... : explain theoretically (you do not have to write the code) what the process would be to access the value of the dominant pollutant value from different cities ...
 
 # Firstly, you would have to access the "station" by first in "response" using the "get" function and selecting the city you want following the API's formatting. With the name of the city, you'd need to select a station by getting its key. Once the station is accessed, we can finds the value of the dominant polutant by using the stored information in  polutantvalue = iaqi[dominentpolutant]['v']. Once the value of the polutant is accessed, it will be stored into polutantvalue and can be printed. 
