@@ -32,6 +32,13 @@ def another_route(dynamicVar):
 #app.run(debug = true), rerunning will activate debug, recieve a pin number
 #in the web, you can use the pin to access the debugging page
 
+#Templates!
+
+#flask automatically searches for templates in a folder called templates!
+
+@app.route ("</another/<dynamicVar>")
+def another_route(dynamicVar):
+    return f"<h2> This is the 100th letter <span style = 'color:orange'> {dynamicVar[99]}<h2>"
 
 
 
