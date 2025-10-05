@@ -62,8 +62,9 @@ def October1st():
         launchIntro()
 
 def October5th():
+    print("I've taken down the coordinates of ... as such:")
     for item in responseData:
-        print(("lat:"f'{item["station"]["geo"][0]}' , "long:" f'{item["station"]["geo"][1]}'))      
+        print("lat:"f'{item["station"]["geo"][0]}' , "long:" f'{item["station"]["geo"][1]}')   
     # print("This is the entry for October 5th")
 
 def October31st():
