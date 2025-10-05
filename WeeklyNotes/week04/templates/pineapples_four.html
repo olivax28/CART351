@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>
+            test pineapple
+        </title>
+    </head>
+    <body>
+        <h1> pineapples! </h1> 
+       <h1> My List : {{a_HTML_list}} </h1>
+       <ul>
+            {% for singleEl in a_HTML_list %}
+            <li style = "color:orange">
+                {{singleEl}}
+            </li>
+            {% endfor %}
+       </ul>
+       {% if "yellow" in b_HTML_list %}
+       <p> FOUND YELLOW</p>
+       {% elif "navy" in b_HTML_list%}
+       <p> FOUND NAVY!</p>
+       {% else %}
+        <p> NO PINK</p>
+        {% endif %}
+        
+    </body>
+</html>
