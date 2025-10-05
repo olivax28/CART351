@@ -3,6 +3,9 @@
 
 
 import requests
+
+# from colorama import just_fix_windows_console
+# just_fix_windows_console()
 #Assigning a variable to the API Key
 token = "5f86f11d709364014dc941832b05e60a2ce498d3"
 #Point it to the world air quality index
@@ -20,17 +23,34 @@ results = response.json()
 responseData = results["data"]
 # print(type(responseData))
 
-print(responseData)
+# print(responseData)
 
 # for item in responseData:
-#     print(item["station"])
+#     # print("lat:"f'{item["station"]["geo"][0]}' , "long:" f'{item["station"]["geo"][1]}')
+#     #  print("Place:"f'{item["station"]["name"][0]}' , "City:" f'{item["station"]["name"][1]}')
+#     print("Place:"f'{item["station"]["name"]}' , "City:" f'{item["station"]["name"]}')
+     
+
+# print(Fore.RED + 'some red text')
+# print(Back.GREEN + 'and with a green background')
+# print(Style.DIM + 'and in dim text')
+# print(Style.RESET_ALL)
+# print('back to normal now')
+
+entryList = ["1985, octover 1st", "1985, October 5th", "1985, October 31st"]
+def launchIntro():
+    for entry in entryList:
+        print(entry)
 
 
+print("Welcome, please type in the password.")
+passWord = input()
+if passWord == "terminal":
+    launchIntro()
 
 
-# print("Welcome, please type in your name")
 # username = input()
-# print(f"Hello, {username}, what's the weather like outside?")
+# # print(f"Hello, {username}, what's the weather like outside?")
 # if input() == "sunny":
 #     print(f"Ilove sunny days do you, {username}")
 # if input()== "cloudy":
