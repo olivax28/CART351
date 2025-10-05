@@ -37,12 +37,39 @@ responseData = results["data"]
 # print(Style.RESET_ALL)
 # print('back to normal now')
 
-entryList = ["1985, octover 1st", "1985, October 5th", "1985, October 31st"]
+#Launches the page with the selection of entries
+
+
+
+
+
+entryList = ["1985, October 1st", "1985, October 5th", "1985, October 31st"]
 def launchIntro():
     for entry in entryList:
         print(entry)
+    entrySelect = input()
+    if entrySelect == "October 1st":
+        October1st()
+    if entrySelect == "October 5th":
+        October5th()
+    if entrySelect == "October 31st":
+        October31st()
 
+def October1st():
+    print("This is the entry for October 1st")
+    action = input()
+    if action == "back":
+        launchIntro()
 
+def October5th():
+    for item in responseData:
+        print(("lat:"f'{item["station"]["geo"][0]}' , "long:" f'{item["station"]["geo"][1]}'))      
+    # print("This is the entry for October 5th")
+
+def October31st():
+    print("This is the entry for October 31st")
+
+#Password prompt
 print("Welcome, please type in the password.")
 passWord = input()
 if passWord == "terminal":
