@@ -33,10 +33,6 @@ responseData = results["data"]
 
 #Launches the page with the selection of entries
 
-
-
-
-
 entryList = ("1985, October 1st", "1985, October 5th","1985, October 15th","1985, October 29th", "1985, October 31st",)
 def launchIntro():
     for entry in entryList:
@@ -69,7 +65,7 @@ def October5th():
     table = Table(title='Coordinates')
     table.add_column("Lat", justify = "center", style = "green")
     table.add_column("Long", justify = "center", style = "green")
-    print("I've taken down the coordinates of ... as such:")
+    console.print("I've taken down the coordinates of ... as such:", style = "green")
     for item in responseData:
         table.add_row(""f'{item["station"]["geo"][0]}' ,f'{item["station"]["geo"][1]}')
     console.print(table)
@@ -81,7 +77,7 @@ def October15th():
     dataentry = responseData[0]["station"]["name"]
     entry = ["1985, October 15th", f"{dataentry}", "Signed,","Dr.A"]
     for line in entry:
-        print(line)
+         console.print(line, style = "green")
     action = input()
     if action == "back":
         launchIntro()
@@ -96,11 +92,20 @@ def October19th():
 def October31st():
     print("This is the entry for October 31st")
 
+
+def launchGuide():
+    console.print("User detected, What's your name?", style = "green")
+    username = input()
+    console.print(f"Hello, {username}, access granted, although you are not Dr.A.", style = "green")
+    launchIntro()
+  
+
 #Password prompt
-console.print(":heart: Welcome, please type in the password.", style ="green on black")
+console.print("Welcome to Dr A's research Journal, please type in the password. to continue" , ":heart:", style ="green on black")
 passWord = input()
 if passWord == "terminal":
-    launchIntro()
+    launchGuide()
+
 
 
 # username = input()
