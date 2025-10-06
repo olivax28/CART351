@@ -4,13 +4,12 @@
 
 import requests
 
+#Import rich's library in order to crate tables and colored texts
 from rich.console import Console
 from rich.table import Table
 
 console = Console()
 
-# from colorama import just_fix_windows_console
-# just_fix_windows_console()
 #Assigning a variable to the API Key
 token = "5f86f11d709364014dc941832b05e60a2ce498d3"
 #Point it to the world air quality index
@@ -30,17 +29,7 @@ responseData = results["data"]
 
 # print(responseData)
 
-# for item in responseData:
-#     # print("lat:"f'{item["station"]["geo"][0]}' , "long:" f'{item["station"]["geo"][1]}')
-#     #  print("Place:"f'{item["station"]["name"][0]}' , "City:" f'{item["station"]["name"][1]}')
-#     print("Place:"f'{item["station"]["name"]}' , "City:" f'{item["station"]["name"]}')
-     
 
-# print(Fore.RED + 'some red text')
-# print(Back.GREEN + 'and with a green background')
-# print(Style.DIM + 'and in dim text')
-# print(Style.RESET_ALL)
-# print('back to normal now')
 
 #Launches the page with the selection of entries
 
@@ -48,10 +37,10 @@ responseData = results["data"]
 
 
 
-entryList = ["1985, October 1st", "1985, October 5th","1985, October 15th","1985, October 29th", "1985, October 31st",]
+entryList = ("1985, October 1st", "1985, October 5th","1985, October 15th","1985, October 29th", "1985, October 31st",)
 def launchIntro():
     for entry in entryList:
-        console.print(entry)
+        console.print(entry, style = "green")
     entrySelect = input()
     if entrySelect == "october 1st":
         October1st()
@@ -71,7 +60,7 @@ def launchIntro():
 def October1st():
     entry = ["1985, October 1st", "It is the first of October, the days are getting cooler. But it makes no difference to me. In the lab, the temperature remains steady.","The machines hum, as steady as the weather.", "Signed,","Dr.A"]
     for line in entry:
-        print(line)
+        console.print(line, style = "green")
     action = input()
     if action == "back":
         launchIntro()
@@ -87,7 +76,6 @@ def October5th():
     action = input()
     if action == "back":
         launchIntro()
-    # print("This is the entry for October 5th")
 
 def October15th():
     dataentry = responseData[0]["station"]["name"]
