@@ -5,8 +5,10 @@
 import requests
 
 from rich.console import Console
+from rich.table import Table
 
 console = Console()
+
 # from colorama import just_fix_windows_console
 # just_fix_windows_console()
 #Assigning a variable to the API Key
@@ -49,7 +51,7 @@ responseData = results["data"]
 entryList = ["1985, October 1st", "1985, October 5th","1985, October 15th","1985, October 29th", "1985, October 31st",]
 def launchIntro():
     for entry in entryList:
-        print(entry)
+        console.print(entry)
     entrySelect = input()
     if entrySelect == "october 1st":
         October1st()
@@ -75,9 +77,13 @@ def October1st():
         launchIntro()
 
 def October5th():
+    table = Table(title='Coordinates')
+    table.add_column("Lat", justify = "center", style = "green")
+    table.add_column("Long", justify = "center", style = "green")
     print("I've taken down the coordinates of ... as such:")
     for item in responseData:
-        print("lat:"f'{item["station"]["geo"][0]}' , "long:" f'{item["station"]["geo"][1]}')
+        table.add_row(""f'{item["station"]["geo"][0]}' ,f'{item["station"]["geo"][1]}')
+    console.print(table)
     action = input()
     if action == "back":
         launchIntro()
@@ -103,7 +109,7 @@ def October31st():
     print("This is the entry for October 31st")
 
 #Password prompt
-console.print("Welcome, please type in the password.", style ="bold red on black")
+console.print(":heart: Welcome, please type in the password.", style ="green on black")
 passWord = input()
 if passWord == "terminal":
     launchIntro()
