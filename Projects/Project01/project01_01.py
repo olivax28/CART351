@@ -4,6 +4,9 @@
 
 import requests
 
+from rich.console import Console
+
+console = Console()
 # from colorama import just_fix_windows_console
 # just_fix_windows_console()
 #Assigning a variable to the API Key
@@ -43,20 +46,30 @@ responseData = results["data"]
 
 
 
-entryList = ["1985, October 1st", "1985, October 5th", "1985, October 31st"]
+entryList = ["1985, October 1st", "1985, October 5th","1985, October 15th","1985, October 29th", "1985, October 31st",]
 def launchIntro():
     for entry in entryList:
         print(entry)
     entrySelect = input()
-    if entrySelect == "October 1st":
+    if entrySelect == "october 1st":
         October1st()
-    if entrySelect == "October 5th":
+    if entrySelect == "october 5th":
         October5th()
-    if entrySelect == "October 31st":
+    if entrySelect == "october 15th":
+        October15th()
+    if entrySelect == "october 19th":
+        October19th()
+    if entrySelect == "october 31st":
         October31st()
 
+
+
+#entries 
+
 def October1st():
-    print("This is the entry for October 1st")
+    entry = ["1985, October 1st", "It is the first of October, the days are getting cooler. But it makes no difference to me. In the lab, the temperature remains steady.","The machines hum, as steady as the weather.", "Signed,","Dr.A"]
+    for line in entry:
+        print(line)
     action = input()
     if action == "back":
         launchIntro()
@@ -64,14 +77,33 @@ def October1st():
 def October5th():
     print("I've taken down the coordinates of ... as such:")
     for item in responseData:
-        print("lat:"f'{item["station"]["geo"][0]}' , "long:" f'{item["station"]["geo"][1]}')   
+        print("lat:"f'{item["station"]["geo"][0]}' , "long:" f'{item["station"]["geo"][1]}')
+    action = input()
+    if action == "back":
+        launchIntro()
     # print("This is the entry for October 5th")
+
+def October15th():
+    dataentry = responseData[0]["station"]["name"]
+    entry = ["1985, October 15th", f"{dataentry}", "Signed,","Dr.A"]
+    for line in entry:
+        print(line)
+    action = input()
+    if action == "back":
+        launchIntro()
+
+
+def October19th():
+    print("This is the entry for October 1st")
+    action = input()
+    if action == "back":
+        launchIntro()
 
 def October31st():
     print("This is the entry for October 31st")
 
 #Password prompt
-print("Welcome, please type in the password.")
+console.print("Welcome, please type in the password.", style ="bold red on black")
 passWord = input()
 if passWord == "terminal":
     launchIntro()
