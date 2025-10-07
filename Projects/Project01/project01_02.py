@@ -98,12 +98,21 @@ def October5th():
         console.print(line, style = "green")
     backbutton()
 
+
+
+#To be used in the october 15th function to display the message
+def checkInputNumber(userInput, correctInput, message):
+    while(userInput!=correctInput):
+        console.print(message, style = "purple")
+        userInput_temp = input()
+        userInput = f"{int(userInput_temp)<=20}"
+
+
 def October15th():
     console.print("To view the entry of October 15th, please enter a value between 0 and 20", style = "green")
     number = input()
-    answer = f'{(int(number) <= 20)}'
-    checkInput(answer, "True", "Please enter a value between 0 and 20")
-    October15th()
+    anwser = f"{int(number)<=20}"
+    checkInputNumber(anwser, "True", "please enter a number between 0 and 20")
     dataentry = responseData[(int(number))]["station"]["name"]
     #Writing uses the name information from the API to show a different message based on if the name has "saint" or "st" in it
     if ("Saint" in dataentry) or ("St" in dataentry):
