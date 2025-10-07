@@ -83,12 +83,15 @@ def October15th():
     number = input()
     console.print(".", style = "green")
     dataentry = responseData[(int(number))]["station"]["name"]
-    datastring = f"{dataentry}"
-    if ("Sainte-Anne-de-Bellevue" in datastring):
-        print("HAI")
+    # datastring = f"{dataentry}"
     entry = ["1985, October 15th", f"{dataentry}", "Signed,","Dr.A"]
     for line in entry:
          console.print(line, style = "green")
+    #post script
+    if ("Saint" in dataentry) or ("St" in dataentry):
+        console.print("P.S :angel:")
+    else:
+       console.print("no Saint")
     action = input()
     if action == "back":
         launchIntro()
