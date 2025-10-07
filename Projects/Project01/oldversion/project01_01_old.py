@@ -89,7 +89,7 @@ def October15th():
     dataentry = responseData[(int(number))]["station"]["name"]
     #Writing uses the name information from the API to show a different message based on if the name has "saint" or "st" in it
     if ("Saint" in dataentry) or ("St" in dataentry):
-        saintentry = ["1985. October 15th,", "So much of what humans name is based on religion, that's something I've noticed sitting here for so long. It makes me think about how for so long, and even still, religion holds importance above all else for many. And I wonder more, what would a machine hold so dearly, if it had the same capacity fot thought?","I may find out sooner than I wish to. My hands no longer move.", ":angel:", "Signed," , "Dr.A"]
+        saintentry = ["1985. October 15th,", "So much of what humans name is based on religion, that's something I've noticed sitting here for so long. It makes me think about how for so long, and even still, religion holds importance above all else for many. And I wonder more, what would a machine hold so dearly, if it had the same capacity for thought?","I may find out sooner than I wish to. My hands no longer move.", ":angel:", "Signed," , "Dr.A"]
         for line in saintentry:
             console.print(line, style = "green")
     else:
@@ -113,8 +113,6 @@ def launchGuide():
     username = input()
     console.print(f"Hello, {username}, access granted, although you are not Dr.A.", style = "green")
     launchIntro()
-    
-  
 
 #Password prompt
 console.print("Welcome to Dr A's research Journal, please type in the password. to continue" , ":heart:", style ="green on black")
