@@ -121,12 +121,3 @@ console.print("Welcome to Dr A's research Journal, please type in the password. 
 passWord = input()
 if passWord == "terminal":
     launchGuide()
-
-
-
-# username = input()
-# # print(f"Hello, {username}, what's the weather like outside?")
-# if input() == "sunny":
-#     print(f"Ilove sunny days do you, {username}")
-# if input()== "cloudy":
-#     print(":(")
