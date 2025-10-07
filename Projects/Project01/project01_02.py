@@ -113,7 +113,8 @@ def October15th():
     number = input()
     anwser = f"{int(number)<=20}"
     checkInputNumber(anwser, "True", "please enter a number between 0 and 20")
-    dataentry = responseData[(int(number))]["station"]["name"]
+    index = number
+    dataentry = responseData[(int(index))]["station"]["name"]
     #Writing uses the name information from the API to show a different message based on if the name has "saint" or "st" in it
     if ("Saint" in dataentry) or ("St" in dataentry):
         saintentry = ["1985. October 15th,", "So much of what humans name is based on religion, that's something I've noticed sitting here for so long. It makes me think about how for so long, and even still, religion holds importance above all else for many. And I wonder more, what would a machine hold so dearly, if it had the same capacity fot thought?","I may find out sooner than I wish to. My hands no longer move.", ":angel:", "Signed," , "Dr.A"]
