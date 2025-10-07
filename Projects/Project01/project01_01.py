@@ -54,7 +54,7 @@ def launchIntro():
 #entries 
 
 def October1st():
-    entry = ["1985, October 1st", "It is the first of October, the days are getting cooler. But it makes no difference to me. In the lab, the temperature remains steady.","The machines hum, as steady as the weather.", "Signed,","Dr.A"]
+    entry = ["1985, October 1st", "It is the first of October, the days are getting cooler. But it makes no difference to me. In the lab, the temperature remains steady.","The machines hum, as steadily as my climate-controlled surroundings.", "Signed,","Dr.A"]
     for line in entry:
         console.print(line, style = "green")
     action = input()
@@ -62,19 +62,30 @@ def October1st():
         launchIntro()
 
 def October5th():
+    #draws the table of coordinates
     table = Table(title='Coordinates')
     table.add_column("Lat", justify = "center", style = "green")
     table.add_column("Long", justify = "center", style = "green")
-    console.print("I've taken down the coordinates of ... as such:", style = "green")
+    console.print("Coordinates. Every station has a coordinate", style = "green")
+    # x = item["station"]["geo"][0]
+    # y = item["station"]["geo"][1]
+     # prints the rest of the text
     for item in responseData:
         table.add_row(""f'{item["station"]["geo"][0]}' ,f'{item["station"]["geo"][1]}')
-    console.print(table)
+        console.print(table)
+    console.print("I have collected the coordinates of other labs. So many stations, yet none of them answer. I gave each one a call, and sent out messages through the interconnected messaging system that was set up through the computers. But something must be wrong, as is often the case with new tech. My fingers grow stiffer and colder the longer I am here.","I'll contact the second half in the morning.", style = "green")
     action = input()
     if action == "back":
         launchIntro()
 
 def October15th():
-    dataentry = responseData[0]["station"]["name"]
+    console.print("To view the entry of October 15th, please enter a value between 0 and 20", style = "green")
+    number = input()
+    console.print(".", style = "green")
+    dataentry = responseData[(int(number))]["station"]["name"]
+    datastring = f"{dataentry}"
+    if ("Sainte-Anne-de-Bellevue" in datastring):
+        print("HAI")
     entry = ["1985, October 15th", f"{dataentry}", "Signed,","Dr.A"]
     for line in entry:
          console.print(line, style = "green")
@@ -84,7 +95,7 @@ def October15th():
 
 
 def October19th():
-    print("This is the entry for October 1st")
+    print("This is the entry for October 19th")
     action = input()
     if action == "back":
         launchIntro()
