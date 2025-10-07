@@ -18,18 +18,17 @@ url = "https://api.waqi.info/search/"
 response = requests.get(url, params={"token": token, "keyword": "montreal"})
 #Give back the information as a JSON format
 results = response.json()
-#Prints the result in the terminal
-# print(results)
 
 ## Beginning of the experience
 
 # print(results.keys())
 responseData = results["data"]
-# print(type(responseData))
+# stores the data from the API
 
-# print(responseData)
 
-# sabs added this function  - 
+
+
+# sabs added this function
 # a generic custom function that takes in the user input, the correct input and a message
 # if the user and correct input do not match -then we try again until they do ... (using a while loop)
 def checkInput(userInput, correctInput, message):
@@ -76,7 +75,7 @@ def launchIntro():
 
 
 
-#entries 
+#entries stored as individual functions
 
 def October1st():
     entry = ["1985. October 1st", "It is the first of October, the days are getting cooler. But it makes no difference to me. In the lab, the temperature remains steady.","The machines hum, as steadily as my climate-controlled surroundings, much different to the weather outside, which the machines endlessly analyze.", "Signed,","Dr.A"]
@@ -102,10 +101,9 @@ def October5th():
 def October15th():
     console.print("To view the entry of October 15th, please enter a value between 0 and 20", style = "green")
     number = input()
-    # print({range(21)})
-    # correctInput = {range(21)}
-    # correctInput = "0", "2", "1", "3", "4","5","6","7","8","9","10"
-    # checkInput(number,correctInput, "Type a number between 0 and 20")
+    answer = f'{(int(number) <= 20)}'
+    checkInput(answer, "True", "Please enter a value between 0 and 20")
+    October15th()
     dataentry = responseData[(int(number))]["station"]["name"]
     #Writing uses the name information from the API to show a different message based on if the name has "saint" or "st" in it
     if ("Saint" in dataentry) or ("St" in dataentry):
@@ -151,18 +149,26 @@ def October31st():
     entry = ["1985. October 31st", "Is someone there? Have you read my files?", "Please, say anything.", "Signed,","Dr.A"]
     for line in entry:
         console.print(line, style = "green")
+    console.print("Hint: type a greeting.", style = "purple")
     answer = input()
-    if answer.upper() == (("hi").upper()) or (("hello").upper()) or (("hey").upper()):
+    if answer.upper() == ('hi').upper() or answer.upper() == ('hello').upper() or answer.upper() == ('hey').upper():
         console.print("Hello...?", style = "green")
+        console.print("Hint: type a question", style = "purple")
     else:
         console.print("Oh, someone's there.", style = "green")
+        console.print("Hint: type a question", style = "purple")
     answer02 = input()
-    if answer02.upper() == ("Who are you?").upper() or ("What is this?").upper() or ("What's happening?").upper() or ("Whats happening?").upper():
+    if answer02.upper() == ("Who are you?").upper() or answer02.upper() == ("What is this?").upper() or answer02.upper() == ("What's happening?").upper() or answer02.upper() == ("Whats happening?").upper():
         console.print("Isn't it obvious? My bones have frozen, my body no longer flesh and blood. I was doctor A.", style = "green")
+        console.print("Hint: Ask a simple question", style = "purple")
     else:
-        console.print("I'm sorry, I have no interest in much conversation. Indeed, the glowing faces are enough for me.")
-
-    checkInput(answer, "BACK", "Type BACK please")
+        console.print("I'm sorry, I have no interest in much conversation. Indeed, the glowing faces are enough for me.", style = "green")
+        console.print("Hint: Ask a simple question", style = "purple")
+    answer03 = input()
+    if answer03.upper() == ("How?").upper() or answer03.upper() == ("how did this happen?").upper() or answer03.upper() == ("Why?").upper() or answer03.upper() == ("Why did this happen?").upper():
+        console.print("You see, it seems that in being solely in contact with computers... I've caught a rather 'terminal' illness.", style = "green")
+    else:
+        console.print("Goodbye, leave me be with the machines.", style = "green")
     backbutton()
 
 
@@ -176,6 +182,6 @@ def launchGuide():
 console.print("Welcome to Dr A's research Journal, please type in the password. to continue" , ":heart:", style ="green on black")
 passWord = input()
 #use this function to check the input
-checkInput(passWord, "terminal", "Incorrect: we need the correct password:")
+checkInput(passWord, "terminal", "Incorrect: we need the correct password: Hint:this program is viewed in the ___")
 #will only come here if we have passed validation
 launchGuide()
