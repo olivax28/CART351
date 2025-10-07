@@ -7,7 +7,7 @@ import requests
 #Import rich's library in order to crate tables and colored texts
 from rich.console import Console
 from rich.table import Table
-
+from art import *
 console = Console()
 
 #Assigning a variable to the API Key
@@ -32,8 +32,13 @@ responseData = results["data"]
 
 
 #Launches the page with the selection of entries
+def backbutton():
+    console.print("Type BACK to return to entry menu.", style = "purple")
+    action = input()
+    if action == "BACK":
+        launchIntro()
 
-entryList = ("1985, October 1st", "1985, October 5th","1985, October 15th","1985, October 29th", "1985, October 31st",)
+entryList = ("1985, October 1st", "1985, October 5th","1985, October 15th","1985, October 19th", "1985, October 31st",)
 def launchIntro():
     for entry in entryList:
         console.print(entry, style = "green")
@@ -48,18 +53,19 @@ def launchIntro():
         October19th()
     if entrySelect == "october 31st":
         October31st()
+    else:
+        console.print("Follow the rules.", style = "green")
+
 
 
 
 #entries 
 
 def October1st():
-    entry = ["1985, October 1st", "It is the first of October, the days are getting cooler. But it makes no difference to me. In the lab, the temperature remains steady.","The machines hum, as steadily as my climate-controlled surroundings.", "Signed,","Dr.A"]
+    entry = ["1985. October 1st", "It is the first of October, the days are getting cooler. But it makes no difference to me. In the lab, the temperature remains steady.","The machines hum, as steadily as my climate-controlled surroundings, much different to the weather outside, which the machines endlessly analyze.", "Signed,","Dr.A"]
     for line in entry:
         console.print(line, style = "green")
-    action = input()
-    if action == "back":
-        launchIntro()
+    backbutton()
 
 def October5th():
     #draws the table of coordinates
@@ -67,44 +73,39 @@ def October5th():
     table.add_column("Lat", justify = "center", style = "green")
     table.add_column("Long", justify = "center", style = "green")
     console.print("Coordinates. Every station has a coordinate", style = "green")
-    # x = item["station"]["geo"][0]
-    # y = item["station"]["geo"][1]
      # prints the rest of the text
     for item in responseData:
         table.add_row(""f'{item["station"]["geo"][0]}' ,f'{item["station"]["geo"][1]}')
-        console.print(table)
-    console.print("I have collected the coordinates of other labs. So many stations, yet none of them answer. I gave each one a call, and sent out messages through the interconnected messaging system that was set up through the computers. But something must be wrong, as is often the case with new tech. My fingers grow stiffer and colder the longer I am here.","I'll contact the second half in the morning.", style = "green")
-    action = input()
-    if action == "back":
-        launchIntro()
+    console.print(table)
+    entry = ["1985. October 5th","I have collected the coordinates of other labs. So many stations, yet none of them answer.", "I gave each one a call, and sent out messages through the interconnected messaging system that was set up through the computers.", "But something must be wrong, as is often the case with new tech."," My fingers grow stiffer and colder the longer I am here.","I'll contact the second half in the morning.", "Signed", "Dr.A"]
+    for line in entry:
+        console.print(line, style = "green")
+    backbutton()
 
 def October15th():
     console.print("To view the entry of October 15th, please enter a value between 0 and 20", style = "green")
     number = input()
     console.print(".", style = "green")
     dataentry = responseData[(int(number))]["station"]["name"]
-    # datastring = f"{dataentry}"
-    entry = ["1985, October 15th", f"{dataentry}", "Signed,","Dr.A"]
-    for line in entry:
-         console.print(line, style = "green")
-    #post script
+    #Writing uses the name information from the API to show a different message based on if the name has "saint" or "st" in it
     if ("Saint" in dataentry) or ("St" in dataentry):
-        console.print("P.S :angel:")
+        saintentry = ["1985. October 15th,", "So much of what humans name is based on religion, that's something I've noticed sitting here for so long. It makes me think about how for so long, and even still, religion holds importance above all else for many. And I wonder more, what would a machine hold so dearly, if it had the same capacity fot thought?","I may find out sooner than I wish to. My hands no longer move.", ":angel:", "Signed," , "Dr.A"]
+        for line in saintentry:
+            console.print(line, style = "green")
     else:
-       console.print("no Saint")
-    action = input()
-    if action == "back":
-        launchIntro()
+        nosaintentry = ["1985. October 15th,", "It has become difficult to type. Why do my bones feel like rusted metal?", "I want to see the sun.", "Signed" , "Dr.A"]
+        for line in nosaintentry:
+            console.print( line , style = "green")
+    backbutton()
 
 
 def October19th():
     print("This is the entry for October 19th")
-    action = input()
-    if action == "back":
-        launchIntro()
+    backbutton()
 
 def October31st():
     print("This is the entry for October 31st")
+    backbutton()
 
 
 def launchGuide():
@@ -112,6 +113,7 @@ def launchGuide():
     username = input()
     console.print(f"Hello, {username}, access granted, although you are not Dr.A.", style = "green")
     launchIntro()
+    
   
 
 #Password prompt
