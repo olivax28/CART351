@@ -1,0 +1,30 @@
+<!-- will be a child of pineappleParent-->
+{% extends "base.html" %}
+ 
+{% block content %}
+<form id = "order_page" action = "{{url_for('thank_you_t2')}}">
+<h3> Submit an Order</h3>
+<fieldset>
+   <p>
+    <label>Order Name:</label>
+    <input type="text" size="30" maxlength = "20" name = "o_name" required> 
+</p>
+ <p>
+    <label>Order Type:</label>
+    <input type="text" size="30" maxlength = "20" name = "o_type" required> 
+</p>
+ 
+<p>
+    <label>Address:</label>
+    <input type="text" size="30" maxlength = "20" name = "address" required> 
+</p>
+<p>
+    <label>Order Details:</label>
+    <input type = "text" size="30" maxlength = "100" name = "o_details" required>
+</p>
+
+<p>
+    <input id = "submitOrder" type = "submit" name = "submit" value = "submit my info" id =buttonS />
+</p>
+</fieldset>
+{% endblock %}
