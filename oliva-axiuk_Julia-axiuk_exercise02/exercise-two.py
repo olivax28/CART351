@@ -35,7 +35,9 @@ def t2():
 @app.route("/thank_you_t2")
 def thank_you_t2():
     app.logger.info(request.args)
-    return render_template("thank_you_t2.html", OrderSummary = f'{request.args["o_name"]} , {request.args["o_type"]} , {request.args["address"]} , {request.args["o_details"]}'
+    string = f'{request.args["o_name"]}{request.args["o_type"]}{request.args["address"]}{request.args["o_details"]}'
+    replacement = string.replace("a", "*").replace("e", "*").replace("i", "*").replace("o", "*").replace("u", "*")
+    return render_template("thank_you_t2.html", OrderSummary = replacement
     )
 
 #*************************************************
