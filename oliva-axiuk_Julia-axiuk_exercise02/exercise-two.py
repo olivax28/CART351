@@ -23,7 +23,7 @@ def t1():
       
       icecream_flavors = ["Vanilla","Raspberry","Cherry", "Lemon"]
       return render_template("t1.html", flavours = donut_data["flavours"],toppings = donut_data["toppings"],
-                             passedImg = "donut_a.png",passedImg02 = "donut_sprinkles.png", passedImgHead = "donut_pink.png", icecream = icecream_flavors)
+                             passedImg = "donut_a.png",passedImg02 = "donut_sprinkles.png", passedImgHead = "donut_pink.png", icecream = icecream_flavors, topic = the_topic, max =number_of_donuts)
 
 #*************************************************
 
