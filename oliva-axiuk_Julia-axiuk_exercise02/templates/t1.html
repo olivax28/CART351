@@ -5,7 +5,7 @@
 <!-- 2. -->
 <!-- style added -->
 <main class="info_block">
-   <img src="static/images/donut_f.png" width="200" height="200" />
+   <img src="{{url_for('static' , filename ='images/'+passedImgHead01)}}" width="200" height="200" />
    <organizer class="info_organizer">
       <h1>{{topic}} <img src="{{url_for('static' , filename ='images/'+passedImgHead)}}" width="50" height="50" />
       </h1>
@@ -41,6 +41,6 @@
       </li>
       </ul>
    </organizer>
-   <img src="static/images/donut_c.png" width="200" height="200" />
+   <img src="{{url_for('static' , filename ='images/'+passedImgHead_c)}}" width="200" height="200" />
 </main>
 {% endblock %}

@@ -11,10 +11,10 @@
     <!-- IF statement  -->
     {% if "*" in element %}
     <p style="color:rgb(255, 252, 75)">A Star for a vowel!</p>
-    <img src="static/images/star.png" width="200" height="200" />
+    <img src="{{url_for('static' , filename ='images/'+star_img)}}" width="200" height="200" />
     {% else %}
     <p style="color:rgb(12, 10, 99)">Is a consonnant, here's a donut</p>
-    <img src="static/images/donut_f.png" width="200" height="200" />
+    <img src="{{url_for('static' , filename ='images/'+donut_f_img)}}" width="200" height="200" />
     {% endif %}
     {% endfor %}
 </result>
