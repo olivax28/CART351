@@ -1,51 +1,102 @@
-*{
-    margin:0;
-     padding:0;
+* {
+    margin: 0;
+    padding: 0;
 }
 
-body{
+body {
     font-family: "Roboto", sans-serif;
-   
-}
-h2{
 
-    font-size:32px;
-    padding:5px;
-    background-color:rgb(167, 69, 112);
-    color: rgb(255,255,255);
 }
-nav{
-    padding-bottom:5px;
-    background-color:rgb(167, 69, 112);
+
+h2 {
+
+    font-size: 32px;
+    padding: 5px;
+    background-color: rgb(167, 69, 112);
+    color: rgb(255, 255, 255);
 }
-nav ul{
-    display:flex;
-    justify-content:right;
-  
+
+nav {
+    padding-bottom: 5px;
+    background-color: rgb(167, 69, 112);
 }
-nav ul li{
-    width:10%;
+
+nav ul {
+    display: flex;
+    justify-content: right;
+
+}
+
+nav ul li {
+    width: 10%;
     text-transform: uppercase;
     text-decoration: none;
     list-style-type: none;
 
-      
-}
-nav li a{
-text-decoration: none;
-color:rgb(255, 255, 255);
+
 }
 
-main{
+nav li a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+
+main {
     margin: 10px;
-     background-color: rgb(229, 243, 245);
-     min-height:calc(75vh);
+    background-color: rgb(229, 243, 245);
+    min-height: calc(75vh);
 }
 
-footer{
-     background-color:rgb(167, 69, 112);
-       min-height:5vh;
-       padding:5px;
-       color: rgb(255,255,255);
+footer {
+    background-color: rgb(167, 69, 112);
+    min-height: 5vh;
+    padding: 5px;
+    color: rgb(255, 255, 255);
 
+}
+
+/* Classes added  */
+.info_block {
+    background-image: linear-gradient(to top right, rgb(255, 187, 227), rgb(252, 255, 212), rgb(161, 141, 128));
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 95%;
+    padding: 20px;
+    border: 4px solid "black";
+    border-radius: 50px;
+    box-shadow: inset -4px -4px #ffbdfc, inset 4px 4px 0 #c689ff;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif font-weight: bold;
+    color: #3d260c;
+}
+
+.info_organizer {
+    text-align: center;
+    width: 50%;
+    padding: 20px;
+}
+
+
+
+.form {
+    background-image: linear-gradient(to top right, rgb(255, 177, 209), rgb(255, 255, 255), rgb(255, 198, 243));
+    text-align: left;
+    width: 95%;
+    padding: 20px;
+    border: 4px solid "black";
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    color: #493a33;
+}
+
+
+.star_organizer {
+    background-image: linear-gradient(to top right, rgb(95, 86, 207), rgb(124, 174, 197), rgb(29, 15, 68));
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 5px;
+    gap: 20px
 }

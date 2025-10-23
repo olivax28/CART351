@@ -1,37 +1,46 @@
-<!-- will be a child of pineappleParent-->
+<!-- will be a child of base-->
 {% extends "base.html" %}
 
 {% block content %}
-<h1>{{topic}} <img src="{{url_for('static' , filename ='images/'+passedImgHead)}}" width="50" height="50" />
-</h1>
-<p> The max number of donuts in a single order is {{max}}</p>
-<ul>
-   <!-- displays all donut flavors -->
-   {% for flavor in flavours %}
-   <li style="color:purple">{{flavor}}</li>
-   {% endfor %}
-</ul>
-<h1>Toppings</h1>
-<ul>
-   <!-- displays all topping flavors -->
-   {% for choice in toppings %}
-   <li style="color:rgb(255, 122, 21)">{{choice}}</li>
-   {% endfor %}
-</ul>
-<img src="{{url_for('static' , filename ='images/'+passedImg)}}" width="100" height="100" />
-<img src="{{url_for('static' , filename ='images/'+passedImg02)}}" width="100" height="100" />
-<h1>Icecream Options</h1>
-<ul>
-   <!-- displays all icecream flavors -->
-   {% for flavor in icecream %}
-   <li style="color:rgb(255, 23, 216)">{{flavor}}</li>
-   {% if "e" in flavor %}
-   <p>End of Summer Deal! 3$! </p>
-   {% else %}
-   <p> 5$</p>
-   {% endif %}
-   {% endfor %}
-</ul>
-</li>
-</ul>
+<!-- 2. -->
+<!-- style added -->
+<main class="info_block">
+   <img src="static/images/donut_f.png" width="200" height="200" />
+   <organizer class="info_organizer">
+      <h1>{{topic}} <img src="{{url_for('static' , filename ='images/'+passedImgHead)}}" width="50" height="50" />
+      </h1>
+      <p> The max number of donuts in a single order is {{max}}</p>
+      <ul>
+         <!-- displays all donut flavors -->
+         {% for flavor in flavours %}
+         <li style="color:purple">{{flavor}}</li>
+         {% endfor %}
+      </ul>
+      <h1>Toppings</h1>
+      <ul>
+         <!-- displays all topping flavors -->
+         {% for choice in toppings %}
+         <li style="color:rgb(255, 122, 21)">{{choice}}</li>
+         {% endfor %}
+      </ul>
+      <img src="{{url_for('static' , filename ='images/'+passedImg)}}" width="100" height="100" />
+      <img src="{{url_for('static' , filename ='images/'+passedImg02)}}" width="100" height="100" />
+      <h1>Icecream Options</h1>
+      <ul>
+         <!--  4. displays all icecream flavors -->
+         {% for flavor in icecream %}
+         <li style="color:rgb(255, 23, 216)">{{flavor}}</li>
+         <!-- IF statement  -->
+         {% if "e" in flavor %}
+         <p>End of Summer Deal! 3$! </p>
+         {% else %}
+         <p> 5$</p>
+         {% endif %}
+         {% endfor %}
+      </ul>
+      </li>
+      </ul>
+   </organizer>
+   <img src="static/images/donut_c.png" width="200" height="200" />
+</main>
 {% endblock %}
