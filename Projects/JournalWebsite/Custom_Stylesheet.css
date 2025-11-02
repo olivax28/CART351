@@ -104,7 +104,7 @@
 
 
 .journalpageOrganizer {
-    /* background-color: #106149; */
+    background-image: url("assets/skytile.jpg");
     width: 100%;
     display: flex;
     flex-direction: row;
