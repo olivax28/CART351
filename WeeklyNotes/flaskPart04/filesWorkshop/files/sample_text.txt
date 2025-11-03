@@ -1,0 +1,6 @@
+giraffe
+bird
+squireel
+harry
+peter
+steve
