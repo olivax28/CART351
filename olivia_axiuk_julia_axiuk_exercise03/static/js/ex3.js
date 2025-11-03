@@ -1,18 +1,12 @@
 /**
  * Gluttonous Goldfish
- * Olivia Axiuk
  * 
- * A goldfish that really, really, really loves food, so much it gets bigger 
- * and redder until it dies....
- * Fish gets bigger if the user does an "eating" motion (shakes the mouse) over the food pellet, can be done as it falls and once it hits the ground. As well,
- * the water background is mapped to a timer as the food falls, the water becomes polluted over time and turns pink
- * Upon death fish dies and becomes grey and the user can no longer move the fish nor make it eat.
+ *Note: this javascript project was modified from a previous project for CART253
  */
 
 "use strict";
 
 //Descriptors of the goldfish 
-//NOTE: I realize that goldfish should better be written as goldFish but by the time I noticed I was too far in to change it every time
 let goldfish = {
     // base (starting) color of the fish
     color: {
