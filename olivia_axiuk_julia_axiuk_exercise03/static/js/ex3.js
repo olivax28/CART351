@@ -237,3 +237,24 @@ function drawGoldfish() {
     pop();
     goldfish.color.g = constrain(goldfish.color.g, goldfish.color.minG, goldfish.color.maxG);
 };
+
+
+// * function to send data to server can use JavaScrip if not in p5 function ex:outside draw*/
+async function sendData(params) {
+    const queryParams = new URLSearchParams(params).toString();
+    console.log(queryParams);
+    //build the url -end point
+    const url = `/postDataFetch?${queryParams}`;
+    try {
+        let res = await fetch(url);
+        let resJSON = await res.json();
+        if (resJSON.score !== undefined) {
+            oldScore = resJSON.score
+        }
+        console.log(resJSON);
+        // gameState = 'end'
+
+    } catch (err) {
+        console.log(err);
+    }
+}

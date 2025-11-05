@@ -1,5 +1,6 @@
 from flask import Flask,render_template,request
 import os
+import json
 app = Flask(__name__)
 UPLOAD_FOLDER = 'static/uploads' # Or os.path.join(app.instance_path, 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -20,7 +21,12 @@ app.route("/postDataFetch",methods = ['POST'])
 def postDataFetch():
     app.logger.info(request.form)
     return ({"data_received":"yes"})
-
+jsonFile = open("files/data.json", "r")
+# filePath="files/data.json"
+# if os.path.exists(filePath):
+#     app.logger.info("file exists")
+#     jsonFile = open(filePath, "r+")
+#     theList = json.load(jsonFile)
 #*************************************************
 #run
 app.run(debug=True)
