@@ -53,6 +53,18 @@ let fishFood = {
 // timer to later use for mapping
 let timer = 0;
 
+let playtimer = {
+    counter: 0,
+    // max: 30,
+    min: 0,
+
+};
+
+
+let state = "alive"
+
+
+
 
 
 // sets up the canvas and makes user's cursor not show when controlling the fish
@@ -74,7 +86,35 @@ function draw() {
     drawOrnaments();
     drawFishFood();
     drawGoldfish();
+    countDown();
+    drawTimer();
 };
+
+
+// displays the timer in small numbers on the left
+function drawTimer() {
+    push();
+    textAlign(LEFT, TOP);
+    textSize(50);
+    fill("#e42bcbff");
+    text(floor(playtimer.counter), 5, 50);
+    pop();
+
+
+}
+
+function countDown() {
+    if (state === "alive") {
+        playtimer.counter += 1 / 100;
+        console.log(playtimer.counter)
+    }
+    if (state === "dead") {
+        playtimer.counter + 0;
+        console.log(playtimer.counter)
+    }
+
+
+}
 
 // Makes Goldfish follow the mouse
 function moveGoldfish() {
@@ -106,6 +146,7 @@ function checkEatingFood() {
     if (goldfish.weight > goldfish.weightThreshold) {
         // checks if fish died
         goldfish.alive = false;
+        state = "dead"
         // changes color to deadFill upon death
         goldfish.color.r = goldfish.color.deadFill.r;
         goldfish.color.g = goldfish.color.deadFill.g;
