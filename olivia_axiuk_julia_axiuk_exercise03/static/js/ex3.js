@@ -64,6 +64,9 @@ let playtimer = {
 let state = "alive"
 
 
+let datasent = false
+
+
 
 
 
@@ -151,6 +154,10 @@ function checkEatingFood() {
         goldfish.color.r = goldfish.color.deadFill.r;
         goldfish.color.g = goldfish.color.deadFill.g;
         goldfish.color.b = goldfish.color.deadFill.b;
+        if (datasent === false) {
+            sendData({ timer: playtimer.counter, name: "playerName" })
+            datasent = true
+        }
 
 
     }
@@ -240,18 +247,19 @@ function drawGoldfish() {
 
 
 // * function to send data to server can use JavaScrip if not in p5 function ex:outside draw*/
-async function sendData(params) {
-    const queryParams = new URLSearchParams(params).toString();
+async function sendData(gameData) {
+    const queryParams = new URLSearchParams(gameData).toString();
     console.log(queryParams);
     //build the url -end point
     const url = `/postDataFetch?${queryParams}`;
     try {
         let res = await fetch(url);
         let resJSON = await res.json();
-        if (resJSON.score !== undefined) {
-            oldScore = resJSON.score
-        }
+        // if (resJSON.score !== undefined) {
+        //     oldScore = resJSON.score
+        // }
         console.log(resJSON);
+        document.querySelector("#time").innerHTML = gameData.timer
         // gameState = 'end'
 
     } catch (err) {
