@@ -60,6 +60,8 @@ let playtimer = {
 
 };
 
+let bites = 0
+
 
 let state = "alive"
 
@@ -145,6 +147,7 @@ function checkEatingFood() {
         goldfish.color.g -= 1.5;
         goldfish.weight += 2;
         goldfish.shape.size += 1;
+        bites += 1;
     }
     if (goldfish.weight > goldfish.weightThreshold) {
         // checks if fish died
@@ -155,7 +158,7 @@ function checkEatingFood() {
         goldfish.color.g = goldfish.color.deadFill.g;
         goldfish.color.b = goldfish.color.deadFill.b;
         if (datasent === false) {
-            sendData({ timer: playtimer.counter, name: "playerName" })
+            sendData({ timer: playtimer.counter, biteCount: bites })
             datasent = true
         }
 
@@ -255,12 +258,9 @@ async function sendData(gameData) {
     try {
         let res = await fetch(url);
         let resJSON = await res.json();
-        // if (resJSON.score !== undefined) {
-        //     oldScore = resJSON.score
-        // }
         console.log(resJSON);
         document.querySelector("#time").innerHTML = gameData.timer
-        // gameState = 'end'
+        document.querySelector("#bites").innerHTML = gameData.biteCount
 
     } catch (err) {
         console.log(err);
