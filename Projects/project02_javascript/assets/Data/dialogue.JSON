@@ -1,0 +1,42 @@
+{
+    "Description": "Dialogue that will appear in the story mode version of Astral projectiles",
+    "Scenes": [
+        {
+            "Delay": 5,
+            "Dialogue": [
+                "Pilot: Year is 1989, December 12th. Time is 1 PM.",
+                "...",
+                "Pilot: Surrounded by unknown objects, UFOs.",
+                "Pilot: Commander?"
+            ]
+        },
+        {
+            "Delay": 5,
+            "Dialogue": [
+                "Commander: Yep, I hear you. Careful, Don't know why they're not shooting but their hulls pack a punch.",
+                "Pilot: Yeah, I already got some damage on the rear.",
+                "Commander: Pilot, I'm losing contact with you. It's all static."
+            ]
+        },
+        {
+            "Delay": 2,
+            "Dialogue": [
+                "Commander:...",
+                "Commander: Goodbye, Pilot."
+            ]
+        },
+        {
+            "Delay": 2.5,
+            "Dialogue": [
+                "Pilot: Commander? Hello? What do you mean?",
+                "There's too many I need backup!"
+            ]
+        },
+        {
+            "Delay": 5,
+            "Dialogue": [
+                "From the unending darkness of space a soul cannot return home."
+            ]
+        }
+    ]
+}
