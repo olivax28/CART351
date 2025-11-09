@@ -8,21 +8,26 @@
 "use strict";
 
 
-const fortuneText = [
+const fortuneText01 = [
     "Fortune 01 has a random fill",
-    "Fortune 01 has two lines",
-    "This is the start of Fortune 02",
-    "Fortune 02 has a random fill",
-    "Fortune 03 has a random fill",
-    "Fortune 03 has three lines",
-    "End pf Fortune 03"
+    "Fortune 01 has two lines"
+
 ]
 
+const fortuneText02 = [
+    "This is the start of Fortune 02",
+    "Fortune 02 has a random fill"
+]
+const fortuneText03 = [
+    "Fortune 03 has a random fill",
+    "Fortune 03 has three lines",
+    "End of Fortune 03"
+]
 let speechBox = {
-    x: 50,
-    y: 150,
-    width: 300,
-    height: 80,
+    x: 350,
+    y: 300,
+    width: 400,
+    height: 100,
     padding: 20,
     fontSize: 18
 };
@@ -41,7 +46,14 @@ let dialogueIndex = 0;
 // }
 
 
-let state = "fortune"
+// let state = "fortune"
+
+let state = "start"
+
+
+let nameToSave = ""
+
+let birthYear = ""
 
 /**
  * creates the canvas
@@ -59,9 +71,22 @@ function draw() {
 
     if (state === "fortune") {
         fortune();
-        showFortune(fortuneText);
+        showFortune(fortuneText01);
 
     }
+
+    if (state === "start") {
+        start();
+
+
+    }
+}
+
+
+function start() {
+    displayInfo(`Name: ${nameToSave} Birthday: ${birthYear}`, width / 2, height / 2 + 20);
+    // sendData({ id: nameToSave, score: score });
+
 }
 
 function fortune() {
@@ -74,6 +99,44 @@ function mouseClicked() {
     if (state === "fortune") {
         dialogueIndex++;
     }
+
+}
+
+
+
+//check key press
+function keyPressed(e) {
+    // console.log("key");
+    console.log(e);
+    keyCode = e.keyCode;
+
+    // save user name
+    if (state === "start") {
+        //check if is lower /uppercase letter
+        if (
+            (e.keyCode >= 65 && e.keyCode <= 90) ||
+            (e.keyCode >= 97 && e.keyCode <= 122)
+        ) {
+            nameToSave += key;
+
+        }
+        // user finished
+        else if (e.keyCode === 13) {
+            state = "fortune"
+        }
+
+    }
+
+}
+
+
+function displayInfo(infoText, x, y) {
+    push();
+    fill("#ee53fcff");
+    textSize(30);
+    textAlign(CENTER);
+    text(infoText.toUpperCase(), x, y);
+    pop();
 }
 
 
