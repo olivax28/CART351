@@ -23,6 +23,11 @@ const fortuneText03 = [
     "Fortune 03 has three lines",
     "End of Fortune 03"
 ]
+const fortuneText04 = [
+    "Fortune 04 has a random fill",
+    "Fortune 04 has three lines",
+    "End of Fortune 04"
+]
 let speechBox = {
     x: 350,
     y: 300,
@@ -201,7 +206,7 @@ function calcFortune() {
     }
     // Between 0.51 and 1.0 means this one is 49% of the time
     else {
-        finalFortune = ["test"]
+        finalFortune = fortuneText04
     }
     console.log(finalFortune)
 
