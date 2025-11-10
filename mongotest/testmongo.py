@@ -1,0 +1,169 @@
+# mongodb+srv://olivax28:<db_password>@cluster0.0nsdvy4.mongodb.net/?appName=Cluster0
+
+from dotenv import load_dotenv
+import os
+from flask import Flask,render_template,request,redirect, url_for,session
+# use flask_pymongo instead of  normal pymongo (simplifies integration)
+from flask_pymongo import PyMongo
+load_dotenv()  # Load variables from .env and .flaskenv
+db_user = os.getenv('MONGODB_USER')
+db_pass = os.getenv('DATABASE_PASSWORD')
+db_name = os.getenv('DATABASE_NAME')
+
+app = Flask(__name__)
+# set a config var
+# uri = f"mongodb+srv://{db_user}:{db_pass}@cluster0.0nsdvy4.mongodb.net/?appName=Cluster0"
+uri = f"mongodb+srv://{db_user}:{db_pass}@cluster0.0nsdvy4.mongodb.net/{db_name}?retryWrites=true&w=majority"
+app.config["MONGO_URI"] = uri
+app.secret_key = 'BAD_SECRET_KEY'
+mongo = PyMongo(app)
+# try:
+#     # #get details of the client
+#     # print (mongo.cx)
+#     # #get db
+#     # print (mongo.db)
+#     # #get collection
+#     # print (mongo.db.plantRepo)
+#     # print("You successfully connected to MongoDB!")
+#     result = mongo.db.plantRepo.insert_one({"testKeyMon":"testValueMon"})
+#     print(result)
+    
+# except Exception as e:
+    # print(e)
+# only connected to cluster, need one mor environment variable (now fixed)
+
+@app.route('/')
+def index():
+    return render_template("index.html")
+
+
+@app.route('/insertTestPage')
+def insertTest():
+    session.pop('ids', default=None)
+    return render_template("testInsert.html")
+
+# a route
+@app.route('/insertMany')
+def insertMany():
+    data = [
+{'owner_name': 'Sarah',
+'plant_name' : 'Snake Plant',
+'birthDate':'2002-06-12',
+'geoLoc': 'Montreal',
+'descript': 'Description for the plant',
+'imagePath': 'images/one.png'
+},
+{
+'owner_name': 'Sarah',
+'plant_name' :'Cactus',
+'birthDate' :'2005-06-13',
+'geoLoc':'Toronto',
+'descript':'Description for the plant',
+'imagePath': 'images/seven.png'
+},
+ 
+ {
+'owner_name': 'Sarah',
+'plant_name' : 'Agapanthus',
+'birthDate': '2003-03-19',
+'geoLoc': 'Halifax',
+'descript': 'Description for the plant',
+'imagePath': 'images/seventeen.png'
+},
+ {
+'owner_name': 'Stephen',
+'plant_name' : 'Baby Rubber Plant',
+'birthDate ': '1999-07-18',
+'geoLoc': 'Edinborough',
+'descript':'Description for the plant',
+'imagePath': 'images/ten.png'
+},
+ 
+{
+'owner_name': 'Stephen',
+'plant_name' : 'Dahlia',
+'birthDate' :'2000-05-06',
+'geoLoc':'London',
+'descript':'Description for the plant',
+'imagePath': 'images/thirteen.png'
+},
+ 
+{
+'owner_name' : 'Harold',
+'plant_name' : 'Daphne',
+'birthDate': '2012-10-21',
+'geoLoc':'New York',
+'descript':'Description for the plant',
+'imagePath': 'images/three.png'
+},
+{
+'owner_name' : 'Martha',
+'plant_name' : 'Daylily',
+'birthDate' :'2017-08-21',
+'geoLoc':'Paris',
+'descript':'Description for the plant',
+'imagePath': 'images/nine.png'
+}
+
+
+]
+    try:
+        # insert many works
+        result = mongo.db.plantRepo.insert_many(data)
+        session['ids'] = result.inserted_ids
+        return redirect(url_for('testIds'))
+    except Exception as e:
+        print(e)
+
+@app.route('/testIds')
+def testIds():
+    print(session['ids'])
+    return render_template("testIds.html")
+
+# a route
+@app.route('/viewResults')
+def viewResults():
+    # give me one result (this is the first one)
+    # result = mongo.db.plantRepo.find_one({})
+    # find all of the info (an array of objects)
+    # result = mongo.db.plantRepo.find()
+    # seeing one line of the result
+    result = mongo.db.plantRepo.find({'points':{'$gt':5}})
+    # find element that have the key "points" and are greater than 5
+    print(result)
+    return render_template("viewResults.html", result=result)
+
+@app.route('/updateOne')
+def updateOne():
+     try:
+        updatedRepoItem= mongo.db.plantRepo.find_one_and_update(
+            {'plant_name' :'Agapanthus'},
+            # whenever u use a database, there's always a specific way of bduilfing a query (follow constructs of the language)
+            {'$set':{'descript':'a more precise description'}}
+            )
+        return redirect(url_for("insertTest"))
+     except Exception as e:
+        print(e)
+
+@app.route('/updatePoints')
+def updatePoints():
+     try:
+        updatedRepoItem= mongo.db.plantRepo.find_one_and_update(
+            {'user' :'Maria'},
+            {'$inc':{'points':2}}
+            )
+        return redirect(url_for("insertTest"))
+     except Exception as e:
+        print(e)
+@app.route('/updateMany')
+def updateMany():
+     try:
+        updatedRepoItem= mongo.db.plantRepo.update_many(
+            {'owner_name' :'Sarah'},
+            {'$set':{'descript':'a more precise description for all sarahs','title':'testALL'}}
+            )
+        return redirect(url_for("insertTest"))
+     except Exception as e:
+        print(e)
+app.run(debug = True)
+
