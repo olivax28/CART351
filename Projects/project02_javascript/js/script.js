@@ -78,7 +78,7 @@ function draw() {
 
     if (state === "fortune") {
         fortune();
-        showFortune(finalFortune);
+
 
     }
 
@@ -97,8 +97,8 @@ function start() {
 }
 
 function fortune() {
-    calcFortune();
     background(59, 13, 79);
+    showFortune(finalFortune);
     //select random fortune on a click
 
 }
@@ -141,6 +141,7 @@ function keyPressed(e) {
 
             if (e.keyCode === 13) {
                 state = "fortune"
+                calcFortune();
             }
 
         }
@@ -200,8 +201,9 @@ function calcFortune() {
     }
     // Between 0.51 and 1.0 means this one is 49% of the time
     else {
-        finalFortune = "test"
+        finalFortune = ["test"]
     }
+    console.log(finalFortune)
 
     // So, we have put a value into drop based on probabilities!
 }
