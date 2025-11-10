@@ -35,6 +35,12 @@ let speechBox = {
 let dialogueIndex = 0;
 
 
+let finalFortune = undefined;
+
+
+
+
+
 // function preload() {
 //     //load story mode dialogue data
 
@@ -50,6 +56,7 @@ let dialogueIndex = 0;
 
 let state = "start"
 
+let inputState = "name"
 
 let nameToSave = ""
 
@@ -71,7 +78,7 @@ function draw() {
 
     if (state === "fortune") {
         fortune();
-        showFortune(fortuneText01);
+        showFortune(finalFortune);
 
     }
 
@@ -90,6 +97,7 @@ function start() {
 }
 
 function fortune() {
+    calcFortune();
     background(59, 13, 79);
     //select random fortune on a click
 
@@ -102,34 +110,6 @@ function mouseClicked() {
 
 }
 
-
-
-// //check key press
-// function keyPressed(e) {
-//     // console.log("key");
-//     console.log(e);
-//     keyCode = e.keyCode;
-
-//     // save user name
-//     if (state === "start") {
-//         //check if is lower /uppercase letter
-//         if (
-//             (e.keyCode >= 65 && e.keyCode <= 90) ||
-//             (e.keyCode >= 97 && e.keyCode <= 122)
-//         ) {
-//             nameToSave += key;
-
-//         }
-//         // user finished
-//         else if (e.keyCode === 13) {
-//             state = "fortune"
-//         }
-
-//     }
-
-// }
-
-
 //check key press
 function keyPressed(e) {
     // console.log("key");
@@ -138,27 +118,33 @@ function keyPressed(e) {
 
     // save user name
     if (state === "start") {
-        let nameEntered = false
-        let enterBirthday = false
-        birthYear != key;
-        console.log(nameEntered)
         //check if is lower /uppercase letter
-        if ((e.keyCode >= 65 && e.keyCode <= 90) ||
-            (e.keyCode >= 97 && e.keyCode <= 122)) {
-            nameToSave += key;
+        if (inputState === "name") {
+
+            if ((e.keyCode >= 65 && e.keyCode <= 90) ||
+                (e.keyCode >= 97 && e.keyCode <= 122)) {
+                nameToSave += key;
+            }
+
+            if (e.keyCode === 13) {
+                inputState = "bday"
+            }
+
         }
-        if (e.keyCode === 13 && nameEntered === false) {
-            nameEntered = true
-            enterBirthday = true
+
+        else if (inputState === "bday") {
+
+            if ((e.keyCode >= 65 && e.keyCode <= 90) ||
+                (e.keyCode >= 97 && e.keyCode <= 122)) {
+                birthYear += key;
+            }
+
+            if (e.keyCode === 13) {
+                state = "fortune"
+            }
+
         }
-        if ((e.keyCode >= 65 && e.keyCode <= 90) ||
-            (e.keyCode >= 97 && e.keyCode <= 122) && nameEntered === true && enterBirthday === true) {
-            birthYear += key;
-        }
-        // user finished
-        else if (e.keyCode === 13 && nameEntered === true && enterBirthday === true) {
-            state = "fortune"
-        }
+
 
     }
 
@@ -194,6 +180,32 @@ function showFortune(dialogue) {
     text(dialogue[dialogueIndex], speechBox.x + speechBox.padding, speechBox.y + speechBox.padding, speechBox.width - 2 * speechBox.padding, speechBox.height - 2 * speechBox.padding);
     pop();
 }
+
+
+
+function calcFortune() {
+    const chance = random()
+    //inspired by probability sketch from the p5 documentation (concidentally by Pippin Barr)
+    // Very rare! 1% of the time!
+    if (chance < 0.01) {
+        finalFortune = fortuneText01;
+    }
+    // Between 0.01 and 0.21 means this one is 20% of the time
+    else if (chance < 0.21) {
+        finalFortune = fortuneText02;
+    }
+    // Between 0.21 and 0.51 means this one is 30% of the time
+    else if (chance < 0.51) {
+        finalFortune = fortuneText03
+    }
+    // Between 0.51 and 1.0 means this one is 49% of the time
+    else {
+        finalFortune = "test"
+    }
+
+    // So, we have put a value into drop based on probabilities!
+}
+
 
 
 
