@@ -85,7 +85,7 @@ function draw() {
 
 function start() {
     displayInfo(`Name: ${nameToSave} Birthday: ${birthYear}`, width / 2, height / 2 + 20);
-    // sendData({ id: nameToSave, score: score });
+    // sendData({ name: nameToSave, birthdate:  });
 
 }
 
@@ -104,6 +104,32 @@ function mouseClicked() {
 
 
 
+// //check key press
+// function keyPressed(e) {
+//     // console.log("key");
+//     console.log(e);
+//     keyCode = e.keyCode;
+
+//     // save user name
+//     if (state === "start") {
+//         //check if is lower /uppercase letter
+//         if (
+//             (e.keyCode >= 65 && e.keyCode <= 90) ||
+//             (e.keyCode >= 97 && e.keyCode <= 122)
+//         ) {
+//             nameToSave += key;
+
+//         }
+//         // user finished
+//         else if (e.keyCode === 13) {
+//             state = "fortune"
+//         }
+
+//     }
+
+// }
+
+
 //check key press
 function keyPressed(e) {
     // console.log("key");
@@ -112,22 +138,32 @@ function keyPressed(e) {
 
     // save user name
     if (state === "start") {
+        let nameEntered = false
+        let enterBirthday = false
+        birthYear != key;
+        console.log(nameEntered)
         //check if is lower /uppercase letter
-        if (
-            (e.keyCode >= 65 && e.keyCode <= 90) ||
-            (e.keyCode >= 97 && e.keyCode <= 122)
-        ) {
+        if ((e.keyCode >= 65 && e.keyCode <= 90) ||
+            (e.keyCode >= 97 && e.keyCode <= 122)) {
             nameToSave += key;
-
+        }
+        if (e.keyCode === 13 && nameEntered === false) {
+            nameEntered = true
+            enterBirthday = true
+        }
+        if ((e.keyCode >= 65 && e.keyCode <= 90) ||
+            (e.keyCode >= 97 && e.keyCode <= 122) && nameEntered === true && enterBirthday === true) {
+            birthYear += key;
         }
         // user finished
-        else if (e.keyCode === 13) {
+        else if (e.keyCode === 13 && nameEntered === true && enterBirthday === true) {
             state = "fortune"
         }
 
     }
 
 }
+
 
 
 function displayInfo(infoText, x, y) {
