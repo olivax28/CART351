@@ -96,7 +96,7 @@ function draw() {
 
 
 function start() {
-    displayInfo(`Name: ${nameToSave} Birthday: ${birthYear}`, width / 2, height / 2 + 20);
+    displayInfo(`Name: ${nameToSave} Birth Year: ${birthYear}`, width / 2, height / 2 + 20);
     // sendData({ name: nameToSave, birthdate:  });
 
 }
@@ -138,13 +138,19 @@ function keyPressed(e) {
         }
 
         else if (inputState === "bday") {
-
-            if ((e.keyCode >= 65 && e.keyCode <= 90) ||
-                (e.keyCode >= 97 && e.keyCode <= 122)) {
+            console.log(birthYear)
+            if (birthYear.length >= 2 && e.keyCode !== 13){
+                state="fortune"
+                 calcFortune();
+            }
+            
+            else if (e.keyCode >= 48 && e.keyCode <= 58) {
+                console.log("tesat")
+                console.log(key)
                 birthYear += key;
             }
 
-            if (e.keyCode === 13) {
+            else if (e.keyCode === 13) {
                 state = "fortune"
                 calcFortune();
             }
@@ -190,7 +196,7 @@ function showFortune(dialogue) {
 
 
 function calcFortune() {
-    const chance = random()
+    const chance = parseInt(birthYear)/100
     //inspired by probability sketch from the p5 documentation (concidentally by Pippin Barr)
     // Very rare! 1% of the time!
     if (chance < 0.01) {
@@ -208,7 +214,7 @@ function calcFortune() {
     else {
         finalFortune = fortuneText04
     }
-    console.log(finalFortune)
+    console.log(chance)
 
     // So, we have put a value into drop based on probabilities!
 }
