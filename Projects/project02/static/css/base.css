@@ -1,61 +1,17 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: "Roboto", sans-serif;
-
-}
-
-h2 {
-
-    font-size: 32px;
-    padding: 5px;
-    background-color: rgb(167, 69, 112);
-    color: rgb(255, 255, 255);
-}
-
-nav {
-    padding-bottom: 5px;
-    background-color: rgb(167, 69, 112);
-}
-
-nav ul {
+.fortune {
     display: flex;
-    justify-content: right;
-
-}
-
-nav ul li {
-    width: 10%;
-    text-transform: uppercase;
-    text-decoration: none;
-    list-style-type: none;
-
-
-}
-
-nav li a {
-    text-decoration: none;
-    color: rgb(255, 255, 255);
-}
-
-main {
-    margin: 10px;
-    background-color: rgb(229, 243, 245);
-    min-height: calc(75vh);
-}
-
-footer {
-    background-color: rgb(167, 69, 112);
+    justify-content: center;
+    background-color: rgb(189, 91, 91);
     min-height: 5vh;
     padding: 5px;
-    color: rgb(255, 255, 255);
-
+    color: rgb(255, 253, 158);
 }
 
-
-.fishbg {
-    background-color: aquamarine;
+.fortuneBody {
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(58, 41, 90);
+    min-height: 5vh;
+    padding: 5px;
+    color: rgb(255, 253, 158);
 }
