@@ -229,8 +229,9 @@ async function sendData(gameData) {
         let res = await fetch(url);
         let resJSON = await res.json();
         console.log(resJSON);
-        document.querySelector("#name").innerHTML = gameData.nameToSave
-        document.querySelector("#BirthYear").innerHTML = gameData.birthYear
+        document.querySelector("#name").innerHTML = gameData.name
+        document.querySelector("#birthyear").innerHTML = gameData.birthdate
+        console.log(gameData.name)
 
     } catch (err) {
         console.log(err);
