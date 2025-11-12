@@ -232,7 +232,7 @@ async function sendData(gameData) {
         console.log(resJSON);
         document.querySelector("#name").innerHTML = gameData.name
         document.querySelector("#birthyear").innerHTML = gameData.birthdate
-        document.querySelector("#fortune").innerHTML = gameData.fortune
+        document.querySelector("#text").innerHTML = gameData.fortune
         console.log(gameData.name)
 
     } catch (err) {
