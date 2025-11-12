@@ -142,6 +142,7 @@ function keyPressed(e) {
             if (birthYear.length >= 2 && e.keyCode !== 13) {
                 state = "fortune"
                 calcFortune();
+                sendData({ name: nameToSave, birthdate: birthYear, fortune: finalFortune });
             }
 
             else if (e.keyCode >= 48 && e.keyCode <= 58) {
@@ -231,6 +232,7 @@ async function sendData(gameData) {
         console.log(resJSON);
         document.querySelector("#name").innerHTML = gameData.name
         document.querySelector("#birthyear").innerHTML = gameData.birthdate
+        document.querySelector("#fortune").innerHTML = gameData.fortune
         console.log(gameData.name)
 
     } catch (err) {
