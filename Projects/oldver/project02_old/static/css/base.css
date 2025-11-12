@@ -1,0 +1,17 @@
+.fortune {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(189, 91, 91);
+    min-height: 5vh;
+    padding: 5px;
+    color: rgb(255, 253, 158);
+}
+
+.fortuneBody {
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(58, 41, 90);
+    min-height: 5vh;
+    padding: 5px;
+    color: rgb(255, 253, 158);
+}

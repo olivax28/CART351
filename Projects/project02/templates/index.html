@@ -1,18 +1,24 @@
 <!-- will be a child of base-->
 {% extends "base.html" %}
+{% block scripts %}
+<script src="{{url_for('static',filename='js/libraries/p5.min.js')}}"></script>
+<script src="{{url_for('static',filename='js/script.js')}}"></script>
+{% endblock %}
 
 {% block content %}
 
 <h3>** Welcome **</h3>
 <section>
     <!-- stuff goes in here -->
-    <fortuneBody class="fortuneBody">
+    <div id="p5Container" class="fortuneBody">
         <script src="{{url_for('static',filename='js/libraries/p5.min.js')}}"></script>
         <script src="{{url_for('static',filename='js/script.js')}}"></script>
-        <p class="fortune"> Name: <span id="name"></span> Birthdate: <span id="birthyear"> </span> Fortune: <span
-                id="text"></span>.
-        </p>
-    </fortuneBody>
+        <div class="fortuneorganizer">
+            <p class="fortune"> Name: <span id="name"></span> Birthdate: <span id="birthyear"> </span> Fortune: <span
+                    id="text"></span>
+            </p>
+        </div>
+    </div>
 
 </section>
 {% endblock %}

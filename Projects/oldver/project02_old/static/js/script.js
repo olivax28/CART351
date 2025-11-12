@@ -71,8 +71,7 @@ let birthYear = ""
  * creates the canvas
 */
 function setup() {
-    let canvas = createCanvas(1080, 720);
-    canvas.parent("p5Container"); // Attach the canvas to the div with id 'p5Container'
+    createCanvas(1080, 720);
 }
 
 

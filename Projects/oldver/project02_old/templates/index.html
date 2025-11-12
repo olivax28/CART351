@@ -1,0 +1,18 @@
+<!-- will be a child of base-->
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>** Welcome **</h3>
+<section>
+    <!-- stuff goes in here -->
+    <fortuneBody class="fortuneBody">
+        <script src="{{url_for('static',filename='js/libraries/p5.min.js')}}"></script>
+        <script src="{{url_for('static',filename='js/script.js')}}"></script>
+        <p class="fortune"> Name: <span id="name"></span> Birthdate: <span id="birthyear"> </span> Fortune: <span
+                id="text"></span>.
+        </p>
+    </fortuneBody>
+
+</section>
+{% endblock %}
