@@ -67,6 +67,9 @@ let nameToSave = ""
 
 let birthYear = ""
 
+let resetTextName = ""
+
+let resetTextyear = ""
 /**
  * creates the canvas
 */
@@ -109,13 +112,6 @@ function fortune() {
 
 }
 
-function mouseClicked() {
-    if (state === "fortune") {
-        dialogueIndex++;
-    }
-
-}
-
 //check key press
 function keyPressed(e) {
     // console.log("key");
@@ -154,6 +150,9 @@ function keyPressed(e) {
                 state = "fortune"
                 calcFortune();
                 sendData({ name: nameToSave, birthdate: birthYear, fortune: finalFortune });
+                // let newDiv = document.createElement("div")
+                // newDiv.innerHTML = "results"
+                // document.querySelector("#resultcards").appendChild(newDiv)
             }
 
         }
@@ -221,6 +220,24 @@ function calcFortune() {
 }
 
 
+function mouseClicked() {
+    if (state === "fortune") {
+        dialogueIndex++;
+    }
+    if (dialogueIndex === dialogueIndex.length) {
+        console.log(dialogueIndex.length)
+        reset();
+    }
+}
+
+function reset() {
+    state = "start"
+    inputState = "name"
+    nameToSave = resetTextName
+    birthYear = resetTextyear
+}
+
+
 // * function to send data to server can use JavaScrip if not in p5 function ex:outside draw*/
 async function sendData(gameData) {
     const queryParams = new URLSearchParams(gameData).toString();
@@ -234,13 +251,11 @@ async function sendData(gameData) {
         document.querySelector("#name").innerHTML = gameData.name
         document.querySelector("#birthyear").innerHTML = gameData.birthdate
         document.querySelector("#text").innerHTML = gameData.fortune
-        console.log(gameData.name)
 
     } catch (err) {
         console.log(err);
     }
 }
-
 
 
 
