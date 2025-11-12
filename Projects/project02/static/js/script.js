@@ -155,10 +155,13 @@ function keyPressed(e) {
                 // document.querySelector("#resultcards").appendChild(newDiv)
             }
 
+
         }
 
 
     }
+
+
 
 }
 
@@ -223,11 +226,12 @@ function calcFortune() {
 function mouseClicked() {
     if (state === "fortune") {
         dialogueIndex++;
+        if (dialogueIndex === finalFortune.length) {
+            console.log(finalFortune.length)
+            reset();
+        }
     }
-    if (dialogueIndex === dialogueIndex.length) {
-        console.log(dialogueIndex.length)
-        reset();
-    }
+
 }
 
 function reset() {
