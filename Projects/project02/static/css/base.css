@@ -2,23 +2,26 @@
     display: flex;
     flex-direction: column;
     justify-content: left;
-    background-color: rgb(189, 91, 91);
+    background-image: linear-gradient(to top right, rgb(230, 130, 37), rgb(233, 137, 27), rgb(179, 97, 30));
     min-height: 5vh;
     max-height: fit-content;
-    padding: 5px;
-    color: rgb(255, 253, 158);
+    border-radius: 10px;
+    box-shadow: inset -4px -4px #f5f19f, inset 4px 4px 0 #a7a68b;
+    padding: 10px;
+    color: rgb(255, 255, 255);
 }
 
 
 .histfortune {
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    background-color: rgb(27, 38, 190);
+    background-image: linear-gradient(to top right, rgb(85, 30, 85), rgb(150, 103, 147), rgb(70, 30, 82));
+    text-align: left;
     min-height: 5vh;
     max-height: fit-content;
-    padding: 5px;
-    color: rgb(255, 253, 158);
+    max-width: fit-content;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: inset -4px -4px #53501b, inset 4px 4px 0 #adac62;
+    color: #faf9b8;
 }
 
 .fortuneBody {
@@ -35,7 +38,7 @@
 .fortuneorganizer {
     display: flex;
     flex-direction: row;
-    background-color: rgb(109, 84, 219);
+    /* background-color: rgb(109, 84, 219); */
     min-height: 5vh;
     padding: 5px;
     color: rgb(255, 253, 158);

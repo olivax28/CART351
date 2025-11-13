@@ -53,6 +53,7 @@ let finalFortune = undefined;
 function preload() {
     //load story mode dialogue data
     BG_Image = loadImage("static/images/BG_Stars.png");
+    BG_curtains = loadImage("static/images/BG_curtains.png");
     // soundFormats("mp3");
     // shootSound = loadSound("assets/sounds/8bit_shoot.mp3");
 }
@@ -75,6 +76,11 @@ let resetTextyear = ""
 let resetIndex = 0
 
 let BG_Image = undefined
+
+let BG_curtains = undefined
+
+
+
 /**
  * creates the canvas
 */
@@ -89,6 +95,7 @@ function setup() {
 */
 function draw() {
     background(0, 0, 0);
+
 
     if (state === "fortune") {
         fortune();
@@ -105,9 +112,9 @@ function draw() {
 
 
 function start() {
+    imageMode(CENTER);
+    image(BG_curtains, width / 2, height / 2);
     displayInfo(`Name: ${nameToSave} Birth Year: ${birthYear}`, width / 2, height / 2 + 20);
-
-
 }
 
 function fortune() {
@@ -176,7 +183,9 @@ function keyPressed(e) {
 
 function displayInfo(infoText, x, y) {
     push();
-    fill("#ee53fcff");
+    fill("#ff2db9ff");
+    strokeWeight(5);
+    stroke(0, 0, 0);
     textSize(30);
     textAlign(CENTER);
     text(infoText.toUpperCase(), x, y);
