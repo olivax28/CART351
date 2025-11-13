@@ -13,11 +13,6 @@ def index():
 
 #*************************************************
 # Task: CAPTURE & POST & FETCH & SAVE
-
-@app.route("/history")
-def history():
-    return render_template("history.html")
-
 @app.route("/postDataFetch")
 def postDataFetch():
     app.logger.info(request.args)

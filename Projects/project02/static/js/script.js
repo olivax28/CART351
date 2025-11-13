@@ -9,24 +9,27 @@
 
 
 const fortuneText01 = [
-    "Fortune 01 has a random fill",
-    "Fortune 01 has two lines"
+    "Luck awaits you in the near future",
+    "But having an open mind is required to accept it",
+    "But not too open, you need to keep your brain in!"
 
 ]
 
 const fortuneText02 = [
-    "This is the start of Fortune 02",
-    "Fortune 02 has a random fill"
+    "A strong heart and a sure soul",
+    "Is the best guidance one can have...",
+    "Google maps is pretty good too."
 ]
 const fortuneText03 = [
-    "Fortune 03 has a random fill",
-    "Fortune 03 has three lines",
-    "End of Fortune 03"
+    "Treading off the beaten path...",
+    "You find yourself alone, but free...",
+    "Something lovely waits for thee...",
+    "A delicious brioche with some tea..."
 ]
 const fortuneText04 = [
-    "Fortune 04 has a random fill",
-    "Fortune 04 has three lines",
-    "End of Fortune 04"
+    "Things may not always be so black and white",
+    "There are other really good colors too",
+    "A red scarf will make you more visible in the snow."
 ]
 let speechBox = {
     x: 350,
@@ -262,6 +265,7 @@ async function sendData(gameData) {
         let newDiv = document.createElement("div")
         newDiv.innerHTML = "Name:" + " " + gameData.name + " " + "Birth Year:" + " " + gameData.birthdate + " " + "Fortune:" + " " + gameData.fortune
         document.querySelector("#resultcards").appendChild(newDiv)
+        newDiv.classList.add("histfortune")
     } catch (err) {
         console.log(err);
     }

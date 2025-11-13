@@ -9,6 +9,18 @@
     color: rgb(255, 253, 158);
 }
 
+
+.histfortune {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    background-color: rgb(27, 38, 190);
+    min-height: 5vh;
+    max-height: fit-content;
+    padding: 5px;
+    color: rgb(255, 253, 158);
+}
+
 .fortuneBody {
     display: flex;
     flex-direction: row-reverse;
@@ -28,4 +40,9 @@
     padding: 5px;
     color: rgb(255, 253, 158);
 
+}
+
+.MainHeader {
+    display: flex;
+    justify-content: center;
 }
