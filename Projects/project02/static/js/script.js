@@ -8,6 +8,7 @@
 "use strict";
 
 
+
 const fortuneText01 = [
     "Luck awaits you in the near future",
     "But having an open mind is required to accept it",
@@ -49,15 +50,12 @@ let finalFortune = undefined;
 
 
 
-// function preload() {
-//     //load story mode dialogue data
-
-//     enemySprite = loadImage("assets/images/enemyShip.png");
-
-//     titleScreenIMG = loadImage("assets/images/titleScreen.png");
-//     soundFormats("mp3");
-//     shootSound = loadSound("assets/sounds/8bit_shoot.mp3");
-// }
+function preload() {
+    //load story mode dialogue data
+    BG_Image = loadImage("static/images/BG_Stars.png");
+    // soundFormats("mp3");
+    // shootSound = loadSound("assets/sounds/8bit_shoot.mp3");
+}
 
 
 // let state = "fortune"
@@ -75,6 +73,8 @@ let resetTextName = ""
 let resetTextyear = ""
 
 let resetIndex = 0
+
+let BG_Image = undefined
 /**
  * creates the canvas
 */
@@ -112,6 +112,8 @@ function start() {
 
 function fortune() {
     background(59, 13, 79);
+    imageMode(CENTER);
+    image(BG_Image, width / 2, height / 2);
     showFortune(finalFortune);
     //select random fortune on a click
 
