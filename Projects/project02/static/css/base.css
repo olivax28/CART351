@@ -27,8 +27,9 @@
 .fortuneBody {
     display: flex;
     flex-direction: row-reverse;
+    width: 100%;
     justify-content: left;
-    background-color: rgb(58, 41, 90);
+    /* background-color: rgb(123, 119, 129); */
     min-height: 5vh;
     padding: 5px;
     color: rgb(255, 253, 158);
@@ -48,4 +49,12 @@
 .MainHeader {
     display: flex;
     justify-content: center;
+}
+
+.starry_bg {
+    display: flex;
+    justify-content: left;
+    background-image: radial-gradient(rgb(82, 67, 102), rgb(36, 5, 44));
+    padding: 10px;
+    color: rgb(255, 253, 158);
 }
