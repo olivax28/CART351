@@ -1,14 +1,15 @@
 /**
- * Fortune
+ * Fortune Rookie
  * Olivia Axiuk and Julia Axiuk
 
 * https://p5js.org/
  */
 
+
+
 "use strict";
 
-
-
+//Possible Fortunes
 const fortuneText01 = [
     "Luck awaits you in the near future",
     "But having an open mind is required to accept it",
@@ -32,6 +33,9 @@ const fortuneText04 = [
     "There are other really good colors too",
     "A red scarf will make you more visible in the snow."
 ]
+
+
+//Variables for the fortunes
 let speechBox = {
     x: 350,
     y: 300,
@@ -51,15 +55,13 @@ let finalFortune = undefined;
 
 
 function preload() {
-    //load story mode dialogue data
+    //preload images
     BG_Image = loadImage("static/images/BG_Stars.png");
     BG_curtains = loadImage("static/images/BG_curtains.png");
-    // soundFormats("mp3");
-    // shootSound = loadSound("assets/sounds/8bit_shoot.mp3");
 }
 
 
-// let state = "fortune"
+//Game States
 
 let state = "start"
 
@@ -117,24 +119,22 @@ function start() {
     displayInfo(`Name: ${nameToSave} Birth Year: ${birthYear}`, width / 2, height / 2 + 20);
 }
 
+//select random fortune on a click, this displays the fortune
 function fortune() {
     background(59, 13, 79);
     imageMode(CENTER);
     image(BG_Image, width / 2, height / 2);
     showFortune(finalFortune);
-    //select random fortune on a click
 
 }
 
 //check key press
 function keyPressed(e) {
-    // console.log("key");
     console.log(e);
     keyCode = e.keyCode;
 
-    // save user name
+    // Take input in the program for Name and Birthday
     if (state === "start") {
-        //check if is lower /uppercase letter
         if (inputState === "name") {
 
             if ((e.keyCode >= 65 && e.keyCode <= 90) ||
@@ -147,19 +147,20 @@ function keyPressed(e) {
             }
 
         }
-
+        //automatically send to fortune state if more than 2 numbers inputted
         else if (inputState === "bday") {
             console.log(birthYear)
             if (birthYear.length >= 2 && e.keyCode !== 13) {
                 state = "fortune"
+
                 calcFortune();
                 sendData({ name: nameToSave, birthdate: birthYear, fortune: finalFortune });
             }
-
+            //type in BDAY
             else if (e.keyCode >= 48 && e.keyCode <= 58) {
                 birthYear += key;
             }
-
+            //press enter to go to fortune state
             else if (e.keyCode === 13) {
                 state = "fortune"
                 calcFortune();
@@ -217,25 +218,23 @@ function showFortune(dialogue) {
 function calcFortune() {
     const chance = parseInt(birthYear) / 100
     //inspired by probability sketch from the p5 documentation (concidentally by Pippin Barr)
-    // Very rare! 1% of the time!
+    // Determines probability of each fortune by turning BDAY number into CHANCE
     if (chance < 0.01) {
         finalFortune = fortuneText01;
     }
-    // Between 0.01 and 0.21 means this one is 20% of the time
+
     else if (chance < 0.21) {
         finalFortune = fortuneText02;
     }
-    // Between 0.21 and 0.51 means this one is 30% of the time
+
     else if (chance < 0.51) {
         finalFortune = fortuneText03
     }
-    // Between 0.51 and 1.0 means this one is 49% of the time
+
     else {
         finalFortune = fortuneText04
     }
     console.log(chance)
-
-    // So, we have put a value into drop based on probabilities!
 }
 
 
@@ -270,6 +269,7 @@ async function sendData(gameData) {
         let res = await fetch(url);
         let resJSON = await res.json();
         console.log(resJSON);
+        //This section creates the new div based on past fortunes
         document.querySelector("#name").innerHTML = gameData.name
         document.querySelector("#birthyear").innerHTML = gameData.birthdate
         document.querySelector("#text").innerHTML = gameData.fortune
