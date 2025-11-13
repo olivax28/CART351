@@ -70,6 +70,8 @@ let birthYear = ""
 let resetTextName = ""
 
 let resetTextyear = ""
+
+let resetIndex = 0
 /**
  * creates the canvas
 */
@@ -150,9 +152,9 @@ function keyPressed(e) {
                 state = "fortune"
                 calcFortune();
                 sendData({ name: nameToSave, birthdate: birthYear, fortune: finalFortune });
-                // let newDiv = document.createElement("div")
-                // newDiv.innerHTML = "results"
-                // document.querySelector("#resultcards").appendChild(newDiv)
+
+
+
             }
 
 
@@ -239,6 +241,8 @@ function reset() {
     inputState = "name"
     nameToSave = resetTextName
     birthYear = resetTextyear
+    dialogueIndex = resetIndex
+
 }
 
 
@@ -255,11 +259,14 @@ async function sendData(gameData) {
         document.querySelector("#name").innerHTML = gameData.name
         document.querySelector("#birthyear").innerHTML = gameData.birthdate
         document.querySelector("#text").innerHTML = gameData.fortune
-
+        let newDiv = document.createElement("div")
+        newDiv.innerHTML = "Name:" + " " + gameData.name + " " + "Birth Year:" + " " + gameData.birthdate + " " + "Fortune:" + " " + gameData.fortune
+        document.querySelector("#resultcards").appendChild(newDiv)
     } catch (err) {
         console.log(err);
     }
 }
+
 
 
 
