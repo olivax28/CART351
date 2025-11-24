@@ -109,7 +109,7 @@ def insertMany():
 ]
     try:
         # insert many works
-        result = mongo.db.plantRepo.insert_many(data)
+        result = mongo.db.dataStuff.insert_many(data)
         session['ids'] = result.inserted_ids
         return redirect(url_for('testIds'))
     except Exception as e:
