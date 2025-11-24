@@ -364,9 +364,10 @@ window.onload = function () {
   function page03display(resultOBj) {
    document.querySelector("#parent-wrapper").style.background =
       "rgba(243, 190, 15, 1)";
-    description.textContent = "BYPOSITIVE MOOD";
+    description.textContent = "BY POSITIVE MOOD";
     description.style.color = "rgba(255, 255, 255, 1)";
 
+    
 
     document.querySelector("#childOne").style.height = `${yHeight}px`;
   } //function
