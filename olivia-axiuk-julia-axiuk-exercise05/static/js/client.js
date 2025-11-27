@@ -66,7 +66,7 @@ window.onload = function () {
          ** bonus: if your visualizations(s) are interactive or animate.
          ****/
         case "three": {
-           page03display(resJSON);
+          displaypattern03(resJSON);
           console.log("three")
           // TODO
           break;
@@ -249,6 +249,7 @@ window.onload = function () {
     description.style.color = "rgba(0, 64, 255,.5)";
 
     for (let i = 0; i < resultSet.length - 1; i++) {
+      console.log(resultSet)
       dataPoints.push(
         new myDataPoint(
           resultSet[i].dataId,
@@ -265,7 +266,8 @@ window.onload = function () {
           document.querySelector("#childOne"),
           //which css style///
           "point_two"
-        )
+        ),
+        // console.log(coloredMoods)
       );
       /*** circle drawing ***/
       xPos = Math.sin(angle) * scalar + centerX;
@@ -312,11 +314,11 @@ window.onload = function () {
     for (let i = 0; i < possibleDays.length; i++) {
       coloredDays[possibleDays[i]] = possibleColors[i];
     }
-/* for through each result
-1: create a new MyDataPoint object and pass the properties from the db result entry to the object constructor
-2: set the color using the coloredDays object associated with the resultSet[i].day
-3:  put into the dataPoints array.
-**/
+    /* for through each result
+    1: create a new MyDataPoint object and pass the properties from the db result entry to the object constructor
+    2: set the color using the coloredDays object associated with the resultSet[i].day
+    3:  put into the dataPoints array.
+    **/
     //set background of parent ... for fun ..
     document.querySelector("#parent-wrapper").style.background =
       "rgba(255,0,0,.4)";
@@ -361,14 +363,89 @@ window.onload = function () {
   } //function
 
   /***********************************************/
-  function page03display(resultOBj) {
-   document.querySelector("#parent-wrapper").style.background =
+  //********************************PAGE 03 DISPLAY************************************
+  function displaypattern03(resultOBj) {
+    //reset
+    dataPoints = [];
+    let xPos = 0;
+    let yPos = 0;
+
+    let resultSet = resultOBj.results;
+    let coloredMoods = {};
+
+    let possibleMoods = resultOBj.moods;
+    let possibleColors = [
+      "rgba(233, 76, 76, 1)",
+      "rgba(255, 247, 199, 1)",
+      "rgba(136, 159, 226, 1)",
+      "rgba(255, 196, 0, 1)",
+    ];
+
+    document.querySelector("#parent-wrapper").style.background =
       "rgba(243, 190, 15, 1)";
     description.textContent = "BY POSITIVE MOOD";
     description.style.color = "rgba(255, 255, 255, 1)";
 
-    
+    for (let i = 0; i < possibleMoods.length; i++) {
+      coloredMoods[possibleMoods[i]] = possibleColors[i];
+    }
 
+
+    for (let i = 0; i < resultSet.length - 1; i++) {
+      // console.log(resultSet)
+      dataPoints.push(
+        new myDataPoint(
+          resultSet[i].dataId,
+          resultSet[i].day,
+          resultSet[i].weather,
+          resultSet[i].start_mood,
+          resultSet[i].after_mood,
+          resultSet[i].after_mood_strength,
+          resultSet[i].event_affect_strength,
+          resultSet[i].event_name,
+          //map to the day ...
+          coloredMoods[resultSet[i].after_mood],
+          //last parameter is where should this go...
+          document.querySelector("#childOne"),
+          //which css style///
+          "point_two"
+        ),
+      );
+
+      xPos = Math.random() * 1000,
+        yPos = Math.random() * 1000,
+        dataPoints[i].update(xPos, yPos);
+      console.log(xPos, yPos)
+    }
     document.querySelector("#childOne").style.height = `${yHeight}px`;
-  } //function
+    speedX = 10,
+      speedY = 10,
+      function animate() {
+        for (let i = 0; i < dataPoints.length; i++) {
+          dataPoints[i].style.top =
+            parseInt(dataPoints[i].style.top) + speedX + "px";
+          dataPoints[i].style.left =
+            parseInt(dataPoints[i].style.top) + speedY + "px";
+          // checkBounds(dataPoints[i]);
+        }
+        pointsAnim = window.requestAnimationFrame(animate);
+      }
+
+  }
+  //function
+  // function animate() {
+  //   for (let i = 0; i < letterArray.length; i++) {
+  //     letterArray[i].style.top =
+  //       parseInt(letterArray[i].style.top) + speedX + "px";
+  //     letterArray[i].style.left =
+  //       parseInt(letterArray[i].style.top) + speedY + "px";
+  //     checkBounds(letterArray[i]);
+
+
+  //   }
+
+
+
+
+  //function
 };
