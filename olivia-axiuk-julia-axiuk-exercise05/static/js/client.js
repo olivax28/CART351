@@ -72,6 +72,7 @@ window.onload = function () {
           break;
         }
         case "four": {
+          display04(resJSON);
           console.log("four")
           // TODO
           break;
@@ -364,7 +365,82 @@ window.onload = function () {
 
   /***********************************************/
   //********************************PAGE 03 DISPLAY************************************
+
+
   function displaypattern03(resultOBj) {
+    //reset
+    dataPoints = [];
+    let xPos = 0;
+    let yPos = 0;
+
+    let resultSet = resultOBj.results;
+    let coloredMoods = {};
+
+    let possibleMoods = resultOBj.moods;
+    // console.log(resultOBj.moods)
+
+    let possibleColors = [
+      "rgba(233, 76, 76, 1)",
+      "rgba(255, 247, 199, 1)",
+      "rgba(136, 159, 226, 1)",
+      "rgba(255, 196, 0, 1)",
+    ];
+
+    document.querySelector("#parent-wrapper").style.background =
+      "rgba(243, 190, 15, 1)";
+    description.textContent = "BY POSITIVE MOOD";
+    description.style.color = "rgba(255, 255, 255, 1)";
+
+    for (let i = 0; i < possibleMoods.length; i++) {
+      coloredMoods[possibleMoods[i]] = possibleColors[i];
+      console.log(resultOBj)
+    }
+
+
+    for (let i = 0; i < resultSet.length - 1; i++) {
+      // console.log(resultSet)
+      dataPoints.push(
+        new myDataPoint(
+          resultSet[i].dataId,
+          resultSet[i].day,
+          resultSet[i].weather,
+          resultSet[i].start_mood,
+          resultSet[i].after_mood,
+          resultSet[i].after_mood_strength,
+          resultSet[i].event_affect_strength,
+          resultSet[i].event_name,
+          //map to the day ...
+          coloredMoods[resultSet[i].after_mood],
+          //last parameter is where should this go...
+          document.querySelector("#childOne"),
+          //which css style///
+          "point_two"
+        ),
+      );
+
+      xPos = Math.random() * 1000,
+        yPos = Math.random() * 1000,
+        dataPoints[i].update(xPos, yPos);
+      // console.log(xPos, yPos)
+    }
+    document.querySelector("#childOne").style.height = `${yHeight}px`;
+    speedX = 10,
+      speedY = 10,
+      function animate() {
+        for (let i = 0; i < dataPoints.length; i++) {
+          dataPoints[i].xPos =
+            parseInt(dataPoints[i].style.top) + speedX + "px";
+          dataPoints[i].y =
+            parseInt(dataPoints[i].style.top) + speedY + "px";
+          // checkBounds(dataPoints[i]);
+        }
+        pointsAnim = window.requestAnimationFrame(animate);
+      }
+
+  }
+  /*****************DISPLAY 04*****************************/
+
+  function display04(resultOBj) {
     //reset
     dataPoints = [];
     let xPos = 0;
@@ -418,34 +494,8 @@ window.onload = function () {
       console.log(xPos, yPos)
     }
     document.querySelector("#childOne").style.height = `${yHeight}px`;
-    speedX = 10,
-      speedY = 10,
-      function animate() {
-        for (let i = 0; i < dataPoints.length; i++) {
-          dataPoints[i].xPos =
-            parseInt(dataPoints[i].style.top) + speedX + "px";
-          dataPoints[i].yPos =
-            parseInt(dataPoints[i].style.top) + speedY + "px";
-          // checkBounds(dataPoints[i]);
-        }
-        pointsAnim = window.requestAnimationFrame(animate);
-      }
 
-  }
-  //function
-  // function animate() {
-  //   for (let i = 0; i < letterArray.length; i++) {
-  //     letterArray[i].style.top =
-  //       parseInt(letterArray[i].style.top) + speedX + "px";
-  //     letterArray[i].style.left =
-  //       parseInt(letterArray[i].style.top) + speedY + "px";
-  //     checkBounds(letterArray[i]);
-
-
-  //   }
-
-
-
+  } //function
 
   //function
 };
