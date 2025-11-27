@@ -422,9 +422,9 @@ window.onload = function () {
       speedY = 10,
       function animate() {
         for (let i = 0; i < dataPoints.length; i++) {
-          dataPoints[i].style.top =
+          dataPoints[i].xPos =
             parseInt(dataPoints[i].style.top) + speedX + "px";
-          dataPoints[i].style.left =
+          dataPoints[i].yPos =
             parseInt(dataPoints[i].style.top) + speedY + "px";
           // checkBounds(dataPoints[i]);
         }
