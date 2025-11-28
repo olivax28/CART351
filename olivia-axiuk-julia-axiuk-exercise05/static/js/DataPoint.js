@@ -3,7 +3,8 @@
 
 class myDataPoint {
   //gets filled from the db request
-  constructor(id, day, weather, start_mood, after_mood, am_strength, event_affect_strength, event_name, colorAsString, parentContainer, cssStyle) {
+  constructor(id, day, weather, start_mood, after_mood, am_strength, event_affect_strength, event_name, 
+    colorAsString, parentContainer, cssStyle, speedX,speedY) {
     this.id = id;
     this.day = day;
     this.weather = weather;
@@ -19,6 +20,10 @@ class myDataPoint {
     this.container = document.createElement("div");
     this.container.classList.add(cssStyle);
     this.container.style.background = this.colorAsString;
+
+    this.speedX = speedX,
+    this.speedY = speedY,
+
     parentContainer.appendChild(this.container);
 
   }

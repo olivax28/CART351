@@ -212,6 +212,7 @@ window.onload = function () {
 
   /*****************DISPLAY IN CIRCUlAR PATTERN:: <ONE>******************************/
   function displayInCirclularPattern(resultOBj) {
+    console.log(resultOBj)
     //reset
     dataPoints = [];
     let xPos = 0;
@@ -399,7 +400,10 @@ window.onload = function () {
     }
 
 
-    for (let i = 0; i < resultSet.length - 1; i++) {
+
+    let outputDiv = document.getElementById("parent-wrapper");
+    let bounds = outputDiv.getBoundingClientRect();
+    for (let i = 0; i < resultSet.length; i++) {
       // console.log(resultSet)
       AnimDataPoints.push(
         new myDataPoint(
@@ -416,40 +420,41 @@ window.onload = function () {
           //last parameter is where should this go...
           document.querySelector("#childOne"),
           //which css style///
-          "point_two"
+          "point_two",
+          Math.floor(Math.random() * 2) + 1,
+          Math.floor(Math.random() * 5) + 1,
         ),
       );
 
-      xPos = Math.random() * 1000,
-        yPos = Math.random() * 1000,
+      xPos = Math.random() * bounds.width,
+        yPos = Math.random() * (bounds.height),
         AnimDataPoints[i].update(xPos, yPos);
       // console.log(xPos, yPos)
     }
 
-    let outputDiv = document.getElementById("parent-wrapper");
-    // console.log(outputDiv)
+
+
 
 
     function checkBounds(p) {
-      let bounds = outputDiv.getBoundingClientRect();
-      console.log(outputDiv)
-      if (parseInt(p.style.left) > bounds.width) {
-        console.log(bounds.width);
-        speedX *= -1;
+
+      if (parseInt(p.container.style.left) > bounds.width) {
+        //console.log(bounds.width);
+        p.speedX *= -1;
 
 
       }
-      else if (parseInt(p.style.left) < 0) {
-        speedX *= -1;
+      else if (parseInt(p.container.style.left) < 0) {
+        p.speedX *= -1;
 
       }
 
-      if (parseInt(p.style.top) > bounds.top) {
-        speedY *= -1;
+      if (parseInt(p.container.style.top) > bounds.height) {
+        p.speedY *= -1;
 
       }
-      else if (parseInt(p.style.top) < 0) {
-        speedY *= -1;
+      else if (parseInt(p.container.style.top) < 0) {
+        p.speedY *= -1;
       }
 
 
@@ -462,10 +467,10 @@ window.onload = function () {
 
 
         // dataPoints[i].xPos =
-        let newX = parseInt(AnimDataPoints[i].container.style.left) + Math.random() * 5;
+        let newX = parseInt(AnimDataPoints[i].container.style.left) + AnimDataPoints[i].speedX;
 
         //   dataPoints[i].y =
-        let newY = parseInt(AnimDataPoints[i].container.style.top) - Math.random() * 5;
+        let newY = parseInt(AnimDataPoints[i].container.style.top) - AnimDataPoints[i].speedY;
 
         AnimDataPoints[i].update(newX, newY)
 
@@ -475,6 +480,7 @@ window.onload = function () {
       pointsAnim = window.requestAnimationFrame(animate);
 
     }
+
     window.requestAnimationFrame(animate);
   }
   /*****************DISPLAY 04*****************************/
@@ -501,7 +507,7 @@ window.onload = function () {
     // }
 
 
-    for (let i = 0; i < resultSet.length - 1; i++) {
+    for (let i = 0; i < resultSet.length; i++) {
       // console.log(resultSet)
       dataPoints.push(
         new myDataPoint(
@@ -580,7 +586,10 @@ window.onload = function () {
     description.textContent = " By event affect strength"
     description.style.color = "rgba(255, 255, 255, 1)";
 
-    for (let i = 0; i < resultSet.length - 1; i++) {
+    let outputDiv = document.getElementById("parent-wrapper");
+    let bounds = outputDiv.getBoundingClientRect();
+    console.log(resultSet.length)
+    for (let i = 0; i < resultSet.length; i++) {
       // console.log(resultSet)
       bandPoints.push(
         new myDataPoint(
@@ -597,59 +606,60 @@ window.onload = function () {
           //last parameter is where should this go...
           document.querySelector("#childOne"),
           //which css style///
-          "point_two"
+          "point_two",
+          10,
+          0
         ),
 
       );
 
-      // xPos = i / 2 + 10,
-      //   yPos = dataPoints[i].event_affect_strength * 10,
-      //   dataPoints[i].update(xPos, yPos);
+      // console.log(bandPoints[i].event_affect_strength)
+
+      xPos = i / 2 + 10
+      // console.log(xPos)
+      yPos = bandPoints[i].event_affect_strength * 10,
+        bandPoints[i].update(xPos, yPos);
 
 
     }
 
+    function checkBounds02(p) {
 
-    // function checkBounds(p) {
-    //   let bounds = outputDiv.getBoundingClientRect();
-    //   console.log(outputDiv)
-    //   if (parseInt(p.style.left) > bounds.width) {
-    //     console.log(bounds.width);
-    //     speedX *= -1;
-
-
-    //   }
-    //   else if (parseInt(p.style.left) < 0) {
-    //     speedX *= -1;
-
-    //   }
-
-    //   if (parseInt(p.style.top) > bounds.top) {
-    //     speedY *= -1;
-
-    //   }
-    //   else if (parseInt(p.style.top) < 0) {
-    //     speedY *= -1;
-    //   }
+      if (parseInt(p.container.style.left) > bounds.width) {
+        // console.log(p.container.style.left)
+        console.log(bounds.width);
+        p.speedX *= -1;
 
 
-    // }
-    // console.log(i)
+      }
+      else if (parseInt(p.container.style.left) < 0) {
+        p.speedX *= -1;
+
+      }
+
+      if (parseInt(p.container.style.top) > bounds.height) {
+        p.speedY *= -1;
+
+      }
+      else if (parseInt(p.container.style.top) < 0) {
+        p.speedY *= -1;
+      }
+
+
+    }
     function animateBands() {
 
-      console.log("animate")
+      //console.log("animate")
       for (let i = 0; i < bandPoints.length; i++) {
-
-
         // dataPoints[i].xPos =
-        let newX = parseInt(bandPoints[i].container.style.left) + 10;
+        let newX = parseInt(bandPoints[i].container.style.left) + bandPoints[i].speedX;
 
         //   dataPoints[i].y =
-        let newY = parseInt(dataPoints[i].event_affect_strength * 10);
+        let newY = parseInt(bandPoints[i].container.style.top) + bandPoints[i].speedY;
 
         bandPoints[i].update(newX, newY)
 
-        // checkBounds(bandPoints[i]);
+        checkBounds02(bandPoints[i]);
 
       }
       pointsAnim = window.requestAnimationFrame(animateBands);
