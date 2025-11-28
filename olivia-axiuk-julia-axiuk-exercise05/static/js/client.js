@@ -31,7 +31,7 @@ window.onload = function () {
     try {
       let res = await fetch(url);
       let resJSON = await res.json();
-      console.log(resJSON);
+      // console.log(resJSON);
 
       //reset the
       document.querySelector("#childOne").innerHTML = "";
@@ -67,6 +67,7 @@ window.onload = function () {
          ****/
         case "three": {
           displaypattern03(resJSON);
+
           console.log("three")
           // TODO
           break;
@@ -369,7 +370,7 @@ window.onload = function () {
 
   function displaypattern03(resultOBj) {
     //reset
-    dataPoints = [];
+    AnimDataPoints = [];
     let xPos = 0;
     let yPos = 0;
 
@@ -399,7 +400,7 @@ window.onload = function () {
 
     for (let i = 0; i < resultSet.length - 1; i++) {
       // console.log(resultSet)
-      dataPoints.push(
+      AnimDataPoints.push(
         new myDataPoint(
           resultSet[i].dataId,
           resultSet[i].day,
@@ -420,23 +421,60 @@ window.onload = function () {
 
       xPos = Math.random() * 1000,
         yPos = Math.random() * 1000,
-        dataPoints[i].update(xPos, yPos);
+        AnimDataPoints[i].update(xPos, yPos);
       // console.log(xPos, yPos)
     }
-    document.querySelector("#childOne").style.height = `${yHeight}px`;
-    speedX = 10,
-      speedY = 10,
-      function animate() {
-        for (let i = 0; i < dataPoints.length; i++) {
-          dataPoints[i].xPos =
-            parseInt(dataPoints[i].style.top) + speedX + "px";
-          dataPoints[i].y =
-            parseInt(dataPoints[i].style.top) + speedY + "px";
-          // checkBounds(dataPoints[i]);
-        }
-        pointsAnim = window.requestAnimationFrame(animate);
+
+    let outputDiv = document.getElementById("parent-wrapper");
+    // console.log(outputDiv)
+
+
+    function checkBounds(p) {
+      let bounds = outputDiv.getBoundingClientRect();
+      console.log(outputDiv)
+      if (parseInt(p.style.left) > bounds.width) {
+        console.log(bounds.width);
+        speedX *= -1;
+
+
+      }
+      else if (parseInt(p.style.left) < 0) {
+        speedX *= -1;
+
       }
 
+      if (parseInt(p.style.top) > bounds.top) {
+        speedY *= -1;
+
+      }
+      else if (parseInt(p.style.top) < 0) {
+        speedY *= -1;
+      }
+
+
+    }
+
+    function animate() {
+
+      console.log("animate")
+      for (let i = 0; i < AnimDataPoints.length; i++) {
+
+
+        // dataPoints[i].xPos =
+        let newX = parseInt(AnimDataPoints[i].container.style.left) + Math.random() * 5;
+
+        //   dataPoints[i].y =
+        let newY = parseInt(AnimDataPoints[i].container.style.top) - Math.random() * 5;
+
+        AnimDataPoints[i].update(newX, newY)
+
+        checkBounds(AnimDataPoints[i]);
+
+      }
+      pointsAnim = window.requestAnimationFrame(animate);
+
+    }
+    window.requestAnimationFrame(animate);
   }
   /*****************DISPLAY 04*****************************/
 
@@ -447,24 +485,26 @@ window.onload = function () {
     let yPos = 0;
 
     let resultSet = resultOBj.results;
-    let coloredMoods = {};
 
-    let possibleMoods = resultOBj.moods;
-    let possibleColors = [
-      "rgba(233, 76, 76, 1)",
-      "rgba(255, 247, 199, 1)",
-      "rgba(136, 159, 226, 1)",
-      "rgba(255, 196, 0, 1)",
-    ];
+
+    chosencolor = undefined
+
+    // let possibleColors = [
+    //   "rgba(233, 76, 76, 1)",
+    //   "rgba(255, 247, 199, 1)",
+    //   "rgba(136, 159, 226, 1)",
+    //   "rgba(255, 196, 0, 1)",
+    // ];
 
     document.querySelector("#parent-wrapper").style.background =
-      "rgba(243, 190, 15, 1)";
-    description.textContent = "BY POSITIVE MOOD";
+      "rgba(136, 25, 130, 1)";
+    description.textContent = "BY EVENT NAME";
     description.style.color = "rgba(255, 255, 255, 1)";
 
-    for (let i = 0; i < possibleMoods.length; i++) {
-      coloredMoods[possibleMoods[i]] = possibleColors[i];
-    }
+    // for (let i = 0; i < possibleMoods.length; i++) {
+    //   coloredMoods[possibleMoods[i]] = possibleColors[i];
+    //   console.log(resultOBj)
+    // }
 
 
     for (let i = 0; i < resultSet.length - 1; i++) {
@@ -480,22 +520,61 @@ window.onload = function () {
           resultSet[i].event_affect_strength,
           resultSet[i].event_name,
           //map to the day ...
-          coloredMoods[resultSet[i].after_mood],
+          chosencolor,
           //last parameter is where should this go...
           document.querySelector("#childOne"),
           //which css style///
           "point_two"
         ),
       );
+      // following IF statements organzes the chosen datapoints containgna specific event name into groups and compares them to the rest of the leftover possible events
 
-      xPos = Math.random() * 1000,
-        yPos = Math.random() * 1000,
-        dataPoints[i].update(xPos, yPos);
-      console.log(xPos, yPos)
+      if (dataPoints[i].event_name == "sunbathing in the desert") {
+        xPos = 100 + Math.random() * 100,
+          yPos = 100 + Math.random() * 100,
+          dataPoints[i].update(xPos, yPos);
+        // dataPoints[i].chosencolor = "rgba(233, 76, 76, 1)"
+        // console.log[i].chosencolor
+
+      }
+      console.log(dataPoints[i].event_name)
+      if (dataPoints[i].event_name == "watching rain fall though the window") {
+        xPos = 250 + Math.random() * 100,
+          yPos = 250 + Math.random() * 100,
+          dataPoints[i].update(xPos, yPos);
+        // dataPoints[i].chosencolor = "rgba(76, 233, 97, 1)"
+
+      }
+
+      if (dataPoints[i].event_name == "dining with sibling") {
+        xPos = 300 + Math.random() * 100,
+          yPos = 300 + Math.random() * 100,
+          dataPoints[i].update(xPos, yPos);
+        // dataPoints[i].chosencolor = "rgba(189, 18, 166, 1)"
+
+      }
+
+      if (dataPoints[i].event_name == "whistling in the wind") {
+        xPos = 300 + Math.random() * 100,
+          yPos = 100 + Math.random() * 100,
+          dataPoints[i].update(xPos, yPos);
+        // dataPoints[i].chosencolor = "rgba(110, 76, 233, 1)"
+
+      }
+
+      if (dataPoints[i].event_name !== "whistling in the wind" && dataPoints[i].event_name !== "dining with sibling" && dataPoints[i].event_name !== "watching rain fall though the window" && dataPoints[i].event_name !== "sunbathing in the desert") {
+        xPos = 600 + Math.random() * 500,
+          yPos = 10 + Math.random() * 500,
+          dataPoints[i].update(xPos, yPos);
+        // dataPoints[i].chosencolor = "rgba(233, 76, 76, 1)"
+
+      }
+
     }
-    document.querySelector("#childOne").style.height = `${yHeight}px`;
+  }
 
-  } //function
+
+
 
   //function
 };
