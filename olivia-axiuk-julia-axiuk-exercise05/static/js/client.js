@@ -81,6 +81,7 @@ window.onload = function () {
 
         case "five": {
           console.log("five")
+          display05(resJSON)
           // TODO
           break;
         }
@@ -489,13 +490,6 @@ window.onload = function () {
 
     chosencolor = undefined
 
-    // let possibleColors = [
-    //   "rgba(233, 76, 76, 1)",
-    //   "rgba(255, 247, 199, 1)",
-    //   "rgba(136, 159, 226, 1)",
-    //   "rgba(255, 196, 0, 1)",
-    // ];
-
     document.querySelector("#parent-wrapper").style.background =
       "rgba(136, 25, 130, 1)";
     description.textContent = "BY EVENT NAME";
@@ -537,7 +531,7 @@ window.onload = function () {
         // console.log[i].chosencolor
 
       }
-      console.log(dataPoints[i].event_name)
+      // console.log(dataPoints[i].event_name)
       if (dataPoints[i].event_name == "watching rain fall though the window") {
         xPos = 250 + Math.random() * 100,
           yPos = 250 + Math.random() * 100,
@@ -571,6 +565,99 @@ window.onload = function () {
       }
 
     }
+  }
+  //********************************PAGE 05 DISPLAY************************************
+
+  function display05(resultOBj) {
+    bandPoints = [];
+
+    let resultSet = resultOBj.results;
+
+    // console.log(resultSet)
+
+    document.querySelector("#parent-wrapper").style.background =
+      "rgba(135, 211, 145, 1)";
+    description.textContent = " By event affect strength"
+    description.style.color = "rgba(255, 255, 255, 1)";
+
+    for (let i = 0; i < resultSet.length - 1; i++) {
+      // console.log(resultSet)
+      bandPoints.push(
+        new myDataPoint(
+          resultSet[i].dataId,
+          resultSet[i].day,
+          resultSet[i].weather,
+          resultSet[i].start_mood,
+          resultSet[i].after_mood,
+          resultSet[i].after_mood_strength,
+          resultSet[i].event_affect_strength,
+          resultSet[i].event_name,
+          //map to the day ...
+          "rgba(255, 237, 71, 1)",
+          //last parameter is where should this go...
+          document.querySelector("#childOne"),
+          //which css style///
+          "point_two"
+        ),
+
+      );
+
+      // xPos = i / 2 + 10,
+      //   yPos = dataPoints[i].event_affect_strength * 10,
+      //   dataPoints[i].update(xPos, yPos);
+
+
+    }
+
+
+    // function checkBounds(p) {
+    //   let bounds = outputDiv.getBoundingClientRect();
+    //   console.log(outputDiv)
+    //   if (parseInt(p.style.left) > bounds.width) {
+    //     console.log(bounds.width);
+    //     speedX *= -1;
+
+
+    //   }
+    //   else if (parseInt(p.style.left) < 0) {
+    //     speedX *= -1;
+
+    //   }
+
+    //   if (parseInt(p.style.top) > bounds.top) {
+    //     speedY *= -1;
+
+    //   }
+    //   else if (parseInt(p.style.top) < 0) {
+    //     speedY *= -1;
+    //   }
+
+
+    // }
+    // console.log(i)
+    function animateBands() {
+
+      console.log("animate")
+      for (let i = 0; i < bandPoints.length; i++) {
+
+
+        // dataPoints[i].xPos =
+        let newX = parseInt(bandPoints[i].container.style.left) + 10;
+
+        //   dataPoints[i].y =
+        let newY = parseInt(dataPoints[i].event_affect_strength * 10);
+
+        bandPoints[i].update(newX, newY)
+
+        // checkBounds(bandPoints[i]);
+
+      }
+      pointsAnim = window.requestAnimationFrame(animateBands);
+
+    }
+    window.requestAnimationFrame(animateBands);
+
+
   }
 
 
