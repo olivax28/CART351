@@ -87,6 +87,7 @@ window.onload = function () {
         }
         case "six": {
           console.log("six")
+          display06(resJSON)
           // TODO
           break;
         }
@@ -579,6 +580,8 @@ window.onload = function () {
 
     let resultSet = resultOBj.results;
 
+
+
     // console.log(resultSet)
 
     document.querySelector("#parent-wrapper").style.background =
@@ -601,13 +604,13 @@ window.onload = function () {
           resultSet[i].after_mood_strength,
           resultSet[i].event_affect_strength,
           resultSet[i].event_name,
-          //map to the day ...
-          "rgba(255, 237, 71, 1)",
+          //color
+          "rgba(233, 76, 76, 1)",
           //last parameter is where should this go...
           document.querySelector("#childOne"),
           //which css style///
           "point_two",
-          10,
+          resultSet[i].event_affect_strength,
           0
         ),
 
@@ -629,6 +632,8 @@ window.onload = function () {
         // console.log(p.container.style.left)
         console.log(bounds.width);
         p.speedX *= -1;
+
+
 
 
       }
@@ -670,8 +675,109 @@ window.onload = function () {
 
   }
 
+  // *******************display 06***************************
+
+  function display06(resultOBj) {
+    dataPoints = [];
+
+    let resultSet = resultOBj.results;
+    let outputDiv = document.getElementById("parent-wrapper");
+    let bounds = outputDiv.getBoundingClientRect();
+
+    document.querySelector("#parent-wrapper").style.background =
+      "rgba(117, 48, 206, 1)";
+    description.textContent = " By Negative mood"
+    description.style.color = "rgba(255, 255, 255, 1)";
+
+    // let outputDiv = document.getElementById("parent-wrapper");
+    // let bounds = outputDiv.getBoundingClientRect();
+
+    console.log(resultSet.length)
+    for (let i = 0; i < resultSet.length; i++) {
+      // console.log(resultSet)
+      dataPoints.push(
+        new myDataPoint(
+          resultSet[i].dataId,
+          resultSet[i].day,
+          resultSet[i].weather,
+          resultSet[i].start_mood,
+          resultSet[i].after_mood,
+          resultSet[i].after_mood_strength,
+          resultSet[i].event_affect_strength,
+          resultSet[i].event_name,
+          //map to the day ...
+          "rgba(128, 168, 255, 1)",
+          //last parameter is where should this go...
+          document.querySelector("#childOne"),
+          //which css style///
+          "point_two",
+          2,
+          0
+        ),
 
 
+      );
+      //separates points by postitive and negative mood
+      if (dataPoints[i].start_mood == "sad" || dataPoints[i].start_mood == "angry" || dataPoints[i].start_mood == "neutral" || dataPoints[i].start_mood == "anxious" || dataPoints[i].start_mood == "moody" || dataPoints[i].start_mood == "hurt") {
+        xPos = 600 + Math.random() * 500,
+          yPos = 10 + Math.random() * 500,
+          dataPoints[i].update(xPos, yPos);
+        dataPoints[i].speedX = 2
 
+
+      }
+
+      else {
+        xPos = 20 + Math.random() * 500,
+          yPos = 10 + Math.random() * 500,
+          dataPoints[i].update(xPos, yPos);
+        dataPoints[i].speedX = 0
+
+
+      }
+
+    }
+    function checkBounds02(p) {
+
+      if (parseInt(p.container.style.left) > bounds.width) {
+        // console.log(p.container.style.left)
+        console.log(bounds.width);
+        p.speedX *= -1;
+      }
+      else if (parseInt(p.container.style.left) < 0) {
+        p.speedX *= -1;
+
+      }
+
+      if (parseInt(p.container.style.top) > bounds.height) {
+        p.speedY *= -1;
+
+      }
+      else if (parseInt(p.container.style.top) < 0) {
+        p.speedY *= -1;
+      }
+
+
+    }
+    function animateData() {
+
+      //console.log("animate")
+      for (let i = 0; i < dataPoints.length; i++) {
+        // dataPoints[i].xPos =
+        let newX = parseInt(dataPoints[i].container.style.left) + dataPoints[i].speedX;
+
+        //   dataPoints[i].y =
+        let newY = parseInt(dataPoints[i].container.style.top) + dataPoints[i].speedY;
+
+        dataPoints[i].update(newX, newY)
+
+        checkBounds02(dataPoints[i]);
+
+      }
+      pointsAnim = window.requestAnimationFrame(animateData);
+
+    }
+    window.requestAnimationFrame(animateData);
+  }
   //function
 };
