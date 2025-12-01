@@ -81,17 +81,6 @@ const backButton = {
 let fishes = [];
 
 
-// const fish01 = {
-//     x: 0,
-//     y: 200, // Will be random
-//     size: 50,
-//     // secondSize: 30,
-//     // centerSize: 15,
-//     speed: 1.5,
-//     mainFill: "#cb0000",
-//     // secondFill: "#FFFFFF"
-// };
-
 
 let numOfFish = 5
 
@@ -107,7 +96,7 @@ function preload() {
 
 // let state = "fortune"
 
-let state = "myComputer"
+let state = "trashbin"
 
 // let inputState = "name"
 
@@ -189,8 +178,9 @@ function drawselect(icon) {
 
 function trashBin() {
     background(50, 0, 0);
-    iconPick(backButton)
-    drawselect(backButton)
+    iconPick(backButton);
+    drawselect(backButton);
+    drawBadEye();
 
 
 }
@@ -214,8 +204,8 @@ function myComputer() {
 function createfish() {
 
     const fish01 = {
-        x: 0,
-        x: random(0, width),
+        x: random(-5, 0),
+        y: random(0, height),
         size: 50,
         // secondSize: 30,
         // centerSize: 15,
@@ -280,6 +270,30 @@ function addFish() {
         console.log("fish created")
 
     }
+
+}
+
+
+
+
+function drawBadEye() {
+    // the base code for the eye was found and modified from p5.js.org by user koolaid krusade
+    let centerX = width / 2;
+    let centerY = height / 2;
+
+    let d = 350;
+
+    let x1 = map(mouseX, 0, width, centerX - d / 6, centerX + d / 6,);
+    let y = map(mouseY, 0, height, centerY - d / 6, centerY + d / 6,);
+
+
+    // Eye balls
+    fill("#ffffffff");
+    ellipse(width / 2, height / 2, 400, 200);
+
+    // Pupil
+    fill("#000000ff");
+    circle(x1, y, 100);
 
 }
 
