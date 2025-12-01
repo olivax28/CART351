@@ -1,5 +1,5 @@
 /**
- * Fortune
+ * Desktop
  * Olivia Axiuk and Julia Axiuk
 
 * https://p5js.org/
@@ -78,6 +78,23 @@ const backButton = {
 }
 
 
+let fishes = [];
+
+
+// const fish01 = {
+//     x: 0,
+//     y: 200, // Will be random
+//     size: 50,
+//     // secondSize: 30,
+//     // centerSize: 15,
+//     speed: 1.5,
+//     mainFill: "#cb0000",
+//     // secondFill: "#FFFFFF"
+// };
+
+
+let numOfFish = 5
+
 
 
 function preload() {
@@ -90,7 +107,7 @@ function preload() {
 
 // let state = "fortune"
 
-let state = "desktop"
+let state = "myComputer"
 
 // let inputState = "name"
 
@@ -103,6 +120,7 @@ let state = "desktop"
 */
 function setup() {
     createCanvas(1280, 1024);
+    addFish();
 }
 
 
@@ -180,8 +198,60 @@ function trashBin() {
 
 
 function myComputer() {
-    background(0, 255, 0);
+    background(0, 100, 200);
 
+    for (let i of fishes) {
+        drawFish(i);
+        animateFish(i);
+    }
+    // drawFish(fish01)
+    // animateFish(fish01)
+
+}
+
+
+
+function createfish() {
+
+    const fish01 = {
+        x: 0,
+        x: random(0, width),
+        size: 50,
+        // secondSize: 30,
+        // centerSize: 15,
+        speed: 1.5,
+        mainFill: "#cb0000",
+        // secondFill: "#FFFFFF"
+    };
+
+    return fish01
+}
+
+// draws the fish for My Computer
+function drawFish(fish) {
+    push();
+    noStroke();
+    fill(fish.mainFill);
+    ellipse(fish.x, fish.y, fish.size);
+    pop();
+    push();
+    noStroke();
+}
+
+
+function animateFish(fish) {
+    // Move the target
+    fish.x += fish.speed;
+    // Handle the target going off the canvas
+    if (fish.x > width) {
+        resetFish(fish);
+    }
+}
+
+
+function resetFish(fish) {
+    fish.x = 0;
+    fish.y = random(0, 300);
 }
 
 
@@ -197,6 +267,20 @@ function iconPick(icon) {
             state = icon.state
         }
     }
+}
+
+
+
+function addFish() {
+
+    for (let i = 0; i < numOfFish; i++) {
+        const fish = createfish();
+        fishes.push(fish);
+
+        console.log("fish created")
+
+    }
+
 }
 
 // NOTE to have the back button working in all the states, we can add that into the state object and factor it into iconPick
