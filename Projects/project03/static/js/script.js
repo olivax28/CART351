@@ -67,6 +67,8 @@ const IconTrash = {
 }
 
 let resJSON = undefined
+
+
 const IconComputer = {
     x: 10,
     y: 150,
