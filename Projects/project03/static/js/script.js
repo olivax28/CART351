@@ -5,43 +5,54 @@
 * https://p5js.org/
  */
 
+
+
+
 "use strict";
 
-// mongodb+srv://juliax28:<db_password>@cluster0.8hjwugp.mongodb.net/?appName=Cluster0
-
-// const fortuneText01 = [
-//     "Fortune 01 has a random fill",
-//     "Fortune 01 has two lines"
-
-// ]
-
-// const fortuneText02 = [
-//     "This is the start of Fortune 02",
-//     "Fortune 02 has a random fill"
-// ]
-// const fortuneText03 = [
-//     "Fortune 03 has a random fill",
-//     "Fortune 03 has three lines",
-//     "End of Fortune 03"
-// ]
-// const fortuneText04 = [
-//     "Fortune 04 has a random fill",
-//     "Fortune 04 has three lines",
-//     "End of Fortune 04"
-// ]
-// let speechBox = {
-//     x: 350,
-//     y: 300,
-//     width: 400,
-//     height: 100,
-//     padding: 20,
-//     fontSize: 18
-// };
-
-// let dialogueIndex = 0;
 
 
-// let finalFortune = undefined;
+/* PLEASE DO NOT CHANGE THIS FRAMEWORK ....
+the get requests are all implemented and working ... 
+so there is no need to alter ANY of the existing code: 
+rather you just ADD your own ... */
+
+// window.onload = function () {
+//   document.querySelector("#queryChoice").selectedIndex = 0;
+//   //create once :)
+//   let description = document.querySelector("#Ex4_title");
+//   //array to hold the dataPoints
+//   let dataPoints = [];
+
+//   // /**** GeT THE DATA initially :: default view *******/
+//   // /*** no need to change this one  **/
+//   runQueryDefault("onload");
+
+//   /***** Get the data from drop down selection ****/
+//   let querySelectDropDown = document.querySelector("#queryChoice");
+
+//   querySelectDropDown.onchange = function () {
+//     console.log(this.value);
+//     let copyVal = this.value;
+//     console.log(copyVal);
+//     runQuery(copyVal);
+//   };
+
+//   /******************* RUN QUERY***************************  */
+  async function runQuery() {
+    // // //build the url -end point
+    const url = '/senddatatoP5';
+   
+      let res = await fetch(url);
+      resJSON = await res.json();
+      console.log(resJSON.data);
+    addFish(resJSON.data.length);
+       
+    //   state = "welcome";
+    state = "desktop";
+    // return resJSON
+
+    }
 
 let desktopIMG = undefined
 
@@ -55,7 +66,7 @@ const IconTrash = {
 
 }
 
-
+let resJSON = undefined
 const IconComputer = {
     x: 10,
     y: 150,
@@ -118,15 +129,17 @@ let numOfFish = 5
 
 function preload() {
     //load images
-    desktopIMG = loadImage("assets/desktop.png");
+    desktopIMG = loadImage("./static/assets/desktop.png");
     soundFormats("mp3");
+   
+    
     // shootSound = loadSound("assets/sounds/8bit_shoot.mp3");
 }
 
 
 // let state = "fortune"
 
-let state = "welcome"
+let state = "loading"
 
 let inputState = "name"
 
@@ -142,7 +155,9 @@ let memory = ""
 */
 function setup() {
     createCanvas(1280, 1024);
-    addFish();
+    runQuery();
+    //  canvas.parent("p5Container"); // Attach the canvas to the div with id 'p5Container'
+    // addFish();
 }
 
 
@@ -350,12 +365,12 @@ function wIconPick(welcomeIcon){
 
 
 
-function addFish() {
+function addFish(fishNum) {
 
-    for (let i = 0; i < numOfFish; i++) {
+    console.log(fishNum)
+    for (let i = 0; i < fishNum; i++) {
         const fish = createfish();
         fishes.push(fish);
-
         console.log("fish created")
 
     }
