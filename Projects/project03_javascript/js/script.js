@@ -96,7 +96,7 @@ function preload() {
 
 // let state = "fortune"
 
-let state = "trashbin"
+let state = "desktop"
 
 // let inputState = "name"
 
@@ -281,7 +281,7 @@ function drawBadEye() {
     let centerX = width / 2;
     let centerY = height / 2;
 
-    let d = 350;
+    let d = 300;
 
     let x1 = map(mouseX, 0, width, centerX - d / 6, centerX + d / 6,);
     let y = map(mouseY, 0, height, centerY - d / 6, centerY + d / 6,);
@@ -293,7 +293,7 @@ function drawBadEye() {
 
     // Pupil
     fill("#000000ff");
-    circle(x1, y, 100);
+    circle(x1, y, 150);
 
 }
 
