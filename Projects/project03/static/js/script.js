@@ -11,33 +11,6 @@
 "use strict";
 
 
-
-/* PLEASE DO NOT CHANGE THIS FRAMEWORK ....
-the get requests are all implemented and working ... 
-so there is no need to alter ANY of the existing code: 
-rather you just ADD your own ... */
-
-// window.onload = function () {
-//   document.querySelector("#queryChoice").selectedIndex = 0;
-//   //create once :)
-//   let description = document.querySelector("#Ex4_title");
-//   //array to hold the dataPoints
-//   let dataPoints = [];
-
-//   // /**** GeT THE DATA initially :: default view *******/
-//   // /*** no need to change this one  **/
-//   runQueryDefault("onload");
-
-//   /***** Get the data from drop down selection ****/
-//   let querySelectDropDown = document.querySelector("#queryChoice");
-
-//   querySelectDropDown.onchange = function () {
-//     console.log(this.value);
-//     let copyVal = this.value;
-//     console.log(copyVal);
-//     runQuery(copyVal);
-//   };
-
 //   /******************* RUN QUERY***************************  */
 async function runQuery() {
     // // //build the url -end point
@@ -49,7 +22,7 @@ async function runQuery() {
     addFish(resJSON.data.length);
 
     //   state = "welcome";
-    state = "desktop";
+    state = "welcome";
     // return resJSON
 
 }
@@ -147,8 +120,8 @@ let inputState = "name"
 
 let nameToSave = ""
 
-let memory = ""
-// let memoryType = ""
+let enteredMemory = ""
+let memoryType = ""
 
 
 
@@ -200,12 +173,14 @@ function draw() {
 function welcomePage() {
     background(200, 200, 0);
 
-    displayInfo(`Name: ${nameToSave} Memory: ${memory}`, width / 2, height / 2 + 20);
+    displayInfo(`Name: ${nameToSave} Memory: ${enteredMemory}`, width / 2, height / 2 + 20);
     // sendData({ name: nameToSave, birthdate: birthYear});
-
     Wdrawselect(WChildhood);
     Wdrawselect(WGood);
     Wdrawselect(Wbad);
+    wIconPick(WChildhood);
+    wIconPick(Wbad);
+    wIconPick(WGood);
 
 }
 
@@ -359,7 +334,7 @@ function wIconPick(welcomeIcon) {
             mouseY < welcomeIcon.y + welcomeIcon.h;
 
         if (mouseIconOverlap && mouseIsPressed) {
-            state = welcomeIcon.state
+            memoryType = welcomeIcon.catr
         }
         // sendData({ catr: welcomeIcon.catr});
     }
@@ -405,19 +380,6 @@ function drawBadEye() {
 
 // NOTE to have the back button working in all the states, we can add that into the state object and factor it into iconPick
 
-// function fortune() {
-//     background(59, 13, 79);
-//     showFortune(finalFortune);
-//     //select random fortune on a click
-
-// }
-
-// function mouseClicked() {
-//     if (state === "fortune") {
-//         dialogueIndex++;
-//     }
-
-// }
 
 //check key press
 function keyPressed(e) {
@@ -443,18 +405,22 @@ function keyPressed(e) {
 
         else if (inputState === "memory") {
 
-            if (memory.length >= 2 && e.keyCode !== 13) {
+            if (enteredMemory.length >= 100 && e.keyCode !== 13) {
                 state = "desktop"
+
+                sendData({ name: nameToSave, memory: enteredMemory, type: memoryType });
 
             }
 
-            else if (e.keyCode >= 48 && e.keyCode <= 58) {
+            else if ((e.keyCode >= 65 && e.keyCode <= 90) ||
+                (e.keyCode >= 97 && e.keyCode <= 122)) {
 
-                memory += key;
+                enteredMemory += key;
             }
 
             else if (e.keyCode === 13) {
                 state = "desktop"
+                sendData({ name: nameToSave, memory: enteredMemory, type: memoryType });
 
             }
 
@@ -467,71 +433,18 @@ function keyPressed(e) {
 
 async function sendData(gameData) {
     const queryParams = new URLSearchParams(gameData).toString();
-    const url = `/insertData${queryParams}`;
+    console.log(queryParams);
+    //build the url -end point
+    const url = `/postDataFetch?${queryParams}`;
     try {
-        document.querySelector("#message").innerHTML = "INSERTING DATA DO NOT CLICK AGAIN"
         let res = await fetch(url);
         let resJSON = await res.json();
-        console.log(resJSON)
-        document.querySelector("#message").innerHTML = "DONE DO NOT CLICK AGAIN"
-        hasBeenClicked = true;
-        return
-
+        console.log(resJSON);
+        console.log("gameDataSent");
     } catch (err) {
         console.log(err);
     }
 }
-
-
-
-
-
-
-// function showFortune(dialogue) {
-
-//     // The background box
-//     push();
-//     fill(0);
-//     stroke(255);
-//     strokeWeight(3);
-//     rect(speechBox.x, speechBox.y, speechBox.width, speechBox.height);
-//     pop();
-
-//     //the dialogue itself
-//     push();
-//     fill(255);
-//     textSize(18);
-//     text(dialogue[dialogueIndex], speechBox.x + speechBox.padding, speechBox.y + speechBox.padding, speechBox.width - 2 * speechBox.padding, speechBox.height - 2 * speechBox.padding);
-//     pop();
-// }
-
-
-
-// function calcFortune() {
-//     const chance = parseInt(birthYear) / 100
-//     //inspired by probability sketch from the p5 documentation (concidentally by Pippin Barr)
-//     // Very rare! 1% of the time!
-//     if (chance < 0.01) {
-//         finalFortune = fortuneText01;
-//     }
-//     // Between 0.01 and 0.21 means this one is 20% of the time
-//     else if (chance < 0.21) {
-//         finalFortune = fortuneText02;
-//     }
-//     // Between 0.21 and 0.51 means this one is 30% of the time
-//     else if (chance < 0.51) {
-//         finalFortune = fortuneText03
-//     }
-//     // Between 0.51 and 1.0 means this one is 49% of the time
-//     else {
-//         finalFortune = fortuneText04
-//     }
-//     console.log(chance)
-
-//     // So, we have put a value into drop based on probabilities!
-// }
-
-
 
 
 
