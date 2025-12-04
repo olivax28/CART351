@@ -29,12 +29,14 @@ def getDataFromP5():
     app.logger.info(request.args["name"])
     app.logger.info(request.args["memory"])
     app.logger.info(request.args["type"])
-
+    mongo.db.userMemories.insert_one({'name':request.args["name"],'memory': request.args['memory'],'type':request.args['type']})
+    
     return({"inFile":"false"})
 
 @app.route('/senddatatoP5')
 def sendDatatop5():
     results = mongo.db.userMemories.find()
+  
     print(results)
     return({"data":results})
 

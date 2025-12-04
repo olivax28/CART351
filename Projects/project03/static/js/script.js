@@ -435,7 +435,7 @@ async function sendData(gameData) {
     const queryParams = new URLSearchParams(gameData).toString();
     console.log(queryParams);
     //build the url -end point
-    const url = `/postDataFetch?${queryParams}`;
+    const url = `/getDataFromP5?${queryParams}`;
     try {
         let res = await fetch(url);
         let resJSON = await res.json();
