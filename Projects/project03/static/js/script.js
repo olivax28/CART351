@@ -39,20 +39,20 @@ rather you just ADD your own ... */
 //   };
 
 //   /******************* RUN QUERY***************************  */
-  async function runQuery() {
+async function runQuery() {
     // // //build the url -end point
     const url = '/senddatatoP5';
-   
-      let res = await fetch(url);
-      resJSON = await res.json();
-      console.log(resJSON.data);
+
+    let res = await fetch(url);
+    resJSON = await res.json();
+    console.log(resJSON.data);
     addFish(resJSON.data.length);
-       
+
     //   state = "welcome";
     state = "desktop";
     // return resJSON
 
-    }
+}
 
 let desktopIMG = undefined
 
@@ -133,8 +133,8 @@ function preload() {
     //load images
     desktopIMG = loadImage("./static/assets/desktop.png");
     soundFormats("mp3");
-   
-    
+
+
     // shootSound = loadSound("assets/sounds/8bit_shoot.mp3");
 }
 
@@ -169,7 +169,7 @@ function setup() {
 function draw() {
     background(0, 0, 0);
 
- if (state === "welcome") {
+    if (state === "welcome") {
         welcomePage();
 
 
@@ -202,7 +202,7 @@ function welcomePage() {
 
     displayInfo(`Name: ${nameToSave} Memory: ${memory}`, width / 2, height / 2 + 20);
     // sendData({ name: nameToSave, birthdate: birthYear});
-    
+
     Wdrawselect(WChildhood);
     Wdrawselect(WGood);
     Wdrawselect(Wbad);
@@ -223,7 +223,7 @@ function desktop() {
     iconPick(IconComputer)
     drawselect(IconComputer)
 
-   
+
 
 }
 
@@ -349,9 +349,9 @@ function iconPick(icon) {
             state = icon.state
         }
     }
-    
+
 }
-function wIconPick(welcomeIcon){
+function wIconPick(welcomeIcon) {
     if (state === "welcome") {
         const mouseIconOverlap = mouseX > welcomeIcon.x &&
             mouseX < welcomeIcon.x + welcomeIcon.w &&
@@ -361,7 +361,7 @@ function wIconPick(welcomeIcon){
         if (mouseIconOverlap && mouseIsPressed) {
             state = welcomeIcon.state
         }
-          // sendData({ catr: welcomeIcon.catr});
+        // sendData({ catr: welcomeIcon.catr});
     }
 }
 
@@ -442,20 +442,20 @@ function keyPressed(e) {
         }
 
         else if (inputState === "memory") {
-           
+
             if (memory.length >= 2 && e.keyCode !== 13) {
                 state = "desktop"
-               
+
             }
 
             else if (e.keyCode >= 48 && e.keyCode <= 58) {
-                
+
                 memory += key;
             }
 
             else if (e.keyCode === 13) {
                 state = "desktop"
-                
+
             }
 
         }
@@ -465,6 +465,22 @@ function keyPressed(e) {
 
 }
 
+async function sendData(gameData) {
+    const queryParams = new URLSearchParams(gameData).toString();
+    const url = `/insertData${queryParams}`;
+    try {
+        document.querySelector("#message").innerHTML = "INSERTING DATA DO NOT CLICK AGAIN"
+        let res = await fetch(url);
+        let resJSON = await res.json();
+        console.log(resJSON)
+        document.querySelector("#message").innerHTML = "DONE DO NOT CLICK AGAIN"
+        hasBeenClicked = true;
+        return
+
+    } catch (err) {
+        console.log(err);
+    }
+}
 
 
 
