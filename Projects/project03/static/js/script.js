@@ -20,6 +20,7 @@ async function runQuery() {
     resJSON = await res.json();
     console.log(resJSON.data);
     addFish(resJSON.data.length);
+    determineFishText();
 
     //   state = "welcome";
     state = "welcome";
@@ -36,6 +37,14 @@ const IconTrash = {
     h: 50,
     fill: "#25eeccff",
     state: "trashbin"
+
+}
+let fishBlurb = {
+    x: undefined,
+    y: undefined,
+    text: undefined,
+    width: undefined,
+    length: undefined
 
 }
 
@@ -231,7 +240,6 @@ function Wdrawselect(welcomeIcon) {
     fill(welcomeIcon.fill);
     rect(welcomeIcon.x, welcomeIcon.y, welcomeIcon.w, welcomeIcon.h);
     pop();
-
 }
 
 
@@ -252,6 +260,7 @@ function myComputer() {
     for (let i of fishes) {
         drawFish(i);
         animateFish(i);
+
     }
     // drawFish(fish01)
     // animateFish(fish01)
@@ -268,32 +277,55 @@ function displayInfo(infoText, x, y) {
 }
 
 
-function createfish() {
+function defineFish() {
 
     const fish01 = {
         x: random(-5, 0),
         y: random(0, height),
         size: 50,
-        // secondSize: 30,
-        // centerSize: 15,
         speed: 1.5,
         mainFill: "#cb0000",
-        // secondFill: "#FFFFFF"
+        //define text in here?
     };
 
     return fish01
 }
 
+
+let fishtext = undefined
 // draws the fish for My Computer
 function drawFish(fish) {
     push();
     noStroke();
     fill(fish.mainFill);
     ellipse(fish.x, fish.y, fish.size);
-    pop();
+    push();
+    // console.log(resJSON.data[1].name)
     push();
     noStroke();
+    fill("#000000");
+    rect(fish.x, fish.y + 10, 20, 10);
+    textAlign(CENTER);
+    textFont('Courier New');
+    textSize(100);
+    fill("#000000");
+    text(fishtext, fish.x, fish.y);
+    pop();
+
 }
+
+// function drawFishBlurb(fish, fishText) {
+//     push();
+//     noStroke();
+//     fill("#000000");
+//     rect(fish.x, fish.y + 10, 20, 10);
+//     textAlign(CENTER);
+//     textFont('Courier New');
+//     textSize(100);
+//     fill("#000000");
+//     text(fishText, fish.x, fish.y);
+//     pop();
+// }
 
 
 function animateFish(fish) {
@@ -336,7 +368,7 @@ function wIconPick(welcomeIcon) {
         if (mouseIconOverlap && mouseIsPressed) {
             memoryType = welcomeIcon.catr
         }
-        // sendData({ catr: welcomeIcon.catr});
+
     }
 }
 
@@ -344,14 +376,24 @@ function wIconPick(welcomeIcon) {
 
 function addFish(fishNum) {
 
-    console.log(fishNum)
+    // console.log(fishNum)
     for (let i = 0; i < fishNum; i++) {
-        const fish = createfish();
+        // console.log(resJSON.data[1].name)
+        const fish = defineFish();
         fishes.push(fish);
         console.log("fish created")
 
     }
 
+}
+
+
+function determineFishText() {
+    let fishNum = resJSON.data.length
+    for (let i = 0; i < fishNum; i++) {
+        fishtext = resJSON.data[i].type
+        console.log(resJSON.data[i].type)
+    }
 }
 
 
