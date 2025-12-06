@@ -139,11 +139,11 @@ function keyPressed(e) {
 
         else if (inputState === "bday") {
             console.log(birthYear)
-            if (birthYear.length >= 2 && e.keyCode !== 13){
-                state="fortune"
-                 calcFortune();
+            if (birthYear.length >= 2 && e.keyCode !== 13) {
+                state = "fortune"
+                calcFortune();
             }
-            
+
             else if (e.keyCode >= 48 && e.keyCode <= 58) {
                 console.log("tesat")
                 console.log(key)
@@ -196,7 +196,7 @@ function showFortune(dialogue) {
 
 
 function calcFortune() {
-    const chance = parseInt(birthYear)/100
+    const chance = parseInt(birthYear) / 100
     //inspired by probability sketch from the p5 documentation (concidentally by Pippin Barr)
     // Very rare! 1% of the time!
     if (chance < 0.01) {

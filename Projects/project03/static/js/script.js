@@ -20,7 +20,7 @@ async function runQuery() {
     resJSON = await res.json();
     console.log(resJSON.data);
     addFish(resJSON.data.length);
-    determineFishText();
+    // determineFishText();
 
     //   state = "welcome";
     state = "welcome";
@@ -28,6 +28,12 @@ async function runQuery() {
 
 }
 
+
+let fishtext = undefined
+
+let fishcolor = undefined
+
+let fishSprite = undefined
 let desktopIMG = undefined
 
 const IconTrash = {
@@ -137,7 +143,12 @@ let nameToSave = ""
 let enteredMemory = ""
 let memoryType = ""
 
-
+let infoBox = {
+    width: 100,
+    height: 50,
+    padding: 5,
+    fontSize: 18
+};
 
 /**
  * creates the canvas
@@ -279,13 +290,16 @@ function displayInfo(infoText, x, y) {
 }
 
 
-function defineFish() {
+//NEW SABINE
+function defineFish(incomingFishSprite, incomingtype) {
 
     const fish01 = {
         x: random(-5, 0),
         y: random(0, height),
         size: 50,
-        speed: 1.5,
+        speed: random(0.5, 2),
+        fishSprite: incomingFishSprite,
+        fishtext: incomingtype
         // mainFill: "#cb0000",
         //define text in here?
     };
@@ -294,46 +308,37 @@ function defineFish() {
 }
 
 
-let fishtext = undefined
-
-let fishcolor = undefined
-
-let fishSprite = undefined
 // draws the fish for My Computer
 function drawFish(fish) {
     push();
     noStroke();
+    fill("#598fe0ff");
+    rect(fish.x + 10, fish.y - 20, infoBox.width, 20);
+    pop();
+    push();
+    noStroke();
     // fill(fishcolor);
     // ellipse(fish.x, fish.y, fish.size);
-    image(fishSprite, fish.x, fish.y);
+    //SABINE ADDED
+    image(fish.fishSprite, fish.x, fish.y);
     push();
     // console.log(resJSON.data[1].name)
     push();
     noStroke();
-    fill("#000000ff");
-    rect(fish.x, fish.y + 10, 20, 10);
+    fill("#f1e6b1ff");
+    rect(fish.x + 10, fish.y - 15, infoBox.width, infoBox.height);
+    // rect(fish.x, fish.y + 10, fish.fishtext.length * 5, 20);
     textAlign(CENTER);
     textFont('Courier New');
-    textSize(100);
-    fill("#000000");
-    text(fishtext, fish.x, fish.y);
+    textSize(10);
+    fill("#000000ff");
+    //SABINE ADDED
+    // text(fish.fishtext, fish.x + 10, fish.y + 10, 20, 50);
+    text(fish.fishtext, fish.x + 10 + infoBox.padding, fish.y - 15 + infoBox.padding, infoBox.width - 2 * infoBox.padding, infoBox.height - 2 * infoBox.padding);
     pop();
 
+
 }
-
-// function drawFishBlurb(fish, fishText) {
-//     push();
-//     noStroke();
-//     fill("#000000");
-//     rect(fish.x, fish.y + 10, 20, 10);
-//     textAlign(CENTER);
-//     textFont('Courier New');
-//     textSize(100);
-//     fill("#000000");
-//     text(fishText, fish.x, fish.y);
-//     pop();
-// }
-
 
 function animateFish(fish) {
     // Move the target
@@ -346,8 +351,8 @@ function animateFish(fish) {
 
 
 function resetFish(fish) {
-    fish.x = 0;
-    fish.y = random(0, 300);
+    fish.x = -5;
+    fish.y = random(0, height);
 }
 
 
@@ -386,7 +391,11 @@ function addFish(fishNum) {
     // console.log(fishNum)
     for (let i = 0; i < fishNum; i++) {
         // console.log(resJSON.data[1].name)
-        const fish = defineFish();
+
+        //SABINE HERE  - you want to add the fish text and fish Sprite to the fish object
+        let fishSPRITE = determineFishText(resJSON.data[i])
+        //now give the fish text and sprite to be a part of the fish object
+        const fish = defineFish(fishSPRITE, resJSON.data[i].memory);
         fishes.push(fish);
         console.log("fish created")
 
@@ -395,21 +404,29 @@ function addFish(fishNum) {
 }
 
 
-function determineFishText() {
-    let fishNum = resJSON.data.length
-    for (let i = 0; i < fishNum; i++) {
-        fishtext = resJSON.data[i].type
-        console.log(resJSON.data[i].type)
-        if (fishtext == "Bad") {
-            fishSprite = lionFishIMG
-        }
-        if (fishtext == "Good") {
-            fishSprite = blueFishIMG
-        }
-        if (fishtext == "childhood") {
-            fishSprite = clownFishIMG
-        }
+// perhaps rename - as one really just determines the sprite
+function determineFishText(dataforAFISH) {
+    //let fishNum = resJSON.data.length
+    //NO NEED
+    // console.log(dataforAFISH)
+    fishtext = dataforAFISH.type
+    if (fishtext == "Bad") {
+        fishSprite = lionFishIMG
     }
+    else if (fishtext == "Good") {
+        fishSprite = blueFishIMG
+    }
+    else if (fishtext == "childhood") {
+        fishSprite = clownFishIMG
+    }
+    //you need a default case cause sometimes you have no type in your data
+    else {
+        fishSprite = blueFishIMG
+
+    }
+
+    return fishSprite;
+
 }
 
 
@@ -471,7 +488,7 @@ function keyPressed(e) {
             }
 
             else if ((e.keyCode >= 65 && e.keyCode <= 90) ||
-                (e.keyCode >= 97 && e.keyCode <= 122)) {
+                (e.keyCode >= 97 && e.keyCode <= 122) || (e.keyCode == 32)) {
 
                 enteredMemory += key;
             }
