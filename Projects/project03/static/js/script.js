@@ -74,8 +74,8 @@ const backButton = {
 }
 
 const WChildhood = {
-    x: 500,
-    y: 150,
+    x: 700,
+    y: 400,
     w: 50,
     h: 50,
     fill: "#6b25eeff",
@@ -83,8 +83,8 @@ const WChildhood = {
 
 }
 const WGood = {
-    x: 300,
-    y: 150,
+    x: 600,
+    y: 400,
     w: 50,
     h: 50,
     fill: "#25ee65ff",
@@ -92,8 +92,8 @@ const WGood = {
 
 }
 const Wbad = {
-    x: 200,
-    y: 150,
+    x: 500,
+    y: 400,
     w: 50,
     h: 50,
     fill: "#ee25a8ff",
@@ -109,11 +109,16 @@ let fishes = [];
 
 let numOfFish = 5
 
-
+let lionFishIMG = undefined
+let clownFishIMG = undefined
+let blueFishIMG = undefined
 
 function preload() {
     //load images
     desktopIMG = loadImage("./static/assets/desktop.png");
+    lionFishIMG = loadImage("./static/assets/lionfish.png");
+    clownFishIMG = loadImage("./static/assets/clownfish.png");
+    blueFishIMG = loadImage("./static/assets/bluefish.png");
     soundFormats("mp3");
 
 
@@ -180,7 +185,7 @@ function draw() {
 
 
 function welcomePage() {
-    background(200, 200, 0);
+    background(250, 250, 250);
 
     displayInfo(`Name: ${nameToSave} Memory: ${enteredMemory}`, width / 2, height / 2 + 20);
     // sendData({ name: nameToSave, birthdate: birthYear});
@@ -206,9 +211,6 @@ function desktop() {
     drawselect(IconTrash)
     iconPick(IconComputer)
     drawselect(IconComputer)
-
-
-
 }
 
 
@@ -269,7 +271,7 @@ function myComputer() {
 
 function displayInfo(infoText, x, y) {
     push();
-    fill("#ee53fcff");
+    fill("#53b0fcff");
     textSize(30);
     textAlign(CENTER);
     text(infoText.toUpperCase(), x, y);
@@ -284,7 +286,7 @@ function defineFish() {
         y: random(0, height),
         size: 50,
         speed: 1.5,
-        mainFill: "#cb0000",
+        // mainFill: "#cb0000",
         //define text in here?
     };
 
@@ -295,12 +297,15 @@ function defineFish() {
 let fishtext = undefined
 
 let fishcolor = undefined
+
+let fishSprite = undefined
 // draws the fish for My Computer
 function drawFish(fish) {
     push();
     noStroke();
-    fill(fishcolor);
-    ellipse(fish.x, fish.y, fish.size);
+    // fill(fishcolor);
+    // ellipse(fish.x, fish.y, fish.size);
+    image(fishSprite, fish.x, fish.y);
     push();
     // console.log(resJSON.data[1].name)
     push();
@@ -396,13 +401,13 @@ function determineFishText() {
         fishtext = resJSON.data[i].type
         console.log(resJSON.data[i].type)
         if (fishtext == "Bad") {
-            fishcolor = "#a70b0bff"
+            fishSprite = lionFishIMG
         }
         if (fishtext == "Good") {
-            fishcolor = "#25a70bff"
+            fishSprite = blueFishIMG
         }
         if (fishtext == "childhood") {
-            fishcolor = "#a70b85ff"
+            fishSprite = clownFishIMG
         }
     }
 }
