@@ -80,8 +80,8 @@ const backButton = {
 }
 
 const WChildhood = {
-    x: 700,
-    y: 400,
+    x: 350,
+    y: 300,
     w: 50,
     h: 50,
     fill: "#6b25eeff",
@@ -89,8 +89,8 @@ const WChildhood = {
 
 }
 const WGood = {
-    x: 600,
-    y: 400,
+    x: 450,
+    y: 300,
     w: 50,
     h: 50,
     fill: "#25ee65ff",
@@ -98,8 +98,8 @@ const WGood = {
 
 }
 const Wbad = {
-    x: 500,
-    y: 400,
+    x: 550,
+    y: 300,
     w: 50,
     h: 50,
     fill: "#ee25a8ff",
@@ -118,6 +118,8 @@ let numOfFish = 5
 let lionFishIMG = undefined
 let clownFishIMG = undefined
 let blueFishIMG = undefined
+let fishBG = undefined
+let fishLamp = undefined
 
 function preload() {
     //load images
@@ -125,6 +127,8 @@ function preload() {
     lionFishIMG = loadImage("./static/assets/lionfish.png");
     clownFishIMG = loadImage("./static/assets/clownfish.png");
     blueFishIMG = loadImage("./static/assets/bluefish.png");
+    fishBG = loadImage("./static/assets/fish_bg.png");
+    fishLamp = loadImage("./static/assets/fish_lamp.png");
     soundFormats("mp3");
 
 
@@ -154,7 +158,7 @@ let infoBox = {
  * creates the canvas
 */
 function setup() {
-    createCanvas(1280, 1024);
+    createCanvas(1024, 768);
     runQuery();
     //  canvas.parent("p5Container"); // Attach the canvas to the div with id 'p5Container'
     // addFish();
@@ -269,12 +273,20 @@ function trashBin() {
 
 function myComputer() {
     background(0, 100, 200);
+    push();
+    imageMode(CENTER);
+    image(fishBG, width / 2, height / 2 - 50);
+    pop();
 
     for (let i of fishes) {
         drawFish(i);
         animateFish(i);
 
     }
+    push();
+    imageMode(CENTER);
+    image(fishLamp, width / 2, height / 2);
+    pop();
     // drawFish(fish01)
     // animateFish(fish01)
 
@@ -314,6 +326,13 @@ function drawFish(fish) {
     noStroke();
     fill("#598fe0ff");
     rect(fish.x + 10, fish.y - 20, infoBox.width, 20);
+    pop();
+    push();
+    noStroke();
+    push();
+    noStroke();
+    fill("#d42222ff");
+    rect(fish.x + 100, fish.y - 20, 10, 20);
     pop();
     push();
     noStroke();
