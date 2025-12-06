@@ -293,17 +293,19 @@ function defineFish() {
 
 
 let fishtext = undefined
+
+let fishcolor = undefined
 // draws the fish for My Computer
 function drawFish(fish) {
     push();
     noStroke();
-    fill(fish.mainFill);
+    fill(fishcolor);
     ellipse(fish.x, fish.y, fish.size);
     push();
     // console.log(resJSON.data[1].name)
     push();
     noStroke();
-    fill("#000000");
+    fill("#000000ff");
     rect(fish.x, fish.y + 10, 20, 10);
     textAlign(CENTER);
     textFont('Courier New');
@@ -393,6 +395,15 @@ function determineFishText() {
     for (let i = 0; i < fishNum; i++) {
         fishtext = resJSON.data[i].type
         console.log(resJSON.data[i].type)
+        if (fishtext == "Bad") {
+            fishcolor = "#a70b0bff"
+        }
+        if (fishtext == "Good") {
+            fishcolor = "#25a70bff"
+        }
+        if (fishtext == "childhood") {
+            fishcolor = "#a70b85ff"
+        }
     }
 }
 
