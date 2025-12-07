@@ -114,7 +114,6 @@ let fishcolor = undefined
 
 let fishSprite = undefined
 let desktopIMG = undefined
-
 let lionFishIMG = undefined
 let clownFishIMG = undefined
 let blueFishIMG = undefined
@@ -452,15 +451,20 @@ function addFish(fishNum) {
 function addTV(TVnum) {
     for (let i = 0; i < TVnum; i++) {
         // console.log(resJSON.data[1].name)
-
+        console.log(resJSON.data[i].type)
+        console.log(i)
         //SABINE HERE  - you want to add the fish text and fish Sprite to the fish object
         // let tvSPRITE = determineTVimage(resJSON.data[i])
         //now give the fish text and sprite to be a part of the fish object
         // const TV = defineTV(tvSPRITE, resJSON.data[i].type);
         const TV = defineTV();
-        TVs.push(TV);
-        console.log("TV created")
+        if (resJSON.data[i].type === "Bad") {
+            TVs.push(TV);
+            console.log("TV created")
+        }
+
     }
+
 }
 
 
