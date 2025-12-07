@@ -20,6 +20,7 @@ async function runQuery() {
     resJSON = await res.json();
     console.log(resJSON.data);
     addFish(resJSON.data.length);
+    addTV(resJSON.data.length);
     // determineFishText();
 
     //   state = "welcome";
@@ -108,12 +109,11 @@ const Wbad = {
 }
 
 
-
+//arrays dfined for the data visualizations
 let fishes = [];
+let TVs = [];
 
 
-
-let numOfFish = 5
 
 let lionFishIMG = undefined
 let clownFishIMG = undefined
@@ -266,6 +266,10 @@ function trashBin() {
     drawselect(backButton);
     drawBadEye();
 
+    for (let i of TVs) {
+        drawTv(i);
+    }
+
 
 }
 
@@ -281,7 +285,6 @@ function myComputer() {
     for (let i of fishes) {
         drawFish(i);
         animateFish(i);
-
     }
     push();
     imageMode(CENTER);
@@ -312,11 +315,25 @@ function defineFish(incomingFishSprite, incomingtype) {
         speed: random(0.5, 2),
         fishSprite: incomingFishSprite,
         fishtext: incomingtype
-        // mainFill: "#cb0000",
-        //define text in here?
     };
 
     return fish01
+}
+
+
+
+function defineTV() {
+
+    const tvOBJ = {
+        x: random(50, 100),
+        y: random(0, height),
+        w: 50,
+        h: 50,
+        color: "#1e1bd4ff",
+        // tvScreen: incomingScreen
+    };
+
+    return tvOBJ
 }
 
 
@@ -354,6 +371,21 @@ function drawFish(fish) {
     //SABINE ADDED
     // text(fish.fishtext, fish.x + 10, fish.y + 10, 20, 50);
     text(fish.fishtext, fish.x + 10 + infoBox.padding, fish.y - 15 + infoBox.padding, infoBox.width - 2 * infoBox.padding, infoBox.height - 2 * infoBox.padding);
+    pop();
+
+
+}
+
+function drawTv(TV) {
+    push();
+    noStroke();
+    fill("#598fe0ff");
+    rect(TV.x + 10, TV.y, TV.w, TV.h);
+    pop();
+    push();
+    noStroke();
+    fill("#d42222ff");
+    rect(TV.x, TV.y, 10, 20);
     pop();
 
 
@@ -417,9 +449,22 @@ function addFish(fishNum) {
         const fish = defineFish(fishSPRITE, resJSON.data[i].memory);
         fishes.push(fish);
         console.log("fish created")
-
     }
 
+}
+
+function addTV(TVnum) {
+    for (let i = 0; i < TVnum; i++) {
+        // console.log(resJSON.data[1].name)
+
+        //SABINE HERE  - you want to add the fish text and fish Sprite to the fish object
+        // let tvSPRITE = determineTVimage(resJSON.data[i])
+        //now give the fish text and sprite to be a part of the fish object
+        // const TV = defineTV(tvSPRITE, resJSON.data[i].type);
+        const TV = defineTV();
+        TVs.push(TV);
+        console.log("TV created")
+    }
 }
 
 
