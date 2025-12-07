@@ -120,6 +120,7 @@ let blueFishIMG = undefined
 let fishBG = undefined
 let fishLamp = undefined
 let tvSPRITE = undefined
+let tvScreen = undefined
 
 function preload() {
     //load images
@@ -131,6 +132,7 @@ function preload() {
     fishLamp = loadImage("./static/assets/fish_lamp.png");
     soundFormats("mp3");
     tvSPRITE = loadImage("./static/assets/tv_sprite.png");
+    tvScreen = loadImage("./static/assets/staticGIF.gif")
 
     // shootSound = loadSound("assets/sounds/8bit_shoot.mp3");
 }
@@ -380,7 +382,15 @@ function drawTv(TV) {
     push();
     noStroke();
     fill("#598fe0ff");
-    image(tvSPRITE, TV.x, TV.y);
+    image(tvScreen, TV.x, TV.y);
+    pop();
+
+    push();
+    noStroke();
+    fill("#598fe0ff");
+    // image(tvSPRITE, TV.x, TV.y);
+    tvScreen.resize(250, 0);
+    image(tvSPRITE, TV.x - 70, TV.y - 50);
     pop();
 
 
