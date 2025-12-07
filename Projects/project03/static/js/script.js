@@ -30,12 +30,6 @@ async function runQuery() {
 }
 
 
-let fishtext = undefined
-
-let fishcolor = undefined
-
-let fishSprite = undefined
-let desktopIMG = undefined
 
 const IconTrash = {
     x: 10,
@@ -114,12 +108,19 @@ let fishes = [];
 let TVs = [];
 
 
+let fishtext = undefined
+
+let fishcolor = undefined
+
+let fishSprite = undefined
+let desktopIMG = undefined
 
 let lionFishIMG = undefined
 let clownFishIMG = undefined
 let blueFishIMG = undefined
 let fishBG = undefined
 let fishLamp = undefined
+let tvSPRITE = undefined
 
 function preload() {
     //load images
@@ -130,7 +131,7 @@ function preload() {
     fishBG = loadImage("./static/assets/fish_bg.png");
     fishLamp = loadImage("./static/assets/fish_lamp.png");
     soundFormats("mp3");
-
+    tvSPRITE = loadImage("./static/assets/tv_sprite.png");
 
     // shootSound = loadSound("assets/sounds/8bit_shoot.mp3");
 }
@@ -262,13 +263,13 @@ function Wdrawselect(welcomeIcon) {
 
 function trashBin() {
     background(50, 0, 0);
-    iconPick(backButton);
-    drawselect(backButton);
-    drawBadEye();
 
     for (let i of TVs) {
         drawTv(i);
     }
+    drawBadEye();
+    iconPick(backButton);
+    drawselect(backButton);
 
 
 }
@@ -325,7 +326,7 @@ function defineFish(incomingFishSprite, incomingtype) {
 function defineTV() {
 
     const tvOBJ = {
-        x: random(50, 100),
+        x: random(0, width - 100),
         y: random(0, height),
         w: 50,
         h: 50,
@@ -380,12 +381,7 @@ function drawTv(TV) {
     push();
     noStroke();
     fill("#598fe0ff");
-    rect(TV.x + 10, TV.y, TV.w, TV.h);
-    pop();
-    push();
-    noStroke();
-    fill("#d42222ff");
-    rect(TV.x, TV.y, 10, 20);
+    image(tvSPRITE, TV.x, TV.y);
     pop();
 
 
