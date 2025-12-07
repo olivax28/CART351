@@ -263,14 +263,16 @@ function Wdrawselect(welcomeIcon) {
 
 
 function trashBin() {
-    background(50, 0, 0);
+    background(0, 0, 0);
 
     for (let i of TVs) {
         drawTv(i);
+        TVpick(i);
     }
     drawBadEye();
     iconPick(backButton);
     drawselect(backButton);
+
 
 
 }
@@ -324,14 +326,15 @@ function defineFish(incomingFishSprite, incomingtype) {
 
 
 
-function defineTV() {
+function defineTV(incomingTVtext) {
 
     const tvOBJ = {
         x: random(0, width - 100),
         y: random(0, height),
-        w: 50,
-        h: 50,
+        w: 200,
+        h: 200,
         color: "#1e1bd4ff",
+        tvtext: incomingTVtext
         // tvScreen: incomingScreen
     };
 
@@ -384,7 +387,6 @@ function drawTv(TV) {
     fill("#598fe0ff");
     image(tvScreen, TV.x, TV.y);
     pop();
-
     push();
     noStroke();
     fill("#598fe0ff");
@@ -392,6 +394,11 @@ function drawTv(TV) {
     tvScreen.resize(250, 0);
     image(tvSPRITE, TV.x - 70, TV.y - 50);
     pop();
+    // push();
+    // noStroke();
+    // fill("#f1e6b1ff");
+    // rect(TV.x, TV.y, TV.w, TV.h);
+    // pop();
 
 
 }
@@ -440,7 +447,22 @@ function wIconPick(welcomeIcon) {
     }
 }
 
+function TVpick(TV) {
+    // console.log(resJSON)
+    for (TV of TVs) {
+        console.log(TV)
+        const mouseTVoverlap = mouseX > TV.x &&
+            mouseX < TV.x + TV.w &&
+            mouseY > TV.y &&
+            mouseY < TV.y + TV.h;
+        if (mouseTVoverlap && mouseIsPressed) {
+            console.log("clicked")
+            pupilFill = "#26002bff"
+            pupilText = TV.tvtext
 
+        }
+    }
+}
 
 function addFish(fishNum) {
 
@@ -467,7 +489,7 @@ function addTV(TVnum) {
         // let tvSPRITE = determineTVimage(resJSON.data[i])
         //now give the fish text and sprite to be a part of the fish object
         // const TV = defineTV(tvSPRITE, resJSON.data[i].type);
-        const TV = defineTV();
+        const TV = defineTV(resJSON.data[i].memory);
         if (resJSON.data[i].type === "Bad") {
             TVs.push(TV);
             console.log("TV created")
@@ -504,8 +526,8 @@ function determineFishText(dataforAFISH) {
 }
 
 
-
-
+let pupilFill = "#000000ff"
+let pupilText = "Memory"
 function drawBadEye() {
     // the base code for the eye was found and modified from p5.js.org by user koolaid krusade
     let centerX = width / 2;
@@ -522,8 +544,16 @@ function drawBadEye() {
     ellipse(width / 2, height / 2, 400, 200);
 
     // Pupil
-    fill("#000000ff");
+    push();
+    fill(pupilFill);
     circle(x1, y, 150);
+    textAlign(CENTER);
+    textFont('Courier New');
+    textSize(15);
+    fill("#be2accff");
+    // text(fish.fishtext, fish.x + 10, fish.y + 10, 20, 50);
+    text(pupilText, x1 - 30, y - 20, infoBox.width, infoBox.height);
+    pop();
 
 }
 
