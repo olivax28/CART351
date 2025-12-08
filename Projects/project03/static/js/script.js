@@ -341,6 +341,8 @@ function mediaPlayer() {
     imageMode(CENTER);
     image(mediaPlayerIMG, width / 2, height / 2);
     pop();
+    iconPick(backButton);
+    drawselect(backButton);
 }
 
 function myComputer() {
@@ -358,6 +360,8 @@ function myComputer() {
     imageMode(CENTER);
     image(fishLamp, width / 2, height / 2);
     pop();
+    iconPick(backButton);
+    drawselect(backButton);
 
 }
 
@@ -537,7 +541,7 @@ function resetFish(fish) {
 
 // detects the overlap of the mouse over the title box 
 function iconPick(icon) {
-    if (state === "desktop" || state === "trashbin") {
+    if (state === "desktop" || state === "trashbin" || state === "myComputer" || state == "mediaplayer") {
         const mouseIconOverlap = mouseX > icon.x &&
             mouseX < icon.x + icon.w &&
             mouseY > icon.y &&
