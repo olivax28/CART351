@@ -2,29 +2,24 @@
 <html>
 
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="{{url_for('static',filename='css/base.css')}}">
-    <title>Desktop Memories</title>
-    <!--new add a custom block for the script-->
-    {% block scriptblock %}
-    {% endblock %}
+    <mainOrganize class="mainOrganize">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="{{url_for('static',filename='css/base.css')}}">
+        <title>Desktop Memories</title>
 
+        <!--new add a custom block for the script-->
 
+        {% block scriptblock %}
+        {% endblock %}
+        <main class="mainOrganize">
 
-</head>
+            {% block content %}{% endblock %}
+        </main>
 
-<body>
-    <header>
-
-
-    </header>
-    <main>
-        {% block content %}{% endblock %}
-    </main>
-
-</body>
+        </body>
+    </mainOrganize>
 
 </html>
