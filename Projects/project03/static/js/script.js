@@ -25,7 +25,7 @@ async function runQuery() {
     // determineFishSprite();
 
     //   state = "welcome";
-    state = "desktop";
+    state = "welcome";
     // return resJSON
 
 }
@@ -395,8 +395,8 @@ function defineFish(incomingFishSprite, incomingtype) {
 function defineTV(incomingTVtext) {
 
     const tvOBJ = {
-        x: random(0, width - 100),
-        y: random(0, height),
+        x: random(0, width - 200),
+        y: random(100, height - 300),
         w: 200,
         h: 200,
         color: "#1e1bd4ff",
