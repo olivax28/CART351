@@ -22,7 +22,7 @@ async function runQuery() {
     addFish(resJSON.data.length);
     addTV(resJSON.data.length);
     addPerson(resJSON.data.length);
-    state = "welcome";
+    state = "trashbin";
     // return resJSON
 
 }
@@ -144,6 +144,7 @@ let myComputerIcon = undefined
 let trashbinIcon = undefined
 let mediaplayerIcon = undefined
 let backButtonIMG = undefined
+let eyeIMG = undefined
 
 function preload() {
     //load images
@@ -167,6 +168,7 @@ function preload() {
     trashbinIcon = loadImage("./static/assets/trashbinICON.png")
     mediaplayerIcon = loadImage("./static/assets/mediaplayerICON.png")
     backButtonIMG = loadImage("./static/assets/backButton.png")
+    eyeIMG = loadImage("./static/assets/eye.png")
     // shootSound = loadSound("assets/sounds/8bit_shoot.mp3");
 }
 
@@ -684,12 +686,14 @@ function drawBadEye() {
     // the base code for the eye was found and modified from p5.js.org by user koolaid krusade
     let centerX = width / 2;
     let centerY = height / 2;
-    let d = 300;
+    let d = 200;
     let x1 = map(mouseX, 0, width, centerX - d / 6, centerX + d / 6,);
     let y = map(mouseY, 0, height, centerY - d / 6, centerY + d / 6,);
     // Eye ball
-    fill("#ffffffff");
-    ellipse(width / 2, height / 2, 400, 200);
+    push();
+    imageMode(CENTER);
+    image(eyeIMG, width / 2, height / 2);
+    pop();
     // Pupil
     push();
     fill(pupilFill);
