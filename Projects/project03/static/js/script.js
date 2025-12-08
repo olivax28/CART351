@@ -22,9 +22,6 @@ async function runQuery() {
     addFish(resJSON.data.length);
     addTV(resJSON.data.length);
     addPerson(resJSON.data.length);
-    // determineFishSprite();
-
-    //   state = "welcome";
     state = "welcome";
     // return resJSON
 
@@ -75,8 +72,8 @@ const IconMedia = {
 }
 
 const backButton = {
-    x: 500,
-    y: 150,
+    x: 910,
+    y: 20,
     w: 50,
     h: 50,
     fill: "#6b25eeff",
@@ -146,8 +143,7 @@ let welcomeBG = undefined
 let myComputerIcon = undefined
 let trashbinIcon = undefined
 let mediaplayerIcon = undefined
-
-
+let backButtonIMG = undefined
 
 function preload() {
     //load images
@@ -170,7 +166,7 @@ function preload() {
     myComputerIcon = loadImage("./static/assets/mycomputerICON.png")
     trashbinIcon = loadImage("./static/assets/trashbinICON.png")
     mediaplayerIcon = loadImage("./static/assets/mediaplayerICON.png")
-
+    backButtonIMG = loadImage("./static/assets/backButton.png")
     // shootSound = loadSound("assets/sounds/8bit_shoot.mp3");
 }
 
@@ -250,9 +246,7 @@ function welcomePage() {
     image(welcomeBG, width / 2, height / 2);
     pop();
     displayInfo(`Name: ${nameToSave} Memory: ${enteredMemory}`, width / 2, height / 2 + 50);
-    // Wdrawselect(WChildhood);
-    // Wdrawselect(WGood);
-    // Wdrawselect(Wbad);
+
     wIconPick(WChildhood);
     wIconPick(Wbad);
     wIconPick(WGood);
@@ -284,11 +278,12 @@ function desktop() {
 }
 
 
-function drawselect(icon) {
+function drawselect(icon, iconIMG) {
     push();
     noStroke();
-    fill(icon.fill);
-    rect(icon.x, icon.y, icon.w, icon.h);
+    iconIMG.resize(70, 0)
+    image(iconIMG, icon.x - 10, icon.y - 10);
+    // rect(icon.x, icon.y, icon.w, icon.h);
     pop();
 
 }
@@ -322,7 +317,7 @@ function trashBin() {
     }
     drawBadEye();
     iconPick(backButton);
-    drawselect(backButton);
+    drawselect(backButton, backButtonIMG);
 }
 
 function mediaPlayer() {
@@ -342,7 +337,7 @@ function mediaPlayer() {
     image(mediaPlayerIMG, width / 2, height / 2);
     pop();
     iconPick(backButton);
-    drawselect(backButton);
+    drawselect(backButton, backButtonIMG);
 }
 
 function myComputer() {
@@ -361,7 +356,7 @@ function myComputer() {
     image(fishLamp, width / 2, height / 2);
     pop();
     iconPick(backButton);
-    drawselect(backButton);
+    drawselect(backButton, backButtonIMG);
 
 }
 
