@@ -89,27 +89,27 @@ const IconMedia = {
 
 const WChildhood = {
     x: 350,
-    y: 300,
-    w: 50,
-    h: 50,
+    y: 525,
+    w: 80,
+    h: 90,
     fill: "#6b25eeff",
     catr: "childhood"
 
 }
 const WGood = {
-    x: 450,
-    y: 300,
-    w: 50,
-    h: 50,
+    x: 480,
+    y: 525,
+    w: 80,
+    h: 90,
     fill: "#25ee65ff",
     catr: "Good"
 
 }
 const Wbad = {
-    x: 550,
-    y: 300,
-    w: 50,
-    h: 50,
+    x: 590,
+    y: 525,
+    w: 80,
+    h: 90,
     fill: "#ee25a8ff",
     catr: "Bad"
 
@@ -141,7 +141,7 @@ let mediaplayerBG = undefined
 let personSpriteChildhood = undefined
 let personSpriteHappy = undefined
 let personSpriteBad = undefined
-
+let welcomeBG = undefined
 function preload() {
     //load images
     desktopIMG = loadImage("./static/assets/desktop.png");
@@ -159,6 +159,7 @@ function preload() {
     personSpriteChildhood = loadImage("./static/assets/flowerSprite.png")
     personSpriteHappy = loadImage("./static/assets/PersonSpriteHappy.png")
     personSpriteBad = loadImage("./static/assets/errorSprite.png")
+    welcomeBG = loadImage("./static/assets/introPageBG.png")
 
     // shootSound = loadSound("assets/sounds/8bit_shoot.mp3");
 }
@@ -234,12 +235,14 @@ function draw() {
 
 function welcomePage() {
     background(250, 250, 250);
-
-    displayInfo(`Name: ${nameToSave} Memory: ${enteredMemory}`, width / 2, height / 2 + 20);
-    // sendData({ name: nameToSave, birthdate: birthYear});
-    Wdrawselect(WChildhood);
-    Wdrawselect(WGood);
-    Wdrawselect(Wbad);
+    push();
+    imageMode(CENTER);
+    image(welcomeBG, width / 2, height / 2);
+    pop();
+    displayInfo(`Name: ${nameToSave} Memory: ${enteredMemory}`, width / 2, height / 2 + 50);
+    // Wdrawselect(WChildhood);
+    // Wdrawselect(WGood);
+    // Wdrawselect(Wbad);
     wIconPick(WChildhood);
     wIconPick(Wbad);
     wIconPick(WGood);
@@ -334,8 +337,8 @@ function myComputer() {
 
 function displayInfo(infoText, x, y) {
     push();
-    fill("#53b0fcff");
-    textSize(30);
+    fill("#5f6870ff");
+    textSize(20);
     textAlign(CENTER);
     text(infoText.toUpperCase(), x, y);
     pop();
