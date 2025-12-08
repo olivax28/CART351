@@ -269,14 +269,18 @@ function desktop() {
     image(desktopIMG, width / 2, height / 2);
     pop();
     iconPick(IconTrash);
-    // drawselect(IconTrash);
     drawselectDesktop(IconTrash, trashbinIcon)
     iconPick(IconComputer);
-    // drawselect(IconComputer);
     drawselectDesktop(IconComputer, myComputerIcon)
     iconPick(IconMedia);
-    // drawselect(IconMedia);
     drawselectDesktop(IconMedia, mediaplayerIcon)
+    push();
+    textAlign(CENTER);
+    textFont('Courier New');
+    textSize(20);
+    fill("#ffffffff");
+    text("Welcome. Choose a way of acessing the stored memories.", width / 2, 500);
+    pop();
 }
 
 
@@ -290,7 +294,6 @@ function drawselect(icon) {
 }
 
 
-
 function drawselectDesktop(icon, iconIMG) {
     push();
     imageMode(CENTER);
@@ -298,8 +301,6 @@ function drawselectDesktop(icon, iconIMG) {
     pop();
     push();
     noStroke();
-    // fill(icon.fill);
-    // rect(icon.x, icon.y, icon.w, icon.h);
     pop();
 
 }
@@ -322,9 +323,6 @@ function trashBin() {
     drawBadEye();
     iconPick(backButton);
     drawselect(backButton);
-
-
-
 }
 
 function mediaPlayer() {
@@ -337,7 +335,7 @@ function mediaPlayer() {
         drawPerson(i);
         animatePerson(i);
         determinePersonSprite(i);
-        // animatePerson(i);
+
     }
     push();
     imageMode(CENTER);
@@ -470,7 +468,6 @@ function drawTv(TV) {
     push();
     noStroke();
     fill("#598fe0ff");
-    // image(tvSPRITE, TV.x, TV.y);
     tvScreen.resize(250, 0);
     image(tvSPRITE, TV.x - 70, TV.y - 50);
     pop();
@@ -488,8 +485,6 @@ function drawPerson(Person) {
     image(Person.avatar, Person.x, Person.y);
     pop();
     push();
-    // fill("#f1e6b1ff");
-    // rect(Person.x, Person.y + 50, infoBox.width, infoBox.height);
     textAlign(CENTER);
     textFont('Courier New');
     textSize(15);
