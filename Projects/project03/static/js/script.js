@@ -25,7 +25,7 @@ async function runQuery() {
     // determineFishSprite();
 
     //   state = "welcome";
-    state = "welcome";
+    state = "desktop";
     // return resJSON
 
 }
@@ -33,10 +33,10 @@ async function runQuery() {
 
 
 const IconTrash = {
-    x: 10,
-    y: 400,
-    w: 50,
-    h: 50,
+    x: 700,
+    y: 200,
+    w: 200,
+    h: 200,
     fill: "#25eeccff",
     state: "trashbin"
 
@@ -54,16 +54,25 @@ let resJSON = undefined
 
 
 const IconComputer = {
-    x: 10,
-    y: 150,
-    w: 50,
-    h: 50,
+    x: 400,
+    y: 200,
+    w: 200,
+    h: 200,
     fill: "#36ee25ff",
     state: "myComputer"
 
 }
 
 
+const IconMedia = {
+    x: 100,
+    y: 200,
+    w: 200,
+    h: 200,
+    fill: "#ff00b3ff",
+    state: "mediaplayer"
+
+}
 
 const backButton = {
     x: 500,
@@ -76,15 +85,7 @@ const backButton = {
 }
 
 
-const IconMedia = {
-    x: 200,
-    y: 150,
-    w: 50,
-    h: 50,
-    fill: "#ff00b3ff",
-    state: "mediaplayer"
 
-}
 
 
 const WChildhood = {
@@ -142,6 +143,12 @@ let personSpriteChildhood = undefined
 let personSpriteHappy = undefined
 let personSpriteBad = undefined
 let welcomeBG = undefined
+let myComputerIcon = undefined
+let trashbinIcon = undefined
+let mediaplayerIcon = undefined
+
+
+
 function preload() {
     //load images
     desktopIMG = loadImage("./static/assets/desktop.png");
@@ -160,6 +167,9 @@ function preload() {
     personSpriteHappy = loadImage("./static/assets/PersonSpriteHappy.png")
     personSpriteBad = loadImage("./static/assets/errorSprite.png")
     welcomeBG = loadImage("./static/assets/introPageBG.png")
+    myComputerIcon = loadImage("./static/assets/mycomputerICON.png")
+    trashbinIcon = loadImage("./static/assets/trashbinICON.png")
+    mediaplayerIcon = loadImage("./static/assets/mediaplayerICON.png")
 
     // shootSound = loadSound("assets/sounds/8bit_shoot.mp3");
 }
@@ -259,11 +269,14 @@ function desktop() {
     image(desktopIMG, width / 2, height / 2);
     pop();
     iconPick(IconTrash);
-    drawselect(IconTrash);
+    // drawselect(IconTrash);
+    drawselectDesktop(IconTrash, trashbinIcon)
     iconPick(IconComputer);
-    drawselect(IconComputer);
+    // drawselect(IconComputer);
+    drawselectDesktop(IconComputer, myComputerIcon)
     iconPick(IconMedia);
-    drawselect(IconMedia);
+    // drawselect(IconMedia);
+    drawselectDesktop(IconMedia, mediaplayerIcon)
 }
 
 
@@ -272,6 +285,21 @@ function drawselect(icon) {
     noStroke();
     fill(icon.fill);
     rect(icon.x, icon.y, icon.w, icon.h);
+    pop();
+
+}
+
+
+
+function drawselectDesktop(icon, iconIMG) {
+    push();
+    imageMode(CENTER);
+    image(iconIMG, icon.x + 100, icon.y + 100);
+    pop();
+    push();
+    noStroke();
+    // fill(icon.fill);
+    // rect(icon.x, icon.y, icon.w, icon.h);
     pop();
 
 }
