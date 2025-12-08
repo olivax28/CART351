@@ -137,6 +137,10 @@ let tvSPRITE = undefined
 let tvScreen = undefined
 let PersonSprite = undefined
 let mediaPlayerIMG = undefined
+let mediaplayerBG = undefined
+let personSpriteChildhood = undefined
+let personSpriteHappy = undefined
+let personSpriteBad = undefined
 
 function preload() {
     //load images
@@ -151,6 +155,10 @@ function preload() {
     tvScreen = loadImage("./static/assets/staticGIF.gif")
     PersonSprite = loadImage("./static/assets/PersonSprite.png")
     mediaPlayerIMG = loadImage("./static/assets/mediaplayerIMG.png")
+    mediaplayerBG = loadImage("./static/assets/aeroBG.png")
+    personSpriteChildhood = loadImage("./static/assets/flowerSprite.png")
+    personSpriteHappy = loadImage("./static/assets/PersonSpriteHappy.png")
+    personSpriteBad = loadImage("./static/assets/errorSprite.png")
 
     // shootSound = loadSound("assets/sounds/8bit_shoot.mp3");
 }
@@ -290,7 +298,10 @@ function trashBin() {
 
 function mediaPlayer() {
     background(0, 50, 25);
-
+    push();
+    imageMode(CENTER);
+    image(mediaplayerBG, width / 2, height / 2 + 70);
+    pop();
     for (let i of people) {
         drawPerson(i);
         animatePerson(i);
@@ -318,8 +329,6 @@ function myComputer() {
     imageMode(CENTER);
     image(fishLamp, width / 2, height / 2);
     pop();
-    // drawFish(fish01)
-    // animateFish(fish01)
 
 }
 
@@ -438,15 +447,9 @@ function drawTv(TV) {
 
 }
 
-// let personAvatar = undefined
+
 
 function drawPerson(Person) {
-    // let personAvatar = PersonSprite
-    // push();
-    // noStroke();
-    // fill("#d42222ff");
-    // rect(Person.x, Person.y, Person.w, Person.h);
-    // pop();
     push();
     noStroke();
     fill("#598fe0ff");
@@ -631,15 +634,15 @@ function determinePersonSprite(Person) {
             mouseY < Person.y + Person.h;
 
         if (mouseAvataroverlap && mouseIsPressed && Person.PersonType == "Bad") {
-            Person.avatar = lionFishIMG
+            Person.avatar = personSpriteBad
 
         }
         if (mouseAvataroverlap && mouseIsPressed && Person.PersonType == "Good") {
-            Person.avatar = blueFishIMG
+            Person.avatar = personSpriteHappy
 
         }
-        if (mouseAvataroverlap && mouseIsPressed && Person.PersonType == "Childhood") {
-            Person.avatar = clownFishIMG
+        if (mouseAvataroverlap && mouseIsPressed && Person.PersonType == "childhood") {
+            Person.avatar = personSpriteChildhood
 
         }
     }
