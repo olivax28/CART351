@@ -21,7 +21,8 @@ async function runQuery() {
     console.log(resJSON.data);
     addFish(resJSON.data.length);
     addTV(resJSON.data.length);
-    // determineFishText();
+    addPerson(resJSON.data.length);
+    // determineFishSprite();
 
     //   state = "welcome";
     state = "welcome";
@@ -74,6 +75,18 @@ const backButton = {
 
 }
 
+
+const IconMedia = {
+    x: 200,
+    y: 150,
+    w: 50,
+    h: 50,
+    fill: "#ff00b3ff",
+    state: "mediaplayer"
+
+}
+
+
 const WChildhood = {
     x: 350,
     y: 300,
@@ -106,6 +119,7 @@ const Wbad = {
 //arrays dfined for the data visualizations
 let fishes = [];
 let TVs = [];
+let people = [];
 
 
 let fishtext = undefined
@@ -121,6 +135,8 @@ let fishBG = undefined
 let fishLamp = undefined
 let tvSPRITE = undefined
 let tvScreen = undefined
+let PersonSprite = undefined
+let mediaPlayerIMG = undefined
 
 function preload() {
     //load images
@@ -133,6 +149,8 @@ function preload() {
     soundFormats("mp3");
     tvSPRITE = loadImage("./static/assets/tv_sprite.png");
     tvScreen = loadImage("./static/assets/staticGIF.gif")
+    PersonSprite = loadImage("./static/assets/PersonSprite.png")
+    mediaPlayerIMG = loadImage("./static/assets/mediaplayerIMG.png")
 
     // shootSound = loadSound("assets/sounds/8bit_shoot.mp3");
 }
@@ -148,6 +166,7 @@ let nameToSave = ""
 
 let enteredMemory = ""
 let memoryType = ""
+let IncomingName = ""
 
 let infoBox = {
     width: 100,
@@ -195,6 +214,10 @@ function draw() {
 
 
     }
+    if (state === "mediaplayer") {
+        mediaPlayer();
+
+    }
 
     console.log(state)
 }
@@ -224,21 +247,16 @@ function desktop() {
     imageMode(CENTER);
     image(desktopIMG, width / 2, height / 2);
     pop();
-    iconPick(IconTrash)
-    drawselect(IconTrash)
-    iconPick(IconComputer)
-    drawselect(IconComputer)
+    iconPick(IconTrash);
+    drawselect(IconTrash);
+    iconPick(IconComputer);
+    drawselect(IconComputer);
+    iconPick(IconMedia);
+    drawselect(IconMedia);
 }
 
 
 function drawselect(icon) {
-    // push();
-    // // textAlign(RIGHT, TOP);
-    // // textFont('Courier New');
-    // // textSize(100);
-    // fill(icon.fill);
-    // text(scoreText, width, 0);
-    // pop();
     push();
     noStroke();
     fill(icon.fill);
@@ -247,13 +265,6 @@ function drawselect(icon) {
 
 }
 function Wdrawselect(welcomeIcon) {
-    // push();
-    // // textAlign(RIGHT, TOP);
-    // // textFont('Courier New');
-    // // textSize(100);
-    // fill(icon.fill);
-    // text(scoreText, width, 0);
-    // pop();
     push();
     noStroke();
     fill(welcomeIcon.fill);
@@ -277,7 +288,20 @@ function trashBin() {
 
 }
 
+function mediaPlayer() {
+    background(0, 50, 25);
 
+    for (let i of people) {
+        drawPerson(i);
+        animatePerson(i);
+        determinePersonSprite(i);
+        // animatePerson(i);
+    }
+    push();
+    imageMode(CENTER);
+    image(mediaPlayerIMG, width / 2, height / 2);
+    pop();
+}
 
 function myComputer() {
     background(0, 100, 200);
@@ -335,10 +359,28 @@ function defineTV(incomingTVtext) {
         h: 200,
         color: "#1e1bd4ff",
         tvtext: incomingTVtext
-        // tvScreen: incomingScreen
+
     };
 
     return tvOBJ
+}
+
+function definePerson(IncomingName, IncomingType) {
+
+    const PersonOBJ = {
+        x: -5,
+        y: 50,
+        w: 100,
+        h: 100,
+        color: "#1e1bd4ff",
+        PersonName: IncomingName,
+        PersonType: IncomingType,
+        avatar: PersonSprite,
+        speed: random(0.5, 1.5)
+
+    };
+
+    return PersonOBJ
 }
 
 
@@ -358,17 +400,15 @@ function drawFish(fish) {
     pop();
     push();
     noStroke();
-    // fill(fishcolor);
-    // ellipse(fish.x, fish.y, fish.size);
+
     //SABINE ADDED
     image(fish.fishSprite, fish.x, fish.y);
     push();
-    // console.log(resJSON.data[1].name)
     push();
     noStroke();
     fill("#f1e6b1ff");
     rect(fish.x + 10, fish.y - 15, infoBox.width, infoBox.height);
-    // rect(fish.x, fish.y + 10, fish.fishtext.length * 5, 20);
+
     textAlign(CENTER);
     textFont('Courier New');
     textSize(10);
@@ -394,11 +434,34 @@ function drawTv(TV) {
     tvScreen.resize(250, 0);
     image(tvSPRITE, TV.x - 70, TV.y - 50);
     pop();
+
+
+}
+
+// let personAvatar = undefined
+
+function drawPerson(Person) {
+    // let personAvatar = PersonSprite
     // push();
     // noStroke();
-    // fill("#f1e6b1ff");
-    // rect(TV.x, TV.y, TV.w, TV.h);
+    // fill("#d42222ff");
+    // rect(Person.x, Person.y, Person.w, Person.h);
     // pop();
+    push();
+    noStroke();
+    fill("#598fe0ff");
+    PersonSprite.resize(100, 0)
+    image(Person.avatar, Person.x, Person.y);
+    pop();
+    push();
+    // fill("#f1e6b1ff");
+    // rect(Person.x, Person.y + 50, infoBox.width, infoBox.height);
+    textAlign(CENTER);
+    textFont('Courier New');
+    textSize(15);
+    fill("#ffffffff");
+    text(Person.PersonName, Person.x + 50, Person.y + 120);
+    pop();
 
 
 }
@@ -412,6 +475,30 @@ function animateFish(fish) {
     }
 }
 
+function animatePerson(Person) {
+    // Move the target
+    Person.x += Person.speed;
+    // Handle the target going off the canvas
+    if (Person.x > width) {
+        resetPersonX(Person);
+    }
+    if (Person.y > height) {
+        resetPersonY(Person);
+    }
+}
+
+
+
+function resetPersonX(Person) {
+    Person.x = -5;
+    Person.y += 200;
+}
+
+
+function resetPersonY(Person) {
+    Person.x = -5;
+    Person.y = 50;
+}
 
 function resetFish(fish) {
     fish.x = -5;
@@ -433,6 +520,8 @@ function iconPick(icon) {
     }
 
 }
+
+
 function wIconPick(welcomeIcon) {
     if (state === "welcome") {
         const mouseIconOverlap = mouseX > welcomeIcon.x &&
@@ -471,7 +560,7 @@ function addFish(fishNum) {
         // console.log(resJSON.data[1].name)
 
         //SABINE HERE  - you want to add the fish text and fish Sprite to the fish object
-        let fishSPRITE = determineFishText(resJSON.data[i])
+        let fishSPRITE = determineFishSprite(resJSON.data[i])
         //now give the fish text and sprite to be a part of the fish object
         const fish = defineFish(fishSPRITE, resJSON.data[i].memory);
         fishes.push(fish);
@@ -484,11 +573,7 @@ function addTV(TVnum) {
     for (let i = 0; i < TVnum; i++) {
         // console.log(resJSON.data[1].name)
         console.log(resJSON.data[i].type)
-        console.log(i)
-        //SABINE HERE  - you want to add the fish text and fish Sprite to the fish object
-        // let tvSPRITE = determineTVimage(resJSON.data[i])
-        //now give the fish text and sprite to be a part of the fish object
-        // const TV = defineTV(tvSPRITE, resJSON.data[i].type);
+        // only pushes a TV to the TVs array if the memory asscoiated is bad
         const TV = defineTV(resJSON.data[i].memory);
         if (resJSON.data[i].type === "Bad") {
             TVs.push(TV);
@@ -499,9 +584,21 @@ function addTV(TVnum) {
 
 }
 
+function addPerson(PersonNum) {
+
+    // console.log(fishNum)
+    for (let i = 0; i < PersonNum; i++) {
+        const Person = definePerson(resJSON.data[i].name, resJSON.data[i].type);
+        people.push(Person);
+        console.log("Person created")
+    }
+
+}
+
+
 
 // perhaps rename - as one really just determines the sprite
-function determineFishText(dataforAFISH) {
+function determineFishSprite(dataforAFISH) {
     //let fishNum = resJSON.data.length
     //NO NEED
     // console.log(dataforAFISH)
@@ -525,24 +622,46 @@ function determineFishText(dataforAFISH) {
 
 }
 
+// changes the person sprite on click depending on the type of memory
+function determinePersonSprite(Person) {
+    for (Person of people) {
+        const mouseAvataroverlap = mouseX > Person.x &&
+            mouseX < Person.x + Person.w &&
+            mouseY > Person.y &&
+            mouseY < Person.y + Person.h;
+
+        if (mouseAvataroverlap && mouseIsPressed && Person.PersonType == "Bad") {
+            Person.avatar = lionFishIMG
+
+        }
+        if (mouseAvataroverlap && mouseIsPressed && Person.PersonType == "Good") {
+            Person.avatar = blueFishIMG
+
+        }
+        if (mouseAvataroverlap && mouseIsPressed && Person.PersonType == "Childhood") {
+            Person.avatar = clownFishIMG
+
+        }
+    }
+}
+
+
+
+
 
 let pupilFill = "#000000ff"
 let pupilText = "Memory"
+
 function drawBadEye() {
     // the base code for the eye was found and modified from p5.js.org by user koolaid krusade
     let centerX = width / 2;
     let centerY = height / 2;
-
     let d = 300;
-
     let x1 = map(mouseX, 0, width, centerX - d / 6, centerX + d / 6,);
     let y = map(mouseY, 0, height, centerY - d / 6, centerY + d / 6,);
-
-
-    // Eye balls
+    // Eye ball
     fill("#ffffffff");
     ellipse(width / 2, height / 2, 400, 200);
-
     // Pupil
     push();
     fill(pupilFill);
@@ -551,10 +670,8 @@ function drawBadEye() {
     textFont('Courier New');
     textSize(15);
     fill("#be2accff");
-    // text(fish.fishtext, fish.x + 10, fish.y + 10, 20, 50);
     text(pupilText, x1 - 30, y - 20, infoBox.width, infoBox.height);
     pop();
-
 }
 
 // NOTE to have the back button working in all the states, we can add that into the state object and factor it into iconPick
