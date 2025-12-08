@@ -22,7 +22,7 @@ async function runQuery() {
     addFish(resJSON.data.length);
     addTV(resJSON.data.length);
     addPerson(resJSON.data.length);
-    state = "trashbin";
+    state = "welcome";
     // return resJSON
 
 }
@@ -146,6 +146,14 @@ let mediaplayerIcon = undefined
 let backButtonIMG = undefined
 let eyeIMG = undefined
 
+//sounds
+
+let static01 = undefined
+let bubbles = undefined
+let enterstatic = undefined
+let startup = undefined
+let error = undefined
+
 function preload() {
     //load images
     desktopIMG = loadImage("./static/assets/desktop.png");
@@ -154,7 +162,7 @@ function preload() {
     blueFishIMG = loadImage("./static/assets/bluefish.png");
     fishBG = loadImage("./static/assets/fish_bg.png");
     fishLamp = loadImage("./static/assets/fish_lamp.png");
-    soundFormats("mp3");
+    soundFormats("WAV");
     tvSPRITE = loadImage("./static/assets/tv_sprite.png");
     tvScreen = loadImage("./static/assets/staticGIF.gif")
     PersonSprite = loadImage("./static/assets/PersonSprite.png")
@@ -169,11 +177,16 @@ function preload() {
     mediaplayerIcon = loadImage("./static/assets/mediaplayerICON.png")
     backButtonIMG = loadImage("./static/assets/backButton.png")
     eyeIMG = loadImage("./static/assets/eye.png")
-    // shootSound = loadSound("assets/sounds/8bit_shoot.mp3");
+    // sounds
+    static01 = loadSound("./static/assets/static");
+    bubbles = loadSound("./static/assets/bubbles");
+    enterstatic = loadSound("./static/assets/enter_static");
+    startup = loadSound("./static/assets/startup");
+    error = loadSound("./static/assets/error01");
+
 }
 
 
-// let state = "fortune"
 
 let state = "loading"
 
@@ -547,6 +560,12 @@ function iconPick(icon) {
         if (mouseIconOverlap && mouseIsPressed) {
             state = icon.state
         }
+        if (mouseIconOverlap && mouseIsPressed && state == "myComputer") {
+            bubbles.play();
+        }
+        if (mouseIconOverlap && mouseIsPressed && state == "trashbin") {
+            enterstatic.play();
+        }
     }
 
 }
@@ -578,6 +597,7 @@ function TVpick(TV) {
             console.log("clicked")
             pupilFill = "#26002bff"
             pupilText = TV.tvtext
+            static01.play();
 
         }
     }
@@ -666,7 +686,7 @@ function determinePersonSprite(Person) {
         }
         if (mouseAvataroverlap && mouseIsPressed && Person.PersonType == "Good") {
             Person.avatar = personSpriteHappy
-
+            error.play()
         }
         if (mouseAvataroverlap && mouseIsPressed && Person.PersonType == "childhood") {
             Person.avatar = personSpriteChildhood
@@ -706,7 +726,7 @@ function drawBadEye() {
     pop();
 }
 
-// NOTE to have the back button working in all the states, we can add that into the state object and factor it into iconPick
+
 
 
 //check key press
@@ -734,9 +754,10 @@ function keyPressed(e) {
         else if (inputState === "memory") {
 
             if (enteredMemory.length >= 100 && e.keyCode !== 13) {
+                startup.play()
                 state = "desktop"
-
                 sendData({ name: nameToSave, memory: enteredMemory, type: memoryType });
+
 
             }
 
@@ -747,6 +768,7 @@ function keyPressed(e) {
             }
 
             else if (e.keyCode === 13) {
+                startup.play()
                 state = "desktop"
                 sendData({ name: nameToSave, memory: enteredMemory, type: memoryType });
 
