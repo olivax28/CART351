@@ -18,7 +18,8 @@ async function runQuery() {
 
     let res = await fetch(url);
     resJSON = await res.json();
-    console.log(resJSON.data);
+    // console.log(resJSON.data);
+    //creates the fish, tv, and people once based on the amount of data in the mongo JSON
     addFish(resJSON.data.length);
     addTV(resJSON.data.length);
     addPerson(resJSON.data.length);
@@ -29,6 +30,20 @@ async function runQuery() {
 
 
 
+
+
+let fishBlurb = {
+    x: undefined,
+    y: undefined,
+    text: undefined,
+    width: undefined,
+    length: undefined
+
+}
+// variable defining the result from the fetch request
+let resJSON = undefined
+
+// defining hitbox and state of the desktop icons
 const IconTrash = {
     x: 700,
     y: 200,
@@ -38,17 +53,6 @@ const IconTrash = {
     state: "trashbin"
 
 }
-let fishBlurb = {
-    x: undefined,
-    y: undefined,
-    text: undefined,
-    width: undefined,
-    length: undefined
-
-}
-
-let resJSON = undefined
-
 
 const IconComputer = {
     x: 400,
@@ -83,7 +87,7 @@ const backButton = {
 
 
 
-
+// defining hitbox and memory types for the welcome state folders
 
 const WChildhood = {
     x: 350,
@@ -119,7 +123,7 @@ let fishes = [];
 let TVs = [];
 let people = [];
 
-
+// sprites 
 let fishtext = undefined
 
 let fishcolor = undefined
@@ -154,6 +158,8 @@ let enterstatic = undefined
 let startup = undefined
 let error = undefined
 
+
+
 function preload() {
     //load images
     desktopIMG = loadImage("./static/assets/desktop.png");
@@ -186,7 +192,7 @@ function preload() {
 
 }
 
-
+/// initial states for visualisations and info input
 
 let state = "loading"
 
@@ -211,8 +217,7 @@ let infoBox = {
 function setup() {
     createCanvas(1024, 768);
     runQuery();
-    //  canvas.parent("p5Container"); // Attach the canvas to the div with id 'p5Container'
-    // addFish();
+
 }
 
 
@@ -252,7 +257,7 @@ function draw() {
     console.log(state)
 }
 
-
+// intiial page, takes user input
 
 function welcomePage() {
     background(250, 250, 250);
@@ -270,7 +275,7 @@ function welcomePage() {
 
 
 
-
+// first state after a user enters their information, icons lead to the visualisations
 function desktop() {
     background(50, 0, 0);
     push();
@@ -292,18 +297,17 @@ function desktop() {
     pop();
 }
 
-
+//base function for icons
 function drawselect(icon, iconIMG) {
     push();
     noStroke();
     iconIMG.resize(70, 0)
     image(iconIMG, icon.x - 10, icon.y - 10);
-    // rect(icon.x, icon.y, icon.w, icon.h);
     pop();
 
 }
 
-
+// base function for drawing the desktop icons
 function drawselectDesktop(icon, iconIMG) {
     push();
     imageMode(CENTER);
@@ -314,6 +318,8 @@ function drawselectDesktop(icon, iconIMG) {
     pop();
 
 }
+
+// base function for drawing the welcome page  icons (memory type folders)
 function Wdrawselect(welcomeIcon) {
     push();
     noStroke();
@@ -322,7 +328,7 @@ function Wdrawselect(welcomeIcon) {
     pop();
 }
 
-
+// the trahsbin visualisaton
 function trashBin() {
     background(0, 0, 0);
 
@@ -335,6 +341,7 @@ function trashBin() {
     drawselect(backButton, backButtonIMG);
 }
 
+//meidaplyer visualisation
 function mediaPlayer() {
     background(0, 50, 25);
     push();
@@ -355,6 +362,7 @@ function mediaPlayer() {
     drawselect(backButton, backButtonIMG);
 }
 
+// the fish visualisation
 function myComputer() {
     background(0, 100, 200);
     push();
@@ -386,6 +394,7 @@ function displayInfo(infoText, x, y) {
 
 
 //NEW SABINE
+//defines the fish OBJ
 function defineFish(incomingFishSprite, incomingtype) {
 
     const fish01 = {
@@ -401,7 +410,7 @@ function defineFish(incomingFishSprite, incomingtype) {
 }
 
 
-
+//defines the TV obj
 function defineTV(incomingTVtext) {
 
     const tvOBJ = {
@@ -417,6 +426,7 @@ function defineTV(incomingTVtext) {
     return tvOBJ
 }
 
+//defines the user representation for the media player
 function definePerson(IncomingName, IncomingType) {
 
     const PersonOBJ = {
@@ -473,6 +483,7 @@ function drawFish(fish) {
 
 }
 
+//draws the TVs for the trashbin
 function drawTv(TV) {
     push();
     noStroke();
@@ -490,7 +501,7 @@ function drawTv(TV) {
 }
 
 
-
+//draws the sprites for the users in media player
 function drawPerson(Person) {
     push();
     noStroke();
@@ -510,18 +521,18 @@ function drawPerson(Person) {
 }
 
 function animateFish(fish) {
-    // Move the target
+    // Move the fish
     fish.x += fish.speed;
-    // Handle the target going off the canvas
+    // Handle the fish  going off the canvas
     if (fish.x > width) {
         resetFish(fish);
     }
 }
 
 function animatePerson(Person) {
-    // Move the target
+    // Move the person
     Person.x += Person.speed;
-    // Handle the target going off the canvas
+    // Handle the person going off the canvas, resets to the top when reaching the bottom
     if (Person.x > width) {
         resetPersonX(Person);
     }
@@ -531,7 +542,7 @@ function animatePerson(Person) {
 }
 
 
-
+//functions for resetting the user sprite animation in the media player
 function resetPersonX(Person) {
     Person.x = -5;
     Person.y += 200;
@@ -543,13 +554,14 @@ function resetPersonY(Person) {
     Person.y = 50;
 }
 
+//resets the fish in the aquarium
 function resetFish(fish) {
     fish.x = -5;
     fish.y = random(0, height);
 }
 
 
-// detects the overlap of the mouse over the title box 
+// detects the overlap of the mouse over the different icons (and plays a sound!)
 function iconPick(icon) {
     if (state === "desktop" || state === "trashbin" || state === "myComputer" || state == "mediaplayer") {
         const mouseIconOverlap = mouseX > icon.x &&
@@ -570,7 +582,7 @@ function iconPick(icon) {
 
 }
 
-
+//assigns a category to the memory 
 function wIconPick(welcomeIcon) {
     if (state === "welcome") {
         const mouseIconOverlap = mouseX > welcomeIcon.x &&
@@ -585,8 +597,8 @@ function wIconPick(welcomeIcon) {
     }
 }
 
+//handles the text represented on the eye when clicking a computer
 function TVpick(TV) {
-    // console.log(resJSON)
     for (TV of TVs) {
         console.log(TV)
         const mouseTVoverlap = mouseX > TV.x &&
@@ -603,11 +615,10 @@ function TVpick(TV) {
     }
 }
 
+// adds a fish to the array and also uses JSON data to determine what sprite the fish have 
 function addFish(fishNum) {
 
-    // console.log(fishNum)
     for (let i = 0; i < fishNum; i++) {
-        // console.log(resJSON.data[1].name)
 
         //SABINE HERE  - you want to add the fish text and fish Sprite to the fish object
         let fishSPRITE = determineFishSprite(resJSON.data[i])
@@ -619,10 +630,10 @@ function addFish(fishNum) {
 
 }
 
+//adds TVs to the TVs array
 function addTV(TVnum) {
     for (let i = 0; i < TVnum; i++) {
-        // console.log(resJSON.data[1].name)
-        console.log(resJSON.data[i].type)
+
         // only pushes a TV to the TVs array if the memory asscoiated is bad
         const TV = defineTV(resJSON.data[i].memory);
         if (resJSON.data[i].type === "Bad") {
@@ -634,9 +645,8 @@ function addTV(TVnum) {
 
 }
 
+//adds a user sprite to the people array, retrieves the name and memory type from the JSON
 function addPerson(PersonNum) {
-
-    // console.log(fishNum)
     for (let i = 0; i < PersonNum; i++) {
         const Person = definePerson(resJSON.data[i].name, resJSON.data[i].type);
         people.push(Person);
@@ -647,11 +657,8 @@ function addPerson(PersonNum) {
 
 
 
-// perhaps rename - as one really just determines the sprite
+// Assigns text to the fish textbox and also determines their sprite based on the type of memory
 function determineFishSprite(dataforAFISH) {
-    //let fishNum = resJSON.data.length
-    //NO NEED
-    // console.log(dataforAFISH)
     fishtext = dataforAFISH.type
     if (fishtext == "Bad") {
         fishSprite = lionFishIMG
@@ -757,7 +764,7 @@ function keyPressed(e) {
                 startup.play()
                 state = "desktop"
                 sendData({ name: nameToSave, memory: enteredMemory, type: memoryType });
-
+                //sends data to Mongo if the length of the input exceeds 100
 
             }
 
@@ -771,7 +778,7 @@ function keyPressed(e) {
                 startup.play()
                 state = "desktop"
                 sendData({ name: nameToSave, memory: enteredMemory, type: memoryType });
-
+                //sends data to Mongo if the user presses enter
             }
 
         }
@@ -781,6 +788,7 @@ function keyPressed(e) {
 
 }
 
+//sends data to Mongo DB
 async function sendData(gameData) {
     const queryParams = new URLSearchParams(gameData).toString();
     console.log(queryParams);

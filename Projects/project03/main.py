@@ -12,8 +12,7 @@ db_name = os.getenv('DATABASE_NAME')
 
 app = Flask(__name__)
 uri = f"mongodb+srv://{db_user}:{db_pass}@cluster0.8hjwugp.mongodb.net/{db_name}?retryWrites=true&w=majority"
-# uri = f"mongodb+srv://{db_user}:{db_pass}@cluster0.0nsdvy4.mongodb.net/{db_name}?retryWrites=true&w=majority"
-# Replace with your MongoDB Atlas connection string
+
 app.config["MONGO_URI"] = uri
 mongo = PyMongo(app)
 print(mongo.db)
@@ -32,7 +31,7 @@ def getDataFromP5():
     mongo.db.userMemories.insert_one({'name':request.args["name"],'memory': request.args['memory'],'type':request.args['type']})
     
     return({"inFile":"false"})
-
+# to send data to p5
 @app.route('/senddatatoP5')
 def sendDatatop5():
     results = mongo.db.userMemories.find()
